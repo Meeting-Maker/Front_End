@@ -21,11 +21,11 @@ const LandingPage = () => {
                 {"Schedule meetings faster than ever, "}
                <b>no login required.</b>
               </h4>
-              <div className="greeting-buttons">
-              <Link href="/create-meeting">
+              <div className="greeting">
+              <Link href="/create">
                 <button className="button"> Schedule a Meeting </button> {' '}
               </Link>
-              <Link href="/join-meeting">
+              <Link href="/join">
                 <button className="button"> Join a Meeting </button>
               </Link>
               </div>

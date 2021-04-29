@@ -16,27 +16,8 @@ import Meeting from './Meeting';
 
 const App = () => {
    const [currentUser, setCurrentUser] = useState({userID: null});
-   const [meetingDetails, setMeetingDetails] = useState({userName: 'brandon', meetingName: 'mymeeting', pollType: 0});
+   const [meetingDetails, setMeetingDetails] = useState({userName: '', meetingName: '', pollType: 0});
    const [candidateMeetings, setCandidateMeetings] = useState([]);
-  
-   const test = async () => {
-      try {
-         const result = await api.post('createGuestMeeting',{
-               name: 'from front_end',
-               meetingID: "abc987",
-               title: 'title from front_end',
-               description: 'description from front_end',
-               pollType: 1
-            });
-         console.log(result.data);
-      } catch (err) {
-         console.log('error', err);
-      }
-   }
-
-   useEffect(() => {
-      test();
-   }, []);
 
    return (
       <div>
@@ -44,7 +25,7 @@ const App = () => {
          <Route path='/'> <LandingPage/> </Route>
          <Route path='/login'> <Login/> </Route>
          <Route path='/register'> <Register/> </Route>
-         <Route path='/create-meeting'>
+         <Route path='/create'>
             <CreateMeeting
                currentUser={currentUser}
                setCurrentUser={setCurrentUser}
@@ -54,7 +35,7 @@ const App = () => {
                setCandidateMeetings={setCandidateMeetings}
             />
          </Route>
-         <Route path='/join-meeting'> <JoinMeeting/> </Route>
+         <Route path='/join'> <JoinMeeting/> </Route>
          <Route path='/meeting'>
             <Meeting
                currentUser={currentUser}

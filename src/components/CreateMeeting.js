@@ -3,9 +3,9 @@ import {} from 'react-bootstrap';
 import CreateMeetingDetail from "./CreateMeetingDetail";
 import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";
+import api from "../services/api";
 
 const CreateMeeting = ({currentUser, setCurrentUser, meetingDetails, setMeetingDetails, candidateMeetings, setCandidateMeetings}) => {
-
 
    useEffect(
       () => {
@@ -63,5 +63,35 @@ const CreateMeeting = ({currentUser, setCurrentUser, meetingDetails, setMeetingD
       </div>
    );
 };
+
+const postNewGuestUser = async () => {
+   try {
+      const result = await api.post('createGuestUser',{
+         name: 'from front_end',
+         meetingID: "abc987",
+         title: 'title from front_end',
+         description: 'description from front_end',
+         pollType: 1
+      });
+      console.log(result.data);
+   } catch (err) {
+      console.log('error', err);
+   }
+}
+
+const postMeeting = async () => {
+   try {
+      const result = await api.post('createGuestMeeting',{
+         name: 'from front_end',
+         meetingID: "abc987",
+         title: 'title from front_end',
+         description: 'description from front_end',
+         pollType: 1
+      });
+      console.log(result.data);
+   } catch (err) {
+      console.log('error', err);
+   }
+}
 
 export default CreateMeeting;
