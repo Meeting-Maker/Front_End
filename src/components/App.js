@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Navbar} from 'react-bootstrap';
 
-import Route from './Route';
+import Route from '../router/Route';
 
 import Header from './Header';
 import LandingPage from './LandingPage';
