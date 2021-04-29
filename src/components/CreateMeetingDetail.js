@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Card, Form, Button, Container, Row, Col} from 'react-bootstrap';
 
 const CreateMeetingDetail = ({user, onFormSubmit}) => {
-   const [userName, setUserName] = useState(user.userID);
+   const [userName, setUserName] = useState('');
    const [meetingName, setMeetingName] = useState('');
    const [pollType, setPollType] = useState(null);
+
+
 
    const onSelectPollType = (event) => {
       event.preventDefault();
