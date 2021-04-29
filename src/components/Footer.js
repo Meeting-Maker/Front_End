@@ -20,7 +20,7 @@ const Footer = () => {
               Contact Us
             </a>
             &emsp;&emsp;
-            <a href={"/"}>
+            <a href={"/home"}>
               Report a Bug
             </a>
           </div>
