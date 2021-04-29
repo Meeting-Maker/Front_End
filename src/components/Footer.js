@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar, Image} from 'react-bootstrap';
+import {Navbar} from 'react-bootstrap';
 import '../css/Footer.css';
 import Icon from '@mdi/react';
 import { mdiGithub } from '@mdi/js';
@@ -10,31 +10,23 @@ const Footer = () => {
 
     <div>
       <Navbar className="bg-dark" fixed='bottom'>
-      {/*
-
-        Fix no images appearing bug
-
         <Navbar.Brand>
-            <Image
-              src="../images/github.png"
-              rounded
-            />
+          <Icon path={mdiGithub}
+                size={1}/>
         </Navbar.Brand>
-      */}
         <Navbar.Collapse className="justify-content-center">
           <div className="footer-text">
-            <a>
+            <a href={"/"}>
               Contact Us
             </a>
             &emsp;&emsp;
-            <a>
+            <a href={"/home"}>
               Report a Bug
             </a>
           </div>
         </Navbar.Collapse>
       </Navbar>
     </div>
-
   );
 
 };
