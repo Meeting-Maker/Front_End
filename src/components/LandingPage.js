@@ -2,7 +2,7 @@ import React from 'react';
 import FeatureDescriptions from './FeatureDescriptions';
 import {Container, Row, Col} from 'react-bootstrap';
 import '../css/LandingPage.css';
-import Link from './Link';
+import Link from '../router/Link';
 
 
 const LandingPage = () => {
