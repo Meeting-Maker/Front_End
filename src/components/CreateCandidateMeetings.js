@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
+import Link from "../router/Link";
 
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
@@ -91,9 +92,11 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
                  <Button onClick={(e) => onAddOption(e)} variant="primary">
                     Add Option
                  </Button>
-                 <Button onClick={() => onFormSubmit()} variant="primary">
-                    Create Meeting
-                 </Button>
+                 <Link href="/meeting">
+                    <Button onClick={() => onFormSubmit()} variant="primary">
+                       Create Meeting
+                    </Button>
+                 </Link>
               </Form>
            </Card.Body>
         </Card>

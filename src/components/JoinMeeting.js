@@ -7,25 +7,25 @@ import UserList from "./UserList";
 
 const users = [
    {
-      id: 0,
+      userID: 0,
       name: 'brandon',
       email: '',
       guest: true
    },
    {
-      id: 1,
+      userID: 1,
       name: 'steve',
       email: '',
       guest: true
    },
    {
-      id: 2,
+      userID: 2,
       name: 'ming',
       email: '',
       guest: true
    },
    {
-      id: 3,
+      userID: 3,
       name: 'joe',
       email: '',
       guest: true
@@ -36,7 +36,6 @@ const JoinMeeting = () => {
    const [meetingCode, setMeetingCode] = useState('');
 
    const onFormSubmit = (joinCode) => {
-
       if (!isValidJoinCode(joinCode)) return;
       console.log('Valid Code Entered: ' + joinCode);
       setMeetingCode(joinCode);
