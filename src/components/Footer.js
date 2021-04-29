@@ -16,11 +16,11 @@ const Footer = () => {
         </Navbar.Brand>
         <Navbar.Collapse className="justify-content-center">
           <div className="footer-text">
-            <a href={"s"}>
+            <a href={"/"}>
               Contact Us
             </a>
             &emsp;&emsp;
-            <a href={"s"}>
+            <a href={"/"}>
               Report a Bug
             </a>
           </div>
