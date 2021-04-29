@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Navbar} from 'react-bootstrap';
+import Button from './Button';
 import Link from './Link';
 import '../css/Header.css';
 
@@ -29,13 +30,22 @@ const Header = (props) => {
       </Navbar.Brand>
 
       <Navbar.Collapse className="justify-content-end">
-        <Link href="/login">
-          <button
-          className={`login-button ${loggedIn ? 'display-none' : ''}`}
-          onClick={(e) => setLogginIn(true)}>
-              Login
-          </button>
-        </Link>
+
+        {loggedIn ?
+          <Button
+            className="button light"
+            onClick={(e) => setLogginIn(false)}
+            text="Logout">
+          </Button>
+        :
+          <Link href="/login">
+            <Button
+              className="button light"
+              onClick={(e) => setLogginIn(true)}
+              text="Login">
+            </Button>
+          </Link>
+        }
       </Navbar.Collapse>
 
     </Navbar>
