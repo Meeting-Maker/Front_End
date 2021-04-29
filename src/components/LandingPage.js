@@ -1,8 +1,9 @@
 import React from 'react';
 import FeatureDescriptions from './FeatureDescriptions';
-import {Container, Row, Col, Carousel} from 'react-bootstrap';
+import {Container, Row, Col} from 'react-bootstrap';
 import '../css/LandingPage.css';
 import Link from './Link';
+import Button from './Button';
 
 
 const LandingPage = () => {
@@ -14,9 +15,10 @@ const LandingPage = () => {
           <Col xl={5}>
             <div className="greeting">
               <h1 style={{fontSize: 48}}>
-                Welcome to
-                <a className="greeting-title" style={{color: "black"}}> meeting</a>
-                <a className="greeting-title" style={{color: "#45A29E"}}>maker</a>
+              <Row className="">
+                Welcome to meeting 
+                <Col style={{padding: '0', color: "#45A29E"}}> maker </Col>
+              </Row>
               </h1>
               <h4>
                 Schedule meetings faster than ever,
@@ -24,10 +26,10 @@ const LandingPage = () => {
               </h4>
               <div className="greeting-buttons">
               <Link href="/create-meeting">
-                <button className="button"> Schedule a Meeting </button> {' '}
+                <Button className="button dark landing" text="Schedule a Meeting" fontSize="28px"></Button> {' '}
               </Link>
               <Link href="/join-meeting">
-                <button className="button"> Join a Meeting </button>
+                <Button className="button dark landing" text="Join a Meeting">  </Button>
               </Link>
               </div>
             </div>
