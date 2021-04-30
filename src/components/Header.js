@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Navbar, Container, Row, Col} from 'react-bootstrap';
 import Link from '../router/Link';
+import Button from './Button';
 import '../css/Header.css';
 
 const Header = () => {

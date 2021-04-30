@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Card, Form, Row, Col} from 'react-bootstrap';
-import Link from './Link';
+import Link from '../router/Link';
 import Button from './Button';
 import '../css/Register.css';
 

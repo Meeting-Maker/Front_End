@@ -24,10 +24,10 @@ const LandingPage = () => {
                <b>no login required.</b>
               </h4>
               <div className="greeting-buttons">
-              <Link href="/create-meeting">
+              <Link href="/create">
                 <Button className="button dark landing" text="Schedule a Meeting" fontSize="28px"></Button> {' '}
               </Link>
-              <Link href="/join-meeting">
+              <Link href="/join">
                 <Button className="button dark landing" text="Join a Meeting">  </Button>
               </Link>
               </div>
