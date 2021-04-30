@@ -3,7 +3,7 @@ import FeatureDescriptions from './FeatureDescriptions';
 import {Container, Row, Col} from 'react-bootstrap';
 import '../css/LandingPage.css';
 import Link from '../router/Link';
-
+import Button from './Button';
 
 const LandingPage = () => {
 
@@ -14,19 +14,21 @@ const LandingPage = () => {
           <Col xl={5}>
             <div className="greeting">
               <h1 style={{fontSize: 48}}>
-                Welcome to meeting
-                  <div style={{color: "#45A29E", display: 'inline'}}>maker</div>
+              <Row className="">
+                Welcome to meeting 
+                <Col style={{padding: '0', color: "#45A29E"}}> maker </Col>
+              </Row>
               </h1>
               <h4>
                 {"Schedule meetings faster than ever, "}
                <b>no login required.</b>
               </h4>
-              <div className="greeting">
-              <Link href="/create">
-                <button className="button"> Schedule a Meeting </button> {' '}
+              <div className="greeting-buttons">
+              <Link href="/create-meeting">
+                <Button className="button dark landing" text="Schedule a Meeting" fontSize="28px"></Button> {' '}
               </Link>
-              <Link href="/join">
-                <button className="button"> Join a Meeting </button>
+              <Link href="/join-meeting">
+                <Button className="button dark landing" text="Join a Meeting">  </Button>
               </Link>
               </div>
             </div>
@@ -37,11 +39,7 @@ const LandingPage = () => {
           </Col>
         </Row>
       </Container>
-
-
-
   );
-
 };
 
 export default LandingPage;
