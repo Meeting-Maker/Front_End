@@ -31,7 +31,16 @@ const CandidateMeetingList = ({users}) => {
       );
    });
 
-   return <div>{renderedList}</div>;
+   return <div>
+      <h2>
+         Logged-in Users
+      </h2>
+      {renderedList}
+      <h2>
+         Guest Users
+      </h2>
+      {renderedList}
+   </div>;
 };
 
 export default CandidateMeetingList;

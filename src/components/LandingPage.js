@@ -6,9 +6,7 @@ import Link from '../router/Link';
 import Button from './Button';
 
 const LandingPage = () => {
-
   return(
-
       <Container fluid>
         <Row>
           <Col xl={5}>
@@ -25,10 +23,12 @@ const LandingPage = () => {
               </h4>
               <div className="greeting-buttons">
               <Link href="/create">
+
                 <Button className="custom-button landing dark" fontSize="28px">Schedule a Meeting</Button> {' '}
               </Link>
               <Link href="/join">
                 <Button className="custom-button landing dark" >Join a Meeting</Button>
+
               </Link>
               </div>
             </div>

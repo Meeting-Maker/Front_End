@@ -31,6 +31,11 @@
 }
 
 .login, .register{
-    border: 0.06rem solid #343a40;
-    font-weight: 400;
+  border: 0.06rem solid #343a40;
+  font-weight: 400;
+}
+
+.span {
+  width: 100%;
+  padding: 0  ;
 }

@@ -38,8 +38,10 @@ const Header = () => {
         {loggedIn ?
           <Button
             className="custom-button light"
+
             onClick={(e) => setLogginIn(false)}>
               Logout
+
           </Button>
         :
           <Link href="/login">

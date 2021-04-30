@@ -19,9 +19,9 @@ const App = () => {
    return (
       <div>
          <Header />
-         <Route path='/'> <LandingPage/> </Route>
-         <Route path='/login'> <Login/> </Route>
-         <Route path='/register'> <Register/> </Route>
+         <Route path='/'> <LandingPage currentUser={currentUser}/> </Route>
+         <Route path='/login' > <Login currentUser={currentUser}/> </Route>
+         <Route path='/register'> <Register currentUser={currentUser}/> </Route>
          <Route path='/create'>
             <CreateMeeting
                currentUser={currentUser}
@@ -32,7 +32,7 @@ const App = () => {
                setCandidateMeetings={setCandidateMeetings}
             />
          </Route>
-         <Route path='/join'> <JoinMeeting/> </Route>
+         <Route path='/join'> <JoinMeeting currentUser={currentUser}/> </Route>
          <Route path='/meeting'>
             <Meeting
                currentUser={currentUser}

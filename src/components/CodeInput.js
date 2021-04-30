@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Form} from "react-bootstrap";
+import Button from './Button';
 
 //todo: conditionally render userName field, only if user is not logged in
 
@@ -22,6 +23,10 @@ const CodeInput = ({onCodeSubmit}) => {
                   value={joinCode}
                   onChange={(e) => setJoinCode(e.target.value)}
                />
+               <Button
+                  className="custom-button dark span"
+                  type="submit"
+               >Join</Button>
             </Form.Group>
          </Form>
       </div>
