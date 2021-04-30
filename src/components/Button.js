@@ -5,13 +5,15 @@ const Button = ({className, children, onClick, fontSize, type, onSubmit}) => {
 
   return(
 
-     <button
-        className={className}
-        onClick={onClick}
-        type={type}
-        onSubmit={onSubmit}>
-       {children}
-     </button>
+
+    <button
+      className={className}
+      onClick={onClick}
+      type={type}
+      onSubmit={onSubmit}>
+        {children}
+    </button>
+
 
   );
 

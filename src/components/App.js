@@ -1,6 +1,4 @@
-
-import React, {useState, useEffect} from 'react';
-import {Navbar} from 'react-bootstrap';
+import React, {useState} from 'react';
 
 import Route from '../router/Route';
 
@@ -11,7 +9,6 @@ import Login from './Login';
 import CreateMeeting from './CreateMeeting';
 import JoinMeeting from './JoinMeeting';
 import Register from './Register';
-import api from '../services/api';
 import Meeting from './Meeting';
 
 const App = () => {

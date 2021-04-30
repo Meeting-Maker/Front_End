@@ -19,11 +19,15 @@ const Header = () => {
 
     <Navbar bg="dark" >
       <Navbar.Brand>
-        <Link href='/'>
+        <Link href='/' className="no-hover">
           <div className="title">
             <h1>
-              <a style={{color: "white"}}>meeting</a>
-              <a style={{color: "#45A29E"}}>maker</a>
+              <Container>
+                <Row>
+                  <Col style={{padding: '0', color: "white"}}> meeting </Col>
+                  <Col style={{padding: '0', color: "#45A29E"}}> maker </Col>
+                </Row>
+              </Container>
             </h1>
           </div>
         </Link>
@@ -34,16 +38,17 @@ const Header = () => {
         {loggedIn ?
           <Button
             className="custom-button light"
-            onClick={(e) => setLogginIn(false)}
-          >
-             Login
+
+            onClick={(e) => setLogginIn(false)}>
+              Logout
+
           </Button>
         :
           <Link href="/login">
             <Button
-              className="button light"
-              onClick={(e) => setLogginIn(true)}
-              text="Login">
+              className="custom-button light"
+              onClick={(e) => setLogginIn(true)}>
+                Login
             </Button>
           </Link>
         }

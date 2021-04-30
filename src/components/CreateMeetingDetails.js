@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Card, Form, Button, Container, Row, Col} from 'react-bootstrap';
 
 const CreateMeetingDetails = ({user, onFormSubmit}) => {
