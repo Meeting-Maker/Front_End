@@ -56,10 +56,10 @@ const Login = () => {
               </Form.Group>
               <Link>
                 <Button
-                  className="button dark login"
-                  text="Login"
+                  className="custom-button dark login"
                   type="submit"
                   onClick={onFormSubmit}>
+                    Login
                 </Button>
               </Link>
 

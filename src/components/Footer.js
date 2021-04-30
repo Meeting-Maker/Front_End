@@ -3,6 +3,7 @@ import {Navbar} from 'react-bootstrap';
 import '../css/Footer.css';
 import Icon from '@mdi/react';
 import { mdiGithub } from '@mdi/js';
+import Link from './Link';
 
 const Footer = () => {
 
@@ -16,13 +17,13 @@ const Footer = () => {
         </Navbar.Brand>
         <Navbar.Collapse className="justify-content-center">
           <div className="footer-text">
-            <a href={"/"}>
+          <Link href="/">
               Contact Us
-            </a>
+          </Link>
             &emsp;&emsp;
-            <a href={"/home"}>
+          <Link href="/" className="no-hover">
               Report a Bug
-            </a>
+          </Link>
           </div>
         </Navbar.Collapse>
       </Navbar>

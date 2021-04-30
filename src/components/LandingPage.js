@@ -14,8 +14,8 @@ const LandingPage = () => {
           <Col xl={5}>
             <div className="greeting">
               <h1 style={{fontSize: 48}}>
-              <Row className="">
-                Welcome to meeting 
+              <Row>
+                Welcome to meeting
                 <Col style={{padding: '0', color: "#45A29E"}}> maker </Col>
               </Row>
               </h1>
@@ -25,10 +25,10 @@ const LandingPage = () => {
               </h4>
               <div className="greeting-buttons">
               <Link href="/create">
-                <Button className="button dark landing" text="Schedule a Meeting" fontSize="28px"></Button> {' '}
+                <Button className="custom-button landing dark" fontSize="28px">Schedule a Meeting</Button> {' '}
               </Link>
               <Link href="/join">
-                <Button className="button dark landing" text="Join a Meeting">  </Button>
+                <Button className="custom-button landing dark" >Join a Meeting</Button>
               </Link>
               </div>
             </div>

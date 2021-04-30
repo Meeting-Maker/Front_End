@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
+import {Button, Card, Form} from "react-bootstrap";
 import Link from "../router/Link";
 
 //todo: create structure for candidateMeeting based on database schema
@@ -124,7 +124,7 @@ function isValidCandidate(candidateMeeting){
    }
 
    //check for length > 0
-   if(candidateMeeting.length == 0){
+   if(candidateMeeting.length === 0){
       console.error('candidate cant have length 0');
       return false;
    }
