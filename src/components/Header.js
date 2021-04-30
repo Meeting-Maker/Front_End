@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {Navbar} from 'react-bootstrap';
-import Button from './Button';
-import Link from './Link';
+import {Navbar, Container, Row, Col} from 'react-bootstrap';
+import Link from '../router/Link';
 import '../css/Header.css';
 
-const Header = (props) => {
+const Header = () => {
 //backgroundColor: "#45A29E",
 
   const [loggedIn, setLogginIn] = useState(false);

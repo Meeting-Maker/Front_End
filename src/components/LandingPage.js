@@ -2,9 +2,8 @@ import React from 'react';
 import FeatureDescriptions from './FeatureDescriptions';
 import {Container, Row, Col} from 'react-bootstrap';
 import '../css/LandingPage.css';
-import Link from './Link';
+import Link from '../router/Link';
 import Button from './Button';
-
 
 const LandingPage = () => {
 
@@ -21,8 +20,8 @@ const LandingPage = () => {
               </Row>
               </h1>
               <h4>
-                Schedule meetings faster than ever,
-                <a> <b>no login required.</b></a>
+                {"Schedule meetings faster than ever, "}
+               <b>no login required.</b>
               </h4>
               <div className="greeting-buttons">
               <Link href="/create-meeting">
@@ -40,11 +39,7 @@ const LandingPage = () => {
           </Col>
         </Row>
       </Container>
-
-
-
   );
-
 };
 
 export default LandingPage;

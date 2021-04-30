@@ -1,0 +1,42 @@
+import React from "react";
+import {Card} from 'react-bootstrap';
+
+const CandidateMeetingList = ({candidateMeetings}) => {
+
+   //todo: convert to unqiue id from database
+   const onCandidateMeetingClick = (candidateMeeting) => {
+      //do something
+      console.log('candidate meeting clicked: ', candidateMeeting);
+   };
+
+   if (candidateMeetings.length === 0) {
+      return (
+         <div>
+            <Card>
+               <Card.Body>
+                  Add a Meeting
+               </Card.Body>
+            </Card>
+         </div>
+      );
+   }
+
+   const renderedList = candidateMeetings.map((candidateMeeting) => {
+      return (
+         //sets unique key by concatenating info from candidateMeeting
+         <div key={candidateMeeting.date + '-' + candidateMeeting.time + '-' + candidateMeeting.length} onClick={() => onCandidateMeetingClick(candidateMeeting)}>
+            <Card>
+               <Card.Body>
+                  {candidateMeeting.date}, {`at `}
+                  {candidateMeeting.time}<br/>
+                  {candidateMeeting.length} minutes
+               </Card.Body>
+            </Card>
+         </div>
+      );
+   });
+
+   return <div>{renderedList}</div>;
+};
+
+export default CandidateMeetingList;
