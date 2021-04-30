@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {} from 'react-bootstrap';
-import CreateMeetingDetail from "./CreateMeetingDetail";
+import CreateMeetingDetails from "./CreateMeetingDetails";
 import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";
 import api from "../services/api";
@@ -23,7 +23,7 @@ const CreateMeeting = ({currentUser, setCurrentUser, meetingDetails, setMeetingD
    //if some information is missing from meetingTitle
    if(!meetingDetails.meetingName || meetingDetails.pollType === -1){
       console.log('return 1', currentUser, meetingDetails);
-      return <div><CreateMeetingDetail user={currentUser} onFormSubmit={setMeetingDetails}/></div>;
+      return <div><CreateMeetingDetails user={currentUser} onFormSubmit={setMeetingDetails}/></div>;
    }
 
    const onCreateMeeting = () => {

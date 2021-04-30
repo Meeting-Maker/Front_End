@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Card, Form, Button, Container, Row, Col} from 'react-bootstrap';
 
-const CreateMeetingDetail = ({user, onFormSubmit}) => {
+const CreateMeetingDetails = ({user, onFormSubmit}) => {
    const [userName, setUserName] = useState('');
    const [meetingName, setMeetingName] = useState('');
    const [pollType, setPollType] = useState(null);
@@ -73,4 +73,4 @@ const CreateMeetingDetail = ({user, onFormSubmit}) => {
 
 };
 
-export default CreateMeetingDetail;
+export default CreateMeetingDetails;
