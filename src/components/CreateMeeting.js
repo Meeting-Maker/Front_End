@@ -26,7 +26,17 @@ const CreateMeeting = ({currentUser, setCurrentUser, meetingDetails, setMeetingD
       return <div><CreateMeetingDetail user={currentUser} onFormSubmit={setMeetingDetails}/></div>;
    }
 
-   const onCreateMeeting = () => {
+   const onCreateMeeting = async () => {
+      //push to database
+      const result = await api.post('/createGuestMeeting',{
+         name: meetingDetails.userName,
+         title: meetingDetails.meetingName,
+         dueDate: meetingDetails.dueDate,
+         meetingID: meetingDetails.meetingID,
+         description: meetingDetails.meetingDescription,
+         pollType: meetingDetails.pollType
+      })
+      console.log(result);
       window.history.pushState(
          {},
          '',

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Card, Form, Button, Container, Row, Col} from 'react-bootstrap';
+import {customAlphabet} from 'nanoid';
 
 const CreateMeetingDetail = ({user, onFormSubmit}) => {
    const [userName, setUserName] = useState('');
@@ -10,9 +11,23 @@ const CreateMeetingDetail = ({user, onFormSubmit}) => {
 
    const onSelectPollType = (event) => {
       event.preventDefault();
+<<<<<<< Updated upstream:src/components/CreateMeetingDetail.js
       const title = {userName: userName, meetingName: meetingName, pollType: pollType};
       console.log(title);
       onFormSubmit(title);
+=======
+
+      const meetingDetail = {
+         userName: userName,
+         meetingName: meetingName,
+         meetingDescription: meetingDescription,
+         pollType: pollType,
+         dueDate: dueDate + 'T' + dueTime + ':00',
+         meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ',6)()
+      };
+      console.log(meetingDetail);
+      onFormSubmit(meetingDetail);
+>>>>>>> Stashed changes:src/components/CreateMeetingDetails.js
    };
 
    return (
