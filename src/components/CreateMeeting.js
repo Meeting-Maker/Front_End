@@ -20,22 +20,9 @@ const CreateMeeting = ({currentUser, setCurrentUser, meetingDetails, setMeetingD
       setCandidateMeetings(candidateMeetings.concat([candidateMeeting]));
    };
 
-   //if some information is missing from meetingTitle
-   if(!meetingDetails.meetingName || meetingDetails.pollType === -1){
-      console.log('return 1', currentUser, meetingDetails);
-      return <div><CreateMeetingDetail user={currentUser} onFormSubmit={setMeetingDetails}/></div>;
-   }
-
    const onCreateMeeting = async () => {
       //push to database
-      const result = await api.post('/createGuestMeeting',{
-         name: meetingDetails.userName,
-         title: meetingDetails.meetingName,
-         dueDate: meetingDetails.dueDate,
-         meetingID: meetingDetails.meetingID,
-         description: meetingDetails.meetingDescription,
-         pollType: meetingDetails.pollType
-      })
+      const result = await api.post('/createGuestMeeting', meetingDetails)
       console.log(result);
       window.history.pushState(
          {},
@@ -46,6 +33,12 @@ const CreateMeeting = ({currentUser, setCurrentUser, meetingDetails, setMeetingD
       const navEvent = new PopStateEvent('popstate');
       window.dispatchEvent(navEvent)
    };
+
+   //if some information is missing from meetingTitle
+   if(meetingDetails.pollType === -1){
+      console.log('return 1', currentUser, meetingDetails);
+      return <div><CreateMeetingDetail user={currentUser} onFormSubmit={setMeetingDetails}/></div>;
+   }
 
    //create meeting by poll
    if(meetingDetails.pollType === 0){
