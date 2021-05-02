@@ -1,23 +1,25 @@
 import React, {useState} from 'react';
 import {Card, Form, Button, Container, Row, Col} from 'react-bootstrap';
+import {customAlphabet} from 'nanoid';
 
 const CreateMeetingDetails = ({user, onFormSubmit}) => {
    const [userName, setUserName] = useState('');
    const [meetingName, setMeetingName] = useState('');
    const [meetingDescription, setMeetingDescription] = useState('');
-   const [pollType, setPollType] = useState(null);
    const [dueDate, setDueDate] = useState('');
    const [dueTime, setDueTime] = useState('');
+   const [pollType, setPollType] = useState(null);
 
    const onSelectPollType = (event) => {
       event.preventDefault();
+
       const meetingDetail = {
-         userName: userName,
-         meetingName: meetingName,
-         meetingDescription: meetingDescription,
-         pollType: pollType,
-         dueDate: dueDate,
-         dueTime: dueTime
+         name: userName,
+         meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ',6)(),
+         title: meetingName,
+         description: meetingDescription,
+         dueDate: dueDate + 'T' + dueTime + ':00',
+         pollType: pollType
       };
       console.log(meetingDetail);
       onFormSubmit(meetingDetail);
@@ -56,36 +58,35 @@ const CreateMeetingDetails = ({user, onFormSubmit}) => {
                      />
                   </Form.Group>
                   <Form.Group>
-                     <Form.Label>Meeting Description</Form.Label>
+                     <Form.Label>Description</Form.Label>
                      <Form.Control
                         as="textarea"
-                        placeholder="Meeting Description"
+                        placeholder="Description"
                         value={meetingDescription}
                         onChange={(e) => setMeetingDescription(e.target.value)}
                      />
                   </Form.Group>
                   <Form.Label>Response Needed By</Form.Label>
                   <Form.Group>
-                     <Form.Label>Meeting Date</Form.Label>
                      <Form.Control
                         type="date"
-                        placeholder=""
+                        placeholder="Date"
+
                         value={dueDate}
                         onChange={(e) => setDueDate(e.target.value)}
                      />
                   </Form.Group>
                   <Form.Group>
-                     <Form.Label>Time</Form.Label>
                      <Form.Control
                         type="time"
-                        placeholder=""
+                        placeholder="Time"
+
                         value={dueTime}
                         onChange={(e) => setDueTime(e.target.value)}
                      />
                   </Form.Group>
-                  <hr/>
                   <Form.Group>
-                     <Form.Label>Schedule Meeting Method:</Form.Label>
+
                      <Container>
                         <Row>
                            <Col xs={5}>

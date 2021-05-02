@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import CodeInput from "./CodeInput";
 import UserList from "./UserList";
+import CreateGuest from "./CreateGuest";
 
 //todo: conditionally render userName field, only if user is not logged in
 
@@ -33,11 +34,16 @@ const users = [
 
 const JoinMeeting = () => {
    const [meetingCode, setMeetingCode] = useState('');
+   const [userID, setUserID] = useState('');
 
    const onFormSubmit = (joinCode) => {
       if (!isValidJoinCode(joinCode)) return;
       console.log('Valid Code Entered: ' + joinCode);
       setMeetingCode(joinCode);
+   }
+
+   const onJoinMeeting = () => {
+      console.log();
    }
 
    if(!meetingCode){
@@ -54,6 +60,7 @@ const JoinMeeting = () => {
       <div>
          <h1>Select Your Name</h1>
          <UserList users={users}/>
+         <CreateGuest/>
       </div>
    );
 

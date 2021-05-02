@@ -13,7 +13,13 @@ import Meeting from './Meeting';
 
 const App = () => {
    const [currentUser, setCurrentUser] = useState({userID: null});
-   const [meetingDetails, setMeetingDetails] = useState({userName: '', meetingName: '', pollType: 0});
+   const [meetingDetails, setMeetingDetails] = useState({
+      meetingID: '',
+      title: '',
+      description: '',
+      dueDate: '',
+      pollType: -1
+   });
    const [candidateMeetings, setCandidateMeetings] = useState([]);
 
    return (
