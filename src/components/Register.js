@@ -14,7 +14,6 @@ const Register = () => {
   const [passwordVerify, setPasswordVerify] = useState('');
 
   const onFormSubmit = (event) => {
-
     event.preventDefault();
 
     if(password === passwordVerify) {
@@ -24,100 +23,68 @@ const Register = () => {
       console.log('failed register');
     }
 
-
-
-
-
-    // TODO: connect with backend
-    // for json object::
-
-    //  name: name
-    //  email: Email
-    // password: password
-    //  guest: 0
   };
 
-
-
   const sendRegisterRequest = async () => {
-
     const response = await api.post('register', {
-
         name: name,
         email: email,
         password: password,
         guest: 0
-
     });
-
   }
 
   return (
+    <div className="ui centered grid" style={{paddingTop: "15rem"}}>
+      <div className="ui container" style={{width: "25%"}}>
+        <div className="ui grey fluid card">
 
-    <div>
-      <div className="register-card">
-        <Card border="">
-          <Card.Header>
+          <div className="content">
             <div className="header">
               Register
             </div>
-          </Card.Header>
-          <Card.Body>
-            <Form onSubmit={onFormSubmit}>
+          </div>
 
-              <Form.Group as={Row}>
-                <Col xl="2"></Col>
-                <Col xl="8">
-                  <Form.Control
+          <div className="content">
+            <form className="ui large form" onSubmit={onFormSubmit}>
+
+                <div className="field">
+                  <input
                     type="text"
                     placeholder="Name"
                     value={name}
                     onChange={e => setName(e.target.value)}
                   />
-                </Col>
-              </Form.Group>
+                </div>
 
-              <Form.Group as={Row}>
-                <Col xl="2"></Col>
-                <Col xl="8">
-                  <Form.Control
+                <div className="field">
+                  <input
                     type="email"
                     placeholder="Enter Email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                   />
-                </Col>
-              </Form.Group>
+                </div>
 
-              <Form.Group as={Row}>
-                <Col xl="2"></Col>
-                <Col xl="8">
-                  <Form.Control
+                <div className="field">
+                  <input
                     type="password"
                     placeholder="Password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                   />
-                  <Link href="/">
-                  </Link>
-                </Col>
-              </Form.Group>
+                </div>
 
-              <Form.Group as={Row}>
-                <Col xl="2"></Col>
-                <Col xl="8">
-                  <Form.Control
+                <div className="field">
+                  <input
                     type="password"
                     placeholder="Verify Password"
                     value={passwordVerify}
                     onChange={e => setPasswordVerify(e.target.value)}
                   />
-                  <Link href="/">
-                  </Link>
-                </Col>
-              </Form.Group>
+                </div>
 
-              <Link>
+              <Link href="/">
                 <Button
                   className="custom-button dark register"
                   type="submit"
@@ -126,14 +93,15 @@ const Register = () => {
                 </Button>
               </Link>
 
-            </Form>
+            </form>
 
             <br></br>
             <Link href='/login'>
-              <p>Already have an account? Login</p>
+              <p style={{fontSize: "1.14285714rem"}}>Already have an account? Login</p>
             </Link>
-          </Card.Body>
-        </Card>
+
+          </div>
+        </div>
       </div>
     </div>
 

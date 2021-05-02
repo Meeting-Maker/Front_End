@@ -1,16 +1,22 @@
 import React from 'react';
 import '../css/Button.css';
 
-const Button = ({className, children, onClick, fontSize, type, onSubmit}) => {
+const Button = ({className, children, onClick, fontSize, type, onSubmit, disabled, style}) => {
 
   return(
 
+    disabled ?
+
+    ' '
+
+    :
 
     <button
       className={className}
       onClick={onClick}
       type={type}
-      onSubmit={onSubmit}>
+      onSubmit={onSubmit}
+      style={style}>
         {children}
     </button>
 

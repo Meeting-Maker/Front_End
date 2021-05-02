@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {Navbar, Container, Row, Col} from 'react-bootstrap';
 import Link from '../router/Link';
 import Button from './Button';
 import '../css/Header.css';
@@ -10,52 +9,45 @@ const Header = () => {
   const [loggedIn, setLogginIn] = useState(false);
 
   useEffect(() => {
-    console.log(loggedIn);
+    console.log('logged in: ' + loggedIn);
   }, [loggedIn]);
 
   // TODO: modify login functionality
 
   return(
+      <div className="ui borderless fixed inverted menu">
+        <div className="ui container" style={{width: "100%"}}>
 
-    <Navbar bg="dark" >
-      <Navbar.Brand>
-        <Link href='/' className="no-hover">
-          <div className="title">
-            <h1>
-              <Container>
-                <Row>
-                  <Col style={{padding: '0', color: "white"}}> meeting </Col>
-                  <Col style={{padding: '0', color: "#45A29E"}}> maker </Col>
-                </Row>
-              </Container>
-            </h1>
+          <div className="header item">
+            <Link href='/' className="no-hover">
+              <h1 className="ui huge header">
+                <div className="ui grid">
+                  <div className="nine wide column" style={{padding: '0', color: "white"}}> meeting </div>
+                  <div className="seven wide column" style={{padding: '0', color: "#45A29E"}}> maker </div>
+                </div>
+              </h1>
+            </Link>
           </div>
-        </Link>
-      </Navbar.Brand>
 
-      <Navbar.Collapse className="justify-content-end">
-
-        {loggedIn ?
-          <Button
-            className="custom-button light"
-
-            onClick={(e) => setLogginIn(false)}>
-              Logout
-
-          </Button>
-        :
-          <Link href="/login">
-            <Button
-              className="custom-button light"
-              onClick={(e) => setLogginIn(true)}>
-                Login
-            </Button>
-          </Link>
-        }
-      </Navbar.Collapse>
-
-    </Navbar>
-
+          <div className="right item">
+            {loggedIn ?
+              <Button
+                className="custom-button light"
+                onClick={(e) => setLogginIn(false)}>
+                  Logout
+              </Button>
+            :
+              <Link href="/login">
+                <Button
+                  className="custom-button light"
+                  onClick={(e) => setLogginIn(true)}>
+                    Login
+                </Button>
+              </Link>
+            }
+          </div>
+        </div>
+      </div>
   );
 
 }
