@@ -1,7 +1,7 @@
 .custom-button {
   background-color: transparent;
   border-radius: 0.5rem;
-  padding: 0.625rem 1.25rem;
+  padding: 0.5rem 1rem;
   transition-duration: 0.2s;
   font-weight: 500;
 }
@@ -33,9 +33,17 @@
 .login, .register{
   border: 0.06rem solid #343a40;
   font-weight: 400;
+  font-size: 1.3rem;
 }
 
 .span {
   width: 100%;
-  padding: 0  ;
+}
+
+.disabled{
+  opacity: 0.3;
+}
+
+.disabled:hover{
+  cursor: not-allowed;
 }

@@ -11,3 +11,7 @@
   color: white;
   background-color: #242526;
 }
+
+.descriptions h3, h4{
+  font-weight: 500;
+}

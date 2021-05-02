@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Form} from "react-bootstrap";
 import Button from './Button';
+import Link from './Link';
 
 //todo: conditionally render userName field, only if user is not logged in
 
@@ -13,23 +14,45 @@ const CodeInput = ({onCodeSubmit}) => {
    }
 
    return (
-      <div>
-         <Form onSubmit={e => onFormSubmit(e)}>
-            <Form.Group>
-               <Form.Control
+     <div className="ui centered grid" style={{paddingTop: "15rem"}}>
+      <div className="ui container" style={{width: "25%"}}>
+        <div className="ui  fluid card">
+
+        <div className="content">
+          <div className="header">
+            Join A Meeting
+          </div>
+        </div>
+
+        <div className="content">
+         <form className="ui large form"onSubmit={e => onFormSubmit(e)}>
+            <div className="field">
+               <input
                   maxLength="6"
                   type="text"
-                  placeholder="Code"
+                  placeholder="Enter Code"
                   value={joinCode}
                   onChange={(e) => setJoinCode(e.target.value)}
                />
+            </div>
+
+            <Link href="">
                <Button
                   className="custom-button dark span"
                   type="submit"
-               >Join</Button>
-            </Form.Group>
-         </Form>
+               >
+               Join
+               </Button>
+            </Link>
+
+
+          </form>
+          </div>
+        </div>
+
+
       </div>
+    </div>
 
    );
 
