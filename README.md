@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# Description:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MeetingMaker is a simple tool where multiple users can input their availability schedule to find overlaps. The idea is to offer a simple way to choose a meeting time, as fast as possible. We think this will be useful for Teams with variable schedules.
 
-## Available Scripts
+# Features:
 
-In the project directory, you can run:
+MeetingMaker for users without accounts; events will be shared with a link; no authentication. We think this will create a good first impression, for users who do not like having many accounts.
 
-### `yarn start`
+  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+MeetingMaker for users with accounts will have more features. Calendars are more secure as they are locked behind additional security. User profiles can have saved availability which can be automatically applied to events. Users can create Teams with members of varying rank and permissions. Logged in users can also opt into email notifications when a meeting is scheduled for their team, when one of their teams receives a new meeting request, or when a team leader.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The final product should include export of calendar event files, especially including outlook for business use.
 
-### `yarn test`
+# Glossary:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Meeting: An event with known or unknown time and variable length. The software’s job is to determine the best time for a meeting.
 
-### `yarn build`
+  
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Visitor: Anybody who is using the website.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Guest: A visitor who is not logged into an account.
 
-### `yarn eject`
+  
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+User: A visitor who is logged into an account
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Leader: The creator of a meeting. Can be logged in or not.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+  
 
-## Learn More
+Team: A group of related users.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Member: A user who is a part of a team.
 
-### Code Splitting
+  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Owner: The creator of a team. An owner can assign user permissions for other members of the same team.
 
-### Analyzing the Bundle Size
+# Project Architecture:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![](https://lh6.googleusercontent.com/3h_ZIY9eGtk9EYjIY0NiTQdYHkdzaptf_6FK085xSmZuo5RAKgVgpYkOUSnCGacWln06lJPYXmGz4HTzZHOyK-6DFMij9I0JBECf3VlRj6otdPcySaqtRm1Ja-gTQpKjUIzDHLj2)
 
-### Making a Progressive Web App
+## Front End:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Language: JsX, CSS
 
-### Advanced Configuration
+Framework: React
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+  
 
-### Deployment
+[WireFrame](https://www.figma.com/file/HneCp15EqwKI3064FjuijC/meetingmaker)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Back End:
 
-### `yarn build` fails to minify
+Language: Javascript
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Framework: Express (NodeJS)
+
+## Database:
+
+MySQL
+
+Schema Link: [https://dbdesigner.page.link/qtrAR5PFpRhqWBDJ8](https://dbdesigner.page.link/qtrAR5PFpRhqWBDJ8)
+
+## Hosting:
+
+This project will be hosted on AWS.
+
+LINK: [https://www.meetingmaker.com](https://www.meetingmaker.ca)
+
+# Scrum:
+
+## Weekly Meetings:
+
+Middle of the week meeting: Thursday OR Friday anytime after 5PM
+
+End of spring meeting: Every Sunday between 3-7PM
+
+## Meeting Dates:
+
+Initiation (21 April 2021)
+
+Plan & Estimate (25 April 2021)
+
+Sprint 1 (27/28 April 2021- 2 May 2021)
+
+Sprint 2 (3 April 2021- 9 May 2021)

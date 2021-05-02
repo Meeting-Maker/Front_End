@@ -1,0 +1,41 @@
+.custom-button {
+  background-color: transparent;
+  border-radius: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  transition-duration: 0.2s;
+  font-weight: 500;
+}
+
+.landing{
+  font-size: 28px;
+}
+
+.dark {
+  border: 2px solid #343a40;
+  color: #343a40;
+}
+
+.dark:hover{
+  color: white;
+  background-color: #343a40;
+}
+
+.light {
+  border: 2px solid white;
+  color: white;
+}
+
+.light:hover {
+  background-color: white;
+  color: #343a40;
+}
+
+.login, .register{
+  border: 0.06rem solid #343a40;
+  font-weight: 400;
+}
+
+.span {
+  width: 100%;
+  padding: 0  ;
+}

@@ -1,49 +1,57 @@
 import React, {useState, useEffect} from 'react';
 import {Navbar, Container, Row, Col} from 'react-bootstrap';
 import Link from '../router/Link';
+import Button from './Button';
 import '../css/Header.css';
 
 const Header = () => {
 //backgroundColor: "#45A29E",
 
-   const [loggedIn, setLogginIn] = useState(false);
+  const [loggedIn, setLogginIn] = useState(false);
 
-   useEffect(() => {
+  useEffect(() => {
+    console.log(loggedIn);
+  }, [loggedIn]);
 
-   }, [loggedIn]);
+  // TODO: modify login functionality
 
-   // TODO: modify login functionality
+  return(
 
-   return (
-      <Navbar bg="dark">
-         <Navbar.Brand>
-            <Link href='/'>
-               <div className="title">
-                  <h1>
-                     <Container>
-                        <Row>
-                           <Col style={{padding: '0', color: "white"}}> meeting </Col>
-                           <Col style={{padding: '0', color: "#45A29E"}}> maker </Col>
-                        </Row>
-                     </Container>
-                  </h1>
-               </div>
-            </Link>
-         </Navbar.Brand>
+    <Navbar bg="dark" >
+      <Navbar.Brand>
+        <Link href='/'>
+          <div className="title">
+            <h1>
+              <a style={{color: "white"}}>meeting</a>
+              <a style={{color: "#45A29E"}}>maker</a>
+            </h1>
+          </div>
+        </Link>
+      </Navbar.Brand>
 
-         <Navbar.Collapse className="justify-content-end">
-            <Link href="/login">
-               <button
-                  className={`login-button ${loggedIn ? 'display-none' : ''}`}
-                  onClick={(e) => setLogginIn(true)}>
-                  Login
-               </button>
-            </Link>
-         </Navbar.Collapse>
+      <Navbar.Collapse className="justify-content-end">
 
-      </Navbar>
+        {loggedIn ?
+          <Button
+            className="custom-button light"
+            onClick={(e) => setLogginIn(false)}
+          >
+             Login
+          </Button>
+        :
+          <Link href="/login">
+            <Button
+              className="button light"
+              onClick={(e) => setLogginIn(true)}
+              text="Login">
+            </Button>
+          </Link>
+        }
+      </Navbar.Collapse>
 
-   );
+    </Navbar>
+
+  );
 
 }
 

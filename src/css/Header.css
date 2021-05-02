@@ -20,3 +20,7 @@
 .header-brand:hover{
   cursor: pointer;
 }
+
+.title h1{
+  color: black;
+}

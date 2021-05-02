@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Card, Form, Button, Container, Row, Col} from 'react-bootstrap';
 import {customAlphabet} from 'nanoid';
 
-const CreateMeetingDetail = ({user, onFormSubmit}) => {
+const CreateMeetingDetails = ({user, onFormSubmit}) => {
    const [userName, setUserName] = useState('');
    const [meetingName, setMeetingName] = useState('');
    const [meetingDescription, setMeetingDescription] = useState('');
@@ -21,7 +21,6 @@ const CreateMeetingDetail = ({user, onFormSubmit}) => {
          dueDate: dueDate + 'T' + dueTime + ':00',
          pollType: pollType
       };
-
       console.log(meetingDetail);
       onFormSubmit(meetingDetail);
    };
@@ -29,14 +28,14 @@ const CreateMeetingDetail = ({user, onFormSubmit}) => {
    return (
       <div>
          <h1>Create Your Meeting</h1>
-         <Card style={{ width: '32rem' }}>
+         <Card style={{width: '32rem'}}>
             <Card.Body>
-               <Form onSubmit={(e) => onSelectPollType(e)} >
+               <Form onSubmit={(e) => onSelectPollType(e)}>
                   {
                      user.userID
-                     ?
+                        ?
                         null
-                     :
+                        :
                         <Form.Group>
                            <Form.Label>Your Name</Form.Label>
                            <Form.Control
@@ -45,7 +44,9 @@ const CreateMeetingDetail = ({user, onFormSubmit}) => {
                               value={userName}
                               onChange={(e) => setUserName(e.target.value)}
                            />
+                           <hr/>
                         </Form.Group>
+
                   }
                   <Form.Group>
                      <Form.Label>Meeting Name</Form.Label>
@@ -70,6 +71,7 @@ const CreateMeetingDetail = ({user, onFormSubmit}) => {
                      <Form.Control
                         type="date"
                         placeholder="Date"
+
                         value={dueDate}
                         onChange={(e) => setDueDate(e.target.value)}
                      />
@@ -78,16 +80,18 @@ const CreateMeetingDetail = ({user, onFormSubmit}) => {
                      <Form.Control
                         type="time"
                         placeholder="Time"
+
                         value={dueTime}
                         onChange={(e) => setDueTime(e.target.value)}
                      />
                   </Form.Group>
                   <Form.Group>
+
                      <Container>
                         <Row>
                            <Col xs={5}>
                               <Button onClick={() => setPollType(0)} variant="primary" type="submit">
-                                 Create<br></br>Poll
+                                 <p>Create</p><p>Poll</p>
                               </Button>
                            </Col>
                            <Col xs={2}>
@@ -95,7 +99,7 @@ const CreateMeetingDetail = ({user, onFormSubmit}) => {
                            </Col>
                            <Col xs={5}>
                               <Button onClick={() => setPollType(1)} variant="primary" type="submit">
-                                 Compare Availability
+                                 <p>Compare</p><p>Availability</p>
                               </Button>
                            </Col>
                         </Row>
@@ -110,4 +114,4 @@ const CreateMeetingDetail = ({user, onFormSubmit}) => {
 
 };
 
-export default CreateMeetingDetail;
+export default CreateMeetingDetails;
