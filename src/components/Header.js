@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Navbar, Container, Row, Col} from 'react-bootstrap';
+import {Navbar} from 'react-bootstrap';
 import Link from '../router/Link';
 import Button from './Button';
 import '../css/Header.css';
@@ -22,8 +22,8 @@ const Header = () => {
         <Link href='/'>
           <div className="title">
             <h1>
-              <a style={{color: "white"}}>meeting</a>
-              <a style={{color: "#45A29E"}}>maker</a>
+              <div style={{color: "white", display: 'inline'}}>meeting</div>
+              <div style={{color: "#45A29E", display: 'inline'}}>maker</div>
             </h1>
           </div>
         </Link>

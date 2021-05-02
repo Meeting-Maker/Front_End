@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {} from 'react-bootstrap';
+import React, {useEffect} from 'react';
 import CreateMeetingDetails from "./CreateMeetingDetails";
 import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";
 import api from "../services/api";
 
-const CreateMeeting = ({currentUser, setCurrentUser, meetingDetails, setMeetingDetails, candidateMeetings, setCandidateMeetings}) => {
+const CreateMeeting = ({currentUser, meetingDetails, setMeetingDetails, candidateMeetings, setCandidateMeetings}) => {
 
    useEffect(
       () => {
