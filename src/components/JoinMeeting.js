@@ -6,10 +6,9 @@ import api from '../services/api';
 
 //todo: conditionally render userName field, only if user is not logged in
 
-const JoinMeeting = () => {
+const JoinMeeting = ({userList, setUserList}) => {
    const [meetingCode, setMeetingCode] = useState('');
    const [userID, setUserID] = useState('');
-   const [userList, setUserList] = useState([]);
 
    const onJoinMeeting = async (meetingID) => {
       if (!isValidJoinCode(meetingID)) return;
@@ -25,20 +24,30 @@ const JoinMeeting = () => {
       );
 
       setUserList(response.data.users);
-      console.log(response.data.users);
-      console.log(userList);
    }
 
    const onCreateGuestUser = async (userName) => {
       console.log('in on create guest user function');
-      const result = await api.post('/createGuestUser', {
+
+      const guestUser = {
          name: userName,
          meetingID: meetingCode
-      });
+      };
 
-
+      const result = await api.post('/createGuestUser', guestUser);
       console.log(result);
 
+      setUserList(userList.concat(guestUser));
+
+      //change href to meeting
+      window.history.pushState(
+         {},
+         '',
+         '/meeting'
+      );
+
+      const navEvent = new PopStateEvent('popstate');
+      window.dispatchEvent(navEvent)
    }
 
    if(!meetingCode){

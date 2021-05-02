@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Card} from 'react-bootstrap';
 
-const CandidateMeetingList = ({userList}) => {
+const UserList = ({userList}) => {
    const onUserClick = (userID) => {
       //do something
       console.log('userID: ' + userID);
@@ -39,4 +39,4 @@ const CandidateMeetingList = ({userList}) => {
    </div>;
 };
 
-export default CandidateMeetingList;
+export default UserList;

@@ -21,7 +21,7 @@ const Footer = () => {
               Contact Us
           </Link>
             &emsp;&emsp;
-          <Link href="/" className="no-hover">
+          <Link href="/"    className="no-hover">
               Report a Bug
           </Link>
           </div>

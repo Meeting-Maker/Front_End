@@ -9,6 +9,8 @@ const CandidateMeetingList = ({candidateMeetings}) => {
       console.log('candidate meeting clicked: ', candidateMeeting);
    };
 
+   console.log('cm: ', candidateMeetings);
+
    if (candidateMeetings.length === 0) {
       return (
          <div>
@@ -36,7 +38,15 @@ const CandidateMeetingList = ({candidateMeetings}) => {
       );
    });
 
-   return <div>{renderedList}</div>;
+
+   console.log('rendered list: ', renderedList);
+
+   return (
+      <div>
+         <h2>Options</h2>
+         {renderedList}
+      </div>
+   );
 };
 
 export default CandidateMeetingList;

@@ -22,8 +22,16 @@ const CreateMeeting = ({currentUser, setCurrentUser, meetingDetails, setMeetingD
 
    const onCreateMeeting = async () => {
       //push to database
-      const result = await api.post('/createGuestMeeting', meetingDetails);
-      console.log(result);
+      await api.post('/createGuestMeeting', meetingDetails);
+
+      for(const candidateMeeting in candidateMeetings){
+         await api.post('/createCandidateMeeting', {
+            start: candidateMeeting.start,
+            end: candidateMeeting.start,
+            length: candidateMeeting.length,
+            meetingID: meetingDetails.meetingID
+         });
+      }
 
       window.history.pushState(
          {},
@@ -37,7 +45,6 @@ const CreateMeeting = ({currentUser, setCurrentUser, meetingDetails, setMeetingD
 
    //if some information is missing from meetingTitle
    if(meetingDetails.pollType === -1){
-      console.log('return 1', currentUser, meetingDetails);
       return <div><CreateMeetingDetails user={currentUser} onFormSubmit={setMeetingDetails}/></div>;
    }
 
@@ -57,7 +64,6 @@ const CreateMeeting = ({currentUser, setCurrentUser, meetingDetails, setMeetingD
 
    //create meeting by common availability
    if(meetingDetails.pollType === 1){
-      console.log('return 3');
       return <div>Create Meeting by Common Availability</div>;
    }
 
