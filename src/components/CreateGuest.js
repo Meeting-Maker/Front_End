@@ -1,13 +1,20 @@
 import React, {useState} from "react";
 import {Button, Form} from "react-bootstrap";
+import api from '../services/api';
 
-const CreateGuest = () => {
+const CreateGuest = ({onCreateGuestUser}) => {
    const [userName, setUserName] = useState('');
    const [addGuest, setAddGuest] = useState(false);
 
+   const onFormSubmit = (event) => {
+      event.preventDefault();
+
+      onCreateGuestUser(userName);
+   }
+
    return (
       <div>
-         <Form>
+         <Form onSubmit={(e) => onFormSubmit(e)}>
             <Form.Group>
                <Button onClick={() => setAddGuest(!addGuest)}>
                   Add Yourself as a Guest

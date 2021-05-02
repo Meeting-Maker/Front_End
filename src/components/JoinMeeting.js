@@ -2,55 +2,50 @@ import React, {useState} from 'react';
 import CodeInput from "./CodeInput";
 import UserList from "./UserList";
 import CreateGuest from "./CreateGuest";
+import api from '../services/api';
 
 //todo: conditionally render userName field, only if user is not logged in
-
-const users = [
-   {
-      userID: 0,
-      name: 'brandon',
-      email: '',
-      guest: true
-   },
-   {
-      userID: 1,
-      name: 'steve',
-      email: '',
-      guest: true
-   },
-   {
-      userID: 2,
-      name: 'ming',
-      email: '',
-      guest: true
-   },
-   {
-      userID: 3,
-      name: 'joe',
-      email: '',
-      guest: true
-   }
-];
 
 const JoinMeeting = () => {
    const [meetingCode, setMeetingCode] = useState('');
    const [userID, setUserID] = useState('');
+   const [userList, setUserList] = useState([]);
 
-   const onFormSubmit = (joinCode) => {
-      if (!isValidJoinCode(joinCode)) return;
-      console.log('Valid Code Entered: ' + joinCode);
-      setMeetingCode(joinCode);
+   const onJoinMeeting = async (meetingID) => {
+      if (!isValidJoinCode(meetingID)) return;
+      console.log('Valid Code Entered: ' + meetingID);
+      setMeetingCode(meetingID);
+
+      const response = await api.get('/getUsers',
+         {
+            params: {
+               meetingID: meetingID
+            }
+         }
+      );
+
+      setUserList(response.data.users);
+      console.log(response.data.users);
+      console.log(userList);
    }
 
-   const onJoinMeeting = () => {
-      console.log();
+   const onCreateGuestUser = async (userName) => {
+      console.log('in on create guest user function');
+      const result = await api.post('/createGuestUser', {
+         name: userName,
+         meetingID: meetingCode
+      });
+
+
+      console.log(result);
+
    }
 
    if(!meetingCode){
       return (
          <div>
             <h1>Meeting Code</h1>
-            <CodeInput onCodeSubmit={onFormSubmit}/>
+            <CodeInput onCodeSubmit={onJoinMeeting}/>
          </div>
 
       );
@@ -59,8 +54,8 @@ const JoinMeeting = () => {
    return (
       <div>
          <h1>Select Your Name</h1>
-         <UserList users={users}/>
-         <CreateGuest/>
+         <UserList userList={userList}/>
+         <CreateGuest onCreateGuestUser={onCreateGuestUser}/>
       </div>
    );
 

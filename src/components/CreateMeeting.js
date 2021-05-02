@@ -22,7 +22,7 @@ const CreateMeeting = ({currentUser, setCurrentUser, meetingDetails, setMeetingD
 
    const onCreateMeeting = async () => {
       //push to database
-      const result = await api.post('/createGuestMeeting', meetingDetails)
+      const result = await api.post('/createGuestMeeting', meetingDetails);
       console.log(result);
 
       window.history.pushState(
