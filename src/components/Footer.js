@@ -27,7 +27,6 @@ const Footer = () => {
                 Report a Bug
               </Link>
             </div>
-
           </div>
       </div>
     </div>

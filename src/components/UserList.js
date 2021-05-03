@@ -1,13 +1,13 @@
 import React from "react";
 import {Button, Card} from 'react-bootstrap';
 
-const CandidateMeetingList = ({users}) => {
+const UserList = ({userList}) => {
    const onUserClick = (userID) => {
       //do something
       console.log('userID: ' + userID);
    };
 
-   if(users.length === 0){
+   if(userList.length === 0){
       return (
          <div>
             <Card>
@@ -19,9 +19,9 @@ const CandidateMeetingList = ({users}) => {
       );
    }
 
-   const renderedList = users.map((user) => {
+   const renderedList = userList.map((user) => {
       return (
-         <div key={user.userID} onClick={() => onUserClick(user.userID)}>
+         <div key={user.id} onClick={() => onUserClick(user.id)}>
             <Card>
                <Card.Body>
                   {user.name}
@@ -33,14 +33,10 @@ const CandidateMeetingList = ({users}) => {
 
    return <div>
       <h2>
-         Logged-in Users
-      </h2>
-      {renderedList}
-      <h2>
-         Guest Users
+         Users
       </h2>
       {renderedList}
    </div>;
 };
 
-export default CandidateMeetingList;
+export default UserList;

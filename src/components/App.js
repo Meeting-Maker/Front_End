@@ -24,6 +24,7 @@ const App = () => {
       pollType: -1
    });
    const [candidateMeetings, setCandidateMeetings] = useState([]);
+   const [userList, setUserList] = useState([]);
 
    return (
       <div>
@@ -41,10 +42,11 @@ const App = () => {
                setCandidateMeetings={setCandidateMeetings}
             />
          </Route>
-         <Route path='/join'> <JoinMeeting currentUser={currentUser}/> </Route>
+         <Route path='/join'> <JoinMeeting currentUser={currentUser} userList={userList} setUserList={setUserList}/> </Route>
          <Route path='/meeting'>
             <Meeting
                currentUser={currentUser}
+               userList={userList}
                setCurrentUser={setCurrentUser}
                meetingDetails={meetingDetails}
                setMeetingDetails={setMeetingDetails}
