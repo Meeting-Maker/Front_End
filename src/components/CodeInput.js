@@ -16,7 +16,7 @@ const CodeInput = ({onCodeSubmit}) => {
    return (
      <div className="ui centered grid" style={{paddingTop: "15rem"}}>
       <div className="ui container" style={{width: "25%"}}>
-        <div className="ui  fluid card">
+        <div className="ui fluid card">
 
         <div className="content">
           <div className="header">
@@ -36,21 +36,17 @@ const CodeInput = ({onCodeSubmit}) => {
                />
             </div>
 
-            <Link href="">
-               <Button
-                  className="custom-button dark span"
-                  type="submit"
-               >
-               Join
-               </Button>
-            </Link>
-
-
-          </form>
+              <Link href="">
+                 <Button
+                    className="custom-button dark span"
+                    type="submit"
+                 >
+                 Join
+                 </Button>
+              </Link>
+            </form>
           </div>
         </div>
-
-
       </div>
     </div>
 

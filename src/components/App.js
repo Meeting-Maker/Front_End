@@ -11,6 +11,7 @@ import JoinMeeting from './JoinMeeting';
 import Register from './Register';
 import Meeting from './Meeting';
 import CommentList from './CommentList'
+import ProfilePage from './ProfilePage';
 
 
 const App = () => {
@@ -51,6 +52,7 @@ const App = () => {
                setCandidateMeetings={setCandidateMeetings}
             />
          </Route>
+         <Route path='/profile'><ProfilePage/></Route>
          <Footer/>
       </div>
    );

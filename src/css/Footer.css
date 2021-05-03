@@ -1,3 +1,7 @@
 .footer-text a{
   color: white;
 }
+
+.footer-text a:hover{
+  color: white;
+}

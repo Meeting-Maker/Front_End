@@ -30,6 +30,9 @@ const Login = () => {
                 <form className="ui large form" onSubmit={onFormSubmit}>
 
                   <div className="field">
+                    <label className="left aligned">
+                      Email
+                    </label>
                     <input
                       type="email"
                       placeholder="Enter Email"
@@ -39,23 +42,24 @@ const Login = () => {
                   </div>
 
                   <div className="field">
+                    <label className="left aligned">
+                      Password
+                    </label>
                     <input
                       type="password"
                       placeholder="Password"
                       value={password}
                       onChange={e => setPassword(e.target.value)}
                     />
-
                     <Link href="/">
                       <p style={{fontSize: "1"}}>Forgot your password?</p>
                     </Link>
-
                   </div>
 
                   <div>
                     <Link>
                       <Button
-                        className="custom-button dark login"
+                        className="custom-button dark thin span"
                         type="submit"
                         onClick={onFormSubmit}>
                           Login

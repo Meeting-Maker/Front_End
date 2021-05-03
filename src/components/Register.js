@@ -49,6 +49,9 @@ const Register = () => {
             <form className="ui large form" onSubmit={onFormSubmit}>
 
                 <div className="field">
+                  <label className="left aligned">
+                    Name
+                  </label>
                   <input
                     type="text"
                     placeholder="Name"
@@ -58,6 +61,9 @@ const Register = () => {
                 </div>
 
                 <div className="field">
+                  <label className="left aligned">
+                    Email
+                  </label>
                   <input
                     type="email"
                     placeholder="Enter Email"
@@ -67,6 +73,9 @@ const Register = () => {
                 </div>
 
                 <div className="field">
+                  <label className="left aligned">
+                    Password
+                  </label>
                   <input
                     type="password"
                     placeholder="Password"
@@ -76,6 +85,9 @@ const Register = () => {
                 </div>
 
                 <div className="field">
+                  <label className="left aligned">
+                    Verify Password
+                  </label>
                   <input
                     type="password"
                     placeholder="Verify Password"
@@ -84,16 +96,17 @@ const Register = () => {
                   />
                 </div>
 
-              <Link href="/">
-                <Button
-                  className="custom-button dark register"
-                  type="submit"
-                  onClick={onFormSubmit}>
-                    Register
-                </Button>
-              </Link>
+                <br></br>
 
-            </form>
+                <Link href="/">
+                  <Button
+                    className="custom-button dark thin span"
+                    type="submit"
+                    onClick={onFormSubmit}>
+                      Register
+                  </Button>
+                </Link>
+              </form>
 
             <br></br>
             <Link href='/login'>

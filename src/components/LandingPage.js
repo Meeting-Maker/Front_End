@@ -9,33 +9,39 @@ const LandingPage = () => {
 
       <div className="ui stackable grid" style={{paddingTop: "5%"}}>
         <div className="row">
-          <div className="seven wide column" style={{paddingLeft:"5%"}}>
+          <div className="seven wide right floated left aligned column" >
             <div className="greeting">
-              <h1>
-                <div className="ui header two column row">
-                  Welcome to meeting
-                  <div className="left aligned column" style={{color: "#45A29E"}}> maker </div>
+              <div className="ui grid" style={{width: "80%"}}>
+
+                <h1 >
+                  <div className="ui header two column row" >
+                    <div className="six wide right floated column">
+                    Welcome to meeting
+                    </div>
+                    <div className="eight wide left aligned column" style={{color: "#45A29E"}}> maker </div>
+                  </div>
+                </h1>
+
+                <h4>
+                  {"Schedule meetings faster than ever, "}
+                 <b>no login required.</b>
+                </h4>
+
+                <div className="greeting-buttons">
+                  <Link href="/create">
+                    <Button className="custom-button landing dark" fontSize="28px">Schedule a Meeting</Button> {' '}
+                  </Link>
+
+                  <Link href="/join">
+                    <Button className="custom-button landing dark" >Join a Meeting</Button>
+                  </Link>
                 </div>
-              </h1>
-              <h4>
-                {"Schedule meetings faster than ever, "}
-               <b>no login required.</b>
-              </h4>
-              <div className="greeting-buttons">
 
-                <Link href="/create">
-                  <Button className="custom-button landing dark" fontSize="28px">Schedule a Meeting</Button> {' '}
-                </Link>
-
-                <Link href="/join">
-                  <Button className="custom-button landing dark" >Join a Meeting</Button>
-                </Link>
-
-              </div>
+                </div>
             </div>
           </div>
 
-          <div className="nine wide left aligned column" style={{paddingRight: "20rem"}}>
+          <div className="eight wide left aligned column" style={{paddingRight: "20rem"}}>
             <FeatureDescriptions>
             </FeatureDescriptions>
           </div>
