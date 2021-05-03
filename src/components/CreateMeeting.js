@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {} from 'react-bootstrap';
 import CreateMeetingDetails from "./CreateMeetingDetails";
 import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";
@@ -19,13 +20,11 @@ const CreateMeeting = ({currentUser, meetingDetails, setMeetingDetails, candidat
       setCandidateMeetings(candidateMeetings.concat([candidateMeeting]));
    };
 
-   //if some information is missing from meetingTitle
-   if(!meetingDetails.meetingName || meetingDetails.pollType === -1){
-      console.log('return 1', currentUser, meetingDetails);
-      return <div><CreateMeetingDetails user={currentUser} onFormSubmit={setMeetingDetails}/></div>;
-   }
+   const onCreateMeeting = async () => {
+      //push to database
+      const result = await api.post('/createGuestMeeting', meetingDetails)
+      console.log(result);
 
-   const onCreateMeeting = () => {
       window.history.pushState(
          {},
          '',
@@ -35,6 +34,12 @@ const CreateMeeting = ({currentUser, meetingDetails, setMeetingDetails, candidat
       const navEvent = new PopStateEvent('popstate');
       window.dispatchEvent(navEvent)
    };
+
+   //if some information is missing from meetingTitle
+   if(meetingDetails.pollType === -1){
+      console.log('return 1', currentUser, meetingDetails);
+      return <div><CreateMeetingDetails user={currentUser} onFormSubmit={setMeetingDetails}/></div>;
+   }
 
    //create meeting by poll
    if(meetingDetails.pollType === 0){

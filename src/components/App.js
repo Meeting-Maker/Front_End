@@ -14,57 +14,46 @@ import CommentList from './CommentList'
 
 
 const App = () => {
-    const [currentUser, setCurrentUser] = useState({userID: null});
-    const [meetingDetails, setMeetingDetails] = useState({userName: '', meetingName: '', pollType: 0});
-    const [candidateMeetings, setCandidateMeetings] = useState([]);
+   const [currentUser, setCurrentUser] = useState({userID: null});
+   const [meetingDetails, setMeetingDetails] = useState({
+      meetingID: '',
+      title: '',
+      description: '',
+      dueDate: '',
+      pollType: -1
+   });
+   const [candidateMeetings, setCandidateMeetings] = useState([]);
 
-    const item = [{
-        id: 1,
-        name: 'mingasdsaasdsadaaasdassdsasd',
-        content: 'comment contenasdassasddddddddddddddddddddddddddddddddddddsssssssssssssssssssssssssssssssssssssssssssssssssst',
-        date: "3:15PM - 8/28/20"
-    }, {
-        id: 2,
-        name: "stephen",
-        content: 'comment contenasdassasddddddddddddddddddddddddddddddddddddsssssssssssssssssssssssssssssssssssssssssssssssssst',
-        date: "3:15PM - 8/28/20"
-    }];
-
-
-    return (
-        <div>
-            <div className={"ui container"}>
-                <CommentList comments={item}/>
-            </div>
-            {/*<Header />*/}
-            {/*<Route path='/'> <LandingPage/> </Route>*/}
-            {/*<Route path='/login'> <Login/> </Route>*/}
-            {/*<Route path='/register'> <Register/> </Route>*/}
-            {/*<Route path='/create'>*/}
-            {/*   <CreateMeeting*/}
-            {/*      currentUser={currentUser}*/}
-            {/*      setCurrentUser={setCurrentUser}*/}
-            {/*      meetingDetails={meetingDetails}*/}
-            {/*      setMeetingDetails={setMeetingDetails}*/}
-            {/*      candidateMeetings={candidateMeetings}*/}
-            {/*      setCandidateMeetings={setCandidateMeetings}*/}
-            {/*   />*/}
-            {/*</Route>*/}
-            {/*<Route path='/join'> <JoinMeeting/> </Route>*/}
-            {/*<Route path='/meeting'>*/}
-            {/*   <Meeting*/}
-            {/*      currentUser={currentUser}*/}
-            {/*      setCurrentUser={setCurrentUser}*/}
-            {/*      meetingDetails={meetingDetails}*/}
-            {/*      setMeetingDetails={setMeetingDetails}*/}
-            {/*      candidateMeetings={candidateMeetings}*/}
-            {/*      setCandidateMeetings={setCandidateMeetings}*/}
-            {/*   />*/}
-            {/*</Route>*/}
-            {/*<Footer/>*/}
-        </div>
-    );
-
+   return (
+      <div>
+         <Header />
+         <Route path='/'> <LandingPage currentUser={currentUser}/> </Route>
+         <Route path='/login' > <Login currentUser={currentUser}/> </Route>
+         <Route path='/register'> <Register currentUser={currentUser}/> </Route>
+         <Route path='/create'>
+            <CreateMeeting
+               currentUser={currentUser}
+               setCurrentUser={setCurrentUser}
+               meetingDetails={meetingDetails}
+               setMeetingDetails={setMeetingDetails}
+               candidateMeetings={candidateMeetings}
+               setCandidateMeetings={setCandidateMeetings}
+            />
+         </Route>
+         <Route path='/join'> <JoinMeeting currentUser={currentUser}/> </Route>
+         <Route path='/meeting'>
+            <Meeting
+               currentUser={currentUser}
+               setCurrentUser={setCurrentUser}
+               meetingDetails={meetingDetails}
+               setMeetingDetails={setMeetingDetails}
+               candidateMeetings={candidateMeetings}
+               setCandidateMeetings={setCandidateMeetings}
+            />
+         </Route>
+         <Footer/>
+      </div>
+   );
 };
 
 export default App;

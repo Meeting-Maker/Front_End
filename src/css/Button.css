@@ -1,43 +1,49 @@
-.button {
+.custom-button {
   background-color: transparent;
-  border-radius: 8px;
-  padding: 10px 20px;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
   transition-duration: 0.2s;
   font-weight: 500;
 }
 
-.light{
-   color: white;
-    border: 2px solid white;
+.landing{
+  font-size: 1.75rem;
 }
 
-.dark{
-  color: #242526;
-  border: 2px solid #242526;
-}
-
-.light:hover{
-  color: #242526;
-  background-color: white;
+.dark {
+  border: 0.125rem solid #343a40;
+  color: #343a40;
 }
 
 .dark:hover{
   color: white;
-  background-color: #242526;
+  background-color: #343a40;
 }
 
-.landing{
-  font-size: 28px;
+.light {
+  border: 0.125rem solid white;
+  color: white;
 }
 
-.login{
-  font-size: 16px;
+.light:hover {
+  background-color: white;
+  color: #343a40;
+}
+
+.login, .register{
+  border: 0.06rem solid #343a40;
   font-weight: 400;
-  border: 1px solid #242526;
+  font-size: 1.3rem;
 }
 
-.register {
-  font-size: 16px;
-  font-weight: 400;
-  border: 1px solid #242526;
+.span {
+  width: 100%;
+}
+
+.disabled{
+  opacity: 0.3;
+}
+
+.disabled:hover{
+  cursor: not-allowed;
 }

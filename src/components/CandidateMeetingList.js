@@ -3,7 +3,7 @@ import {Card} from 'react-bootstrap';
 
 const CandidateMeetingList = ({candidateMeetings}) => {
 
-   //todo: convert to unqiue id from database
+   //todo: convert to unique id from database
    const onCandidateMeetingClick = (candidateMeeting) => {
       //do something
       console.log('candidate meeting clicked: ', candidateMeeting);

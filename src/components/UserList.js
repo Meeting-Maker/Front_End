@@ -1,5 +1,5 @@
 import React from "react";
-import {Card} from 'react-bootstrap';
+import {Button, Card} from 'react-bootstrap';
 
 const CandidateMeetingList = ({users}) => {
    const onUserClick = (userID) => {
@@ -31,7 +31,16 @@ const CandidateMeetingList = ({users}) => {
       );
    });
 
-   return <div>{renderedList}</div>;
+   return <div>
+      <h2>
+         Logged-in Users
+      </h2>
+      {renderedList}
+      <h2>
+         Guest Users
+      </h2>
+      {renderedList}
+   </div>;
 };
 
 export default CandidateMeetingList;
