@@ -122,9 +122,7 @@ function isValidCandidate(candidateMeeting) {
    }
 
    //check for length > 0
-
    if(candidateMeeting.length === 0){
-
       console.error('candidate cant have length 0');
       return false;
    }

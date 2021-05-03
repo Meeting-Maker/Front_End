@@ -5,7 +5,7 @@ import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";
 import api from "../services/api";
 
-const CreateMeeting = ({currentUser, setCurrentUser, meetingDetails, setMeetingDetails, candidateMeetings, setCandidateMeetings}) => {
+const CreateMeeting = ({currentUser, meetingDetails, setMeetingDetails, candidateMeetings, setCandidateMeetings}) => {
 
    useEffect(
       () => {
