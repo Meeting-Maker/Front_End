@@ -29,11 +29,32 @@ const Header = () => {
           </div>
 
           <div className="right item">
-            {loggedIn ?
-              <Button
-                className="custom-button light"
-                onClick={(e) => setLogginIn(false)}>
-                  Logout
+            {loggedIn
+            ?
+              <Button className="custom-button light">
+                <div className="ui simple inverted dropdown ">
+                  <div className="text"> Account </div>
+                  <i className="dropdown icon"></i>
+                  <div className="menu">
+                    <div className="item">
+                      <Link href='/profile' className="no-hover">
+                        <Button
+                          className="custom-button dark">
+                          Profile
+                        </Button>
+                      </Link>
+                    </div>
+                    <div className="item">
+                      <Link href="/" className="no-hover">
+                        <Button
+                          className="custom-button dark"
+                          onClick={(e) => setLogginIn(false)}>
+                            Logout
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               </Button>
             :
               <Link href="/login">
