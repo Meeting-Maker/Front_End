@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {Form} from "react-bootstrap";
 import Button from './Button';
-import Link from './Link';
+import Link from '../router/Link';
 
 //todo: conditionally render userName field, only if user is not logged in
 

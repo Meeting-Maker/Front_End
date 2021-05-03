@@ -10,7 +10,6 @@ import CreateMeeting from './CreateMeeting';
 import JoinMeeting from './JoinMeeting';
 import Register from './Register';
 import Meeting from './Meeting';
-import CommentList from './CommentList'
 import ProfilePage from './ProfilePage';
 
 

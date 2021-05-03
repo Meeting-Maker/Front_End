@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, Form} from "react-bootstrap";
-import Link from "../router/Link";
 
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
