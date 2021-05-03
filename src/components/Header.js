@@ -13,7 +13,6 @@ const Header = () => {
   }, [loggedIn]);
 
   // TODO: modify login functionality
-
   return(
       <div className="ui borderless fixed inverted menu">
         <div className="ui container" style={{width: "100%"}}>

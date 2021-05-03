@@ -10,6 +10,8 @@ import CreateMeeting from './CreateMeeting';
 import JoinMeeting from './JoinMeeting';
 import Register from './Register';
 import Meeting from './Meeting';
+import CommentList from './CommentList'
+
 
 const App = () => {
    const [currentUser, setCurrentUser] = useState({userID: null});
@@ -52,7 +54,6 @@ const App = () => {
          <Footer/>
       </div>
    );
-
 };
 
 export default App;
