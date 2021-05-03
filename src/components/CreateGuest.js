@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {Button, Form} from "react-bootstrap";
-import api from '../services/api';
 
 const CreateGuest = ({onCreateGuestUser}) => {
    const [userName, setUserName] = useState('');

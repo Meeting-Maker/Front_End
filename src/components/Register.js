@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
-import {Card, Form, Row, Col} from 'react-bootstrap';
 import Link from '../router/Link';
 import Button from './Button';
 import '../css/Register.css';
-import axios from 'axios';
 import api from '../services/api'
 
 const Register = () => {

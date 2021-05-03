@@ -1,9 +1,8 @@
 import React from 'react';
-import {Navbar} from 'react-bootstrap';
 import '../css/Footer.css';
 import Icon from '@mdi/react';
 import { mdiGithub } from '@mdi/js';
-import Link from './Link';
+import Link from '../router/Link';
 
 const Footer = () => {
 

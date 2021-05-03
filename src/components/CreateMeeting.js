@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {} from 'react-bootstrap';
 import CreateMeetingDetails from "./CreateMeetingDetails";
 import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";
