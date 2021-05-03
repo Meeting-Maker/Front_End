@@ -24,14 +24,14 @@ const CreateMeeting = ({currentUser, setCurrentUser, meetingDetails, setMeetingD
       //push to database
       await api.post('/createGuestMeeting', meetingDetails);
 
-      for(const candidateMeeting in candidateMeetings){
-         await api.post('/createCandidateMeeting', {
-            start: candidateMeeting.start,
-            end: candidateMeeting.start,
-            length: candidateMeeting.length,
-            meetingID: meetingDetails.meetingID
-         });
-      }
+      // for(const candidateMeeting in candidateMeetings){
+      //    await api.post('/createCandidateMeeting', {
+      //       start: candidateMeeting.start,
+      //       end: candidateMeeting.start,
+      //       length: candidateMeeting.length,
+      //       meetingID: meetingDetails.meetingID
+      //    });
+      // }
 
       window.history.pushState(
          {},
