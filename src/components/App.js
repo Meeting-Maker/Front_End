@@ -15,15 +15,6 @@ import ProfilePage from './ProfilePage';
 
 const App = () => {
    const [currentUser, setCurrentUser] = useState({userID: null});
-   const [meetingDetails, setMeetingDetails] = useState({
-      meetingID: '',
-      title: '',
-      description: '',
-      dueDate: '',
-      pollType: -1
-   });
-   const [candidateMeetings, setCandidateMeetings] = useState([]);
-   const [userList, setUserList] = useState([]);
 
    return (
       <div>
@@ -35,22 +26,12 @@ const App = () => {
             <CreateMeeting
                currentUser={currentUser}
                setCurrentUser={setCurrentUser}
-               meetingDetails={meetingDetails}
-               setMeetingDetails={setMeetingDetails}
-               candidateMeetings={candidateMeetings}
-               setCandidateMeetings={setCandidateMeetings}
             />
          </Route>
-         <Route path='/join'> <JoinMeeting currentUser={currentUser} userList={userList} setUserList={setUserList}/> </Route>
+         <Route path='/join'> <JoinMeeting currentUser={currentUser}/> </Route>
          <Route path='/meeting'>
             <Meeting
                currentUser={currentUser}
-               userList={userList}
-               setCurrentUser={setCurrentUser}
-               meetingDetails={meetingDetails}
-               setMeetingDetails={setMeetingDetails}
-               candidateMeetings={candidateMeetings}
-               setCandidateMeetings={setCandidateMeetings}
             />
          </Route>
          <Route path='/profile'><ProfilePage/></Route>

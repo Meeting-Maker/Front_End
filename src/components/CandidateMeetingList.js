@@ -16,7 +16,7 @@ const CandidateMeetingList = ({candidateMeetings}) => {
          <div>
             <Card>
                <Card.Body>
-                  Add a Meeting
+                  No Candidate Meetings Exist Yet
                </Card.Body>
             </Card>
          </div>
