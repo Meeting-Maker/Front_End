@@ -27,6 +27,8 @@ const CreateMeeting = ({currentUser, setCurrentUser, setCurrentMeeting}) => {
       setCandidateMeetings(candidateMeetings.concat([candidateMeeting]));
    };
 
+   //todo: convert CreateMeeting button in CreateCandidateMeetings component to Link,
+   // remove window.history.pushState here
    const onCreateMeeting = async () => {
       await api.post('/createGuestMeeting', meetingDetails);
       setCurrentMeeting(meetingDetails.meetingID);

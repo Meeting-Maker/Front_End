@@ -34,11 +34,6 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
       if (candidateListHasOption(candidateMeetings, option)) {
          console.error('candidate already exists');
       } else {
-         console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-         console.log('candidateMeetings', candidateMeetings);
-         console.log('option', option);
-         console.log('--------------------------------');
-
          onCreateCandidateMeeting(option);
       }
    };
@@ -54,58 +49,56 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
    }
 
    return (
+      <Card width="25%">
+         <div className="content">
+            <div className="header">
+               Create Your Meeting
+            </div>
+         </div>
 
-          <Card width="25%">
-             <div className="content">
-                <div className="header">
-                   Create Your Meeting
-                </div>
-             </div>
-
-           <div className="content">
-              <form className="ui large form" onSubmit={(e) => onAddOption(e)}>
-
-                <div className="field">
+         <div className="content">
+            <form className="ui large form" onSubmit={(e) => onAddOption(e)}>
+               <div className="field">
                   <label className="left aligned">Meeting Date</label>
                   <input
-                    type="date"
-                    placeholder="Meeting Date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
+                     type="date"
+                     placeholder="Meeting Date"
+                     value={date}
+                     onChange={(e) => setDate(e.target.value)}
                   />
-                </div>
+               </div>
 
-                <div className="field">
+               <div className="field">
                   <label className="left aligned">Time</label>
                   <input
-                    type="time"
-                    placeholder="Meeting Time"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
+                     type="time"
+                     placeholder="Meeting Time"
+                     value={time}
+                     onChange={(e) => setTime(e.target.value)}
                   />
-                </div>
+               </div>
 
-                <div className="field">
-                 <label className="left aligned">Length</label>
+               <div className="field">
+                  <label className="left aligned">Length</label>
                   <input
-                    type="text"
-                    placeholder="Length (minutes)"
-                    value={length}
-                    onChange={(e) => setLength(e.target.value)}
+                     type="text"
+                     placeholder="Length (minutes)"
+                     value={length}
+                     onChange={(e) => setLength(e.target.value)}
                   />
-                </div>
+               </div>
 
-                <Button className="custom-button dark thin" onClick={(e) => onAddOption(e)}>
+               <Button className="custom-button dark thin" onClick={(e) => onAddOption(e)}>
                   Add Option
-                </Button>
-                {' '}
-                <Button className="custom-button dark thin" onClick={() => onFormSubmit()}>
+               </Button>
+               {' '}
+               <Button className="custom-button dark thin" onClick={() => onFormSubmit()}>
                   Create Meeting
-                </Button>
+               </Button>
 
-               </form>
-              </div>
-            </Card>
+            </form>
+         </div>
+      </Card>
 
 
    );
@@ -131,7 +124,7 @@ function isValidCandidate(candidateMeeting) {
    }
 
    //check for length > 0
-   if(candidateMeeting.length === 0){
+   if (candidateMeeting.length === 0) {
       console.error('candidate cant have length 0');
       return false;
    }
