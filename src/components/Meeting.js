@@ -6,7 +6,8 @@ import api from '../services/api';
 
 //todo: conditional rendering for types of meeting (poll/common availability)
 
-const Meeting = ({userList, meetingDetails}) => {
+const Meeting = ({currentUser}) => {
+   const [userList, setUserList] = useState([]);
    const [candidateMeetings, setCandidateMeetings] = useState([]);
 
    useEffect(
@@ -21,7 +22,6 @@ const Meeting = ({userList, meetingDetails}) => {
 
    return (
       <div>
-         <MeetingDetails meetingDetails={meetingDetails}/>
          <UserList userList={userList}/>
          <CandidateMeetingList candidateMeetings={candidateMeetings}/>
       </div>

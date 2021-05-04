@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/Link.css';
 
 const Link = ({className, href, children}) => {
 
