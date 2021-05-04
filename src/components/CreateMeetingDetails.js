@@ -39,8 +39,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                </div>
 
                <div className="content">
-                  <form className="ui large form" onSubmit={(e) => onSelectPollType(e)}>
-
+                  <form className="ui large form" onSubmit={(e) => onCreateMeetingDetails(e)}>
                      {
                         currentUser.userID
                            ?
