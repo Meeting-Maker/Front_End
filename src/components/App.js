@@ -15,6 +15,7 @@ import ProfilePage from './ProfilePage';
 
 const App = () => {
    const [currentUser, setCurrentUser] = useState({userID: null});
+   const [currentMeeting, setCurrentMeeting] = useState('');
 
    return (
       <div>
@@ -26,12 +27,19 @@ const App = () => {
             <CreateMeeting
                currentUser={currentUser}
                setCurrentUser={setCurrentUser}
+               setCurrentMeeting={setCurrentMeeting}
             />
          </Route>
-         <Route path='/join'> <JoinMeeting currentUser={currentUser}/> </Route>
+         <Route path='/join'>
+            <JoinMeeting
+               currentUser={currentUser}
+               setCurrentMeeting={setCurrentMeeting}
+            />
+         </Route>
          <Route path='/meeting'>
             <Meeting
                currentUser={currentUser}
+               currentMeeting={currentMeeting}
             />
          </Route>
          <Route path='/profile'><ProfilePage name="stephen" email="email"/></Route>

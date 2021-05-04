@@ -4,9 +4,10 @@ import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";
 import api from "../services/api";
 
-const CreateMeeting = ({currentUser, setCurrentUser}) => {
+const CreateMeeting = ({currentUser, setCurrentUser, setCurrentMeeting}) => {
    const [candidateMeetings, setCandidateMeetings] = useState([]);
    const [meetingDetails, setMeetingDetails] = useState({
+      name: '',
       meetingID: '',
       title: '',
       description: '',
@@ -28,6 +29,7 @@ const CreateMeeting = ({currentUser, setCurrentUser}) => {
 
    const onCreateMeeting = async () => {
       await api.post('/createGuestMeeting', meetingDetails);
+      setCurrentMeeting(meetingDetails.meetingID);
 
       window.history.pushState(
          {},
@@ -41,8 +43,15 @@ const CreateMeeting = ({currentUser, setCurrentUser}) => {
 
    //if user or meeting has not been set, get those details
    if (!currentUser || !meetingDetails.meetingID) {
-      console.log('render 1');
-      return <div><CreateMeetingDetails currentUser={currentUser} setCurrentUser={setCurrentUser} setMeetingDetails={setMeetingDetails}/></div>;
+      return (
+         <div>
+            <CreateMeetingDetails
+               currentUser={currentUser}
+               setCurrentUser={setCurrentUser}
+               setMeetingDetails={setMeetingDetails}
+            />
+         </div>
+      );
    }
 
    //otherwise, capture candidateMeetings with form

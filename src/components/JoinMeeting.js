@@ -6,7 +6,7 @@ import api from '../services/api';
 
 //todo: conditionally render userName field, only if user is not logged in
 
-const JoinMeeting = ({userList, setUserList}) => {
+const JoinMeeting = ({userList, setUserList, setCurrentMeeting}) => {
    const [meetingCode, setMeetingCode] = useState('');
    const [userID, setUserID] = useState('');
 
@@ -14,6 +14,7 @@ const JoinMeeting = ({userList, setUserList}) => {
       if (!isValidJoinCode(meetingID)) return;
       console.log('Valid Code Entered: ' + meetingID);
       setMeetingCode(meetingID);
+      setCurrentMeeting(meetingID);
 
       const response = await api.get('/getUsers',
          {
