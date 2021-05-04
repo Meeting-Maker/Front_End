@@ -4,34 +4,34 @@ import Link from '../router/Link';
 import Card from './Card';
 import {customAlphabet} from 'nanoid';
 
-const CreateMeetingDetails = ({user, onFormSubmit}) => {
+const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) => {
    const [userName, setUserName] = useState('');
    const [meetingName, setMeetingName] = useState('');
    const [meetingDescription, setMeetingDescription] = useState('');
    const [dueDate, setDueDate] = useState('');
    const [dueTime, setDueTime] = useState('');
-   const [pollType, setPollType] = useState(null);
+   const [pollType, setPollType] = useState(0);
 
-   const onSelectPollType = (event) => {
+   const onCreateMeetingDetails = (event) => {
       event.preventDefault();
-
-      console.log(event);
-
+     
+      setCurrentUser(userName);
+     
       const meetingDetail = {
-         name: userName,
          meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
          title: meetingName,
          description: meetingDescription,
          dueDate: dueDate + 'T' + dueTime + ':00',
          pollType: pollType
       };
+
       console.log(meetingDetail);
-      onFormSubmit(meetingDetail);
+      setMeetingDetails(meetingDetail);
    };
 
    return (
-
             <Card width="40%">
+
                <div className="content">
                   <div className="header">
                      Create Your Meeting
@@ -42,7 +42,7 @@ const CreateMeetingDetails = ({user, onFormSubmit}) => {
                   <form className="ui large form" onSubmit={(e) => onSelectPollType(e)}>
 
                      {
-                        user.userID
+                        currentUser.userID
                            ?
                            null
                            :
@@ -56,7 +56,6 @@ const CreateMeetingDetails = ({user, onFormSubmit}) => {
                               />
                            </div>
                      }
-
                      <div className="field">
                         <label className="left aligned">Meeting Name</label>
                         <input
@@ -98,7 +97,7 @@ const CreateMeetingDetails = ({user, onFormSubmit}) => {
                            </div>
                         </div>
                      </div>
-                     <hr></hr>
+                     <hr/>
                      <Button
                         className="custom-button dark span"
                         onClick={() => setPollType(0)}
@@ -108,7 +107,6 @@ const CreateMeetingDetails = ({user, onFormSubmit}) => {
                   </form>
                </div>
              </Card>
-
    );
 
 };

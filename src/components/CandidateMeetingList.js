@@ -13,9 +13,7 @@ const CandidateMeetingList = ({candidateMeetings}) => {
    if (candidateMeetings.length === 0) {
       return (
          <div className="ui fluid card" style={{marginTop: "4rem"}}>
-
-            Add a Meeting
-
+            No Candidate Meetings Exist
          </div>
       );
    }

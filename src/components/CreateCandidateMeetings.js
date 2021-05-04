@@ -13,11 +13,9 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
 
    useEffect(
       () => {
-         console.log(typeof date + ' ' + date);
-         console.log(typeof time + ' ' + time);
-         console.log(typeof length + ' ' + length);
+
       },
-      [date, time, length]
+      [candidateMeetings]
    );
 
    //called when the 'Add Option' button is clicked
