@@ -10,6 +10,7 @@ const CodeInput = ({onCodeSubmit}) => {
 
    const onFormSubmit = (event) => {
       event.preventDefault();
+      console.log('joinCode: ', joinCode);
       onCodeSubmit(joinCode);
    }
 
@@ -23,7 +24,7 @@ const CodeInput = ({onCodeSubmit}) => {
         </div>
 
         <div className="content">
-         <form className="ui large form"onSubmit={e => onFormSubmit(e)}>
+         <form className="ui large form" onSubmit={e => onFormSubmit(e)}>
             <div className="field">
                <input
                   maxLength="6"
@@ -33,15 +34,12 @@ const CodeInput = ({onCodeSubmit}) => {
                   onChange={(e) => setJoinCode(e.target.value)}
                />
             </div>
-
-              <Link href="">
-                 <Button
-                    className="custom-button dark span"
-                    type="submit"
-                 >
-                 Join
-                 </Button>
-              </Link>
+              <Button
+                 className="custom-button dark span"
+                 type="submit"
+              >
+              Join
+              </Button>
             </form>
           </div>
           </Card>

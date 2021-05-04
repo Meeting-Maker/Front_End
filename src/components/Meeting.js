@@ -10,38 +10,55 @@ const Meeting = ({currentUser, currentMeeting}) => {
    const [userList, setUserList] = useState([]);
    const [candidateMeetings, setCandidateMeetings] = useState([]);
 
+   // useEffect(
+   //    () => {
+   //       const getCandidates = async () => {
+   //          const response = await api.get('/getCandidateMeetings',
+   //             {
+   //                params: {
+   //                   meetingID: currentMeeting
+   //                }
+   //             }
+   //          );
+   //       };
+   //    }, [candidateMeetings]
+   // );
+
    useEffect(
       () => {
+         const getUsers = async () => {
+            const response = await api.get('/getUsers',
+               {
+                  params: {
+                     meetingID: currentMeeting
+                  }
+               }
+            )
+            setUserList(response.data.users);
+         };
+         getUsers();
 
-      },[candidateMeetings]
+         const getCandidateMeetings = async () => {
+            const response = await api.get('/getCandidateMeetings',
+               {
+                  params: {
+                     meetingID: currentMeeting
+                  }
+               }
+            )
+            //todo: assign meetinglist
+            console.log(response.data);
+            //setCandidateMeetings(response.data);
+         };
+         getCandidateMeetings();
+      }, []
    );
 
-   const getCandidates = async () => {
-      const response = await api.get('/getCandidateMeetings',
-         {
-            params: {
-               meetingID: currentMeeting
-            }
-         }
-      );
-   };
-
-   const getUsers = async () => {
-     const response = await api.get('/getUsers',
-        {
-           params: {
-
-           }
-        }
-     )
-   };
-
-   if(!currentUser){
-      return <UserList userList={userList}/>
-   }
    return (
       <div>
-         <UserList userList={userList}/>
+         <h3>Users</h3>
+         <UserList userList={userList}></UserList>
+         <h3>Candidate Meetings</h3>
          <CandidateMeetingList candidateMeetings={candidateMeetings}/>
       </div>
    );
