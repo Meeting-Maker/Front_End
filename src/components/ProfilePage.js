@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import Button from './Button';
+import Card from './Card';
 
 const ProfilePage = ({name, email}) => {
 
   const [edit, setEdit] = useState(false);
-  const [editName, setEditName] = useState('');
-  const [editEmail, setEditEmail] = useState('');
+  const [editName, setEditName] = useState(name);
+  const [editEmail, setEditEmail] = useState(email);
 
-
-  const onProfileSave = (event) => {
+  const onSaveEdit = (event) => {
     event.preventDefault();
 
     setEdit(!edit);
@@ -23,18 +23,15 @@ const ProfilePage = ({name, email}) => {
 
   return (
 
-      <div className="ui centered grid" style={{paddingTop: "15rem"}}>
-        <div className="ui container" style={{width: "35%"}}>
-          <div className="ui grey fluid card">
+      <Card width="35%">
+        <div className="content">
+          <div className="header">
+            Profile
+          </div>
+        </div>
 
             <div className="content">
-              <div className="header">
-                Profile
-              </div>
-            </div>
-
-            <div className="content">
-              <form className="ui large form" onSubmit={onProfileSave}>
+              <form className="ui large form" onSubmit={onSaveEdit}>
 
                   <div className="field">
                     <label className="left aligned">
@@ -42,8 +39,8 @@ const ProfilePage = ({name, email}) => {
                     </label>
                     <input
                       type="text"
-                      placeholder="Name"
-                      value={name}
+                      placeholder={''}
+                      value={editName}
                       onChange={e => setEditName(e.target.value)}
                       disabled={!edit}
                     />
@@ -55,8 +52,8 @@ const ProfilePage = ({name, email}) => {
                     </label>
                     <input
                       type="email"
-                      placeholder="Enter Email"
-                      value={email}
+                      placeholder={''}
+                      value={editEmail}
                       onChange={e => setEditEmail(e.target.value)}
                       disabled={!edit}
                     />
@@ -69,7 +66,7 @@ const ProfilePage = ({name, email}) => {
                       <Button
                         className="custom-button dark thin"
                         type="submit"
-                        onClick={onProfileSave}>
+                        onClick={onSaveEdit}>
                           Save
                       </Button>{' '}
                       <Button
@@ -87,13 +84,11 @@ const ProfilePage = ({name, email}) => {
                         Edit
                     </Button>
                   }
-                  
+
               </form>
             </div>
 
-          </div>
-        </div>
-      </div>
+          </Card>
 
   );
 

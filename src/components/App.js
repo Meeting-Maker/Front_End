@@ -34,7 +34,7 @@ const App = () => {
                currentUser={currentUser}
             />
          </Route>
-         <Route path='/profile'><ProfilePage/></Route>
+         <Route path='/profile'><ProfilePage name="stephen" email="email"/></Route>
          <Footer/>
       </div>
    );

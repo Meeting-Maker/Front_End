@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Button from './Button';
 import Link from '../router/Link';
+import Card from './Card';
 import {customAlphabet} from 'nanoid';
 
 const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) => {
@@ -13,9 +14,9 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
 
    const onCreateMeetingDetails = (event) => {
       event.preventDefault();
-
+     
       setCurrentUser(userName);
-
+     
       const meetingDetail = {
          meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
          title: meetingName,
@@ -29,9 +30,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
    };
 
    return (
-      <div className="ui centered grid" style={{paddingTop: "10rem"}}>
-         <div className="ui container" style={{width: "25%"}}>
-            <div className="ui grey fluid card">
+            <Card width="40%">
 
                <div className="content">
                   <div className="header">
@@ -40,13 +39,14 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                </div>
 
                <div className="content">
-                  <form className="ui large form" onSubmit={(e) => onCreateMeetingDetails(e)}>
+                  <form className="ui large form" onSubmit={(e) => onSelectPollType(e)}>
+
                      {
                         currentUser.userID
                            ?
                            null
                            :
-                           <div class  Name="field">
+                           <div className="field">
                               <label className="left aligned">Your Name</label>
                               <input
                                  type="text"
@@ -106,10 +106,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                      </Button>
                   </form>
                </div>
-            </div>
-         </div>
-      </div>
-
+             </Card>
    );
 
 };

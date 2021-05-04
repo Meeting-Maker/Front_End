@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Card, Form} from "react-bootstrap";
-
+import Button from './Button';
+import Card from './Card';
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
 //todo: fix concat to append new option to candidateList
@@ -54,48 +54,60 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
    }
 
    return (
-      <div>
-         <h1>CreateYour Meeting</h1>
-         <Card style={{width: '32rem'}}>
-            <Card.Body>
-               <Form onSubmit={(e) => onAddOption(e)}>
-                  <Form.Group>
-                     <Form.Label>Meeting Date</Form.Label>
-                     <Form.Control
-                        type="date"
-                        placeholder="Meeting Date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                     />
-                  </Form.Group>
-                  <Form.Group>
-                     <Form.Label>Time</Form.Label>
-                     <Form.Control
-                        type="time"
-                        placeholder="Meeting Time"
-                        value={time}
-                        onChange={(e) => setTime(e.target.value)}
-                     />
-                  </Form.Group>
-                  <Form.Group>
-                     <Form.Label>Length</Form.Label>
-                     <Form.Control
-                        type="text"
-                        placeholder="Length (minutes)"
-                        value={length}
-                        onChange={(e) => setLength(e.target.value)}
-                     />
-                  </Form.Group>
-                  <Button onClick={(e) => onAddOption(e)} variant="primary">
-                     Add Option
-                  </Button>
-                  <Button onClick={() => onFormSubmit()} variant="primary">
-                     Create Meeting
-                  </Button>
-               </Form>
-            </Card.Body>
-         </Card>
-      </div>
+
+          <Card width="25%">
+             <div className="content">
+                <div className="header">
+                   Create Your Meeting
+                </div>
+             </div>
+
+           <div className="content">
+              <form className="ui large form" onSubmit={(e) => onAddOption(e)}>
+
+                <div className="field">
+                  <label className="left aligned">Meeting Date</label>
+                  <input
+                    type="date"
+                    placeholder="Meeting Date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                  />
+                </div>
+
+                <div className="field">
+                  <label className="left aligned">Time</label>
+                  <input
+                    type="time"
+                    placeholder="Meeting Time"
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                  />
+                </div>
+
+                <div className="field">
+                 <label className="left aligned">Length</label>
+                  <input
+                    type="text"
+                    placeholder="Length (minutes)"
+                    value={length}
+                    onChange={(e) => setLength(e.target.value)}
+                  />
+                </div>
+
+                <Button className="custom-button dark thin" onClick={(e) => onAddOption(e)}>
+                  Add Option
+                </Button>
+                {' '}
+                <Button className="custom-button dark thin" onClick={() => onFormSubmit()}>
+                  Create Meeting
+                </Button>
+
+               </form>
+              </div>
+            </Card>
+
+
    );
 };
 
@@ -125,7 +137,6 @@ function isValidCandidate(candidateMeeting) {
    }
 
    //ensure event starts in future
-
    //is valid
    return true;
 }
