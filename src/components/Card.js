@@ -2,8 +2,6 @@ import React from 'react';
 
 const Card = ({width, children}) => {
 
-
-
   return (
 
     <div className="ui centered grid" style={{paddingTop: "10rem"}}>

@@ -14,21 +14,15 @@ const CodeInput = ({onCodeSubmit}) => {
    }
 
    return (
-     <Card width="25%">
-
-        <div className="content">
-          <div className="header">
-            Join A Meeting
-          </div>
-        </div>
-
+     <Card width="20rem">
         <div className="content">
          <form className="ui large form"onSubmit={e => onFormSubmit(e)}>
-            <div className="field">
+            <div className="field" style={{marginBottom: "0.5rem"}}>
                <input
+                  style={{fontSize: "2em", padding: "0", textAlign: "center"}}
                   maxLength="6"
                   type="text"
-                  placeholder="Enter Code"
+                  placeholder="Code"
                   value={joinCode}
                   onChange={(e) => setJoinCode(e.target.value)}
                />
