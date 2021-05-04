@@ -17,7 +17,7 @@ const Login = () => {
 
   return(
 
-    <Card width="25%">
+    <Card width="20rem">
       <div className="content">
         <div className="header">
           Login

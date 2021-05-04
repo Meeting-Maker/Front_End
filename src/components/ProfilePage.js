@@ -23,7 +23,7 @@ const ProfilePage = ({name, email}) => {
 
   return (
 
-      <Card width="35%">
+      <Card width="32rem">
         <div className="content">
           <div className="header">
             Profile
