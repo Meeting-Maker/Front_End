@@ -54,7 +54,10 @@ const CreateMeeting = ({currentUser, meetingDetails, setMeetingDetails, candidat
      if(candidateMeetings.length < 6){
         return (
            <div>
-              <CreateCandidateMeetings candidateMeetings={candidateMeetings} onCreateMeeting={onCreateMeeting} onCreateCandidateMeeting={(candidateMeeting) => onCreateCandidateMeeting(candidateMeeting)}/>
+              <CreateCandidateMeetings
+                candidateMeetings={candidateMeetings}
+                onCreateMeeting={onCreateMeeting}
+                onCreateCandidateMeeting={(candidateMeeting) => onCreateCandidateMeeting(candidateMeeting)}/>
               <CandidateMeetingList candidateMeetings={candidateMeetings}/>
            </div>
         );

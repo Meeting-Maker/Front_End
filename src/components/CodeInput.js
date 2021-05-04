@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Button from './Button';
 import Link from '../router/Link';
+import Card from './Card';
 
 //todo: conditionally render userName field, only if user is not logged in
 
@@ -13,9 +14,7 @@ const CodeInput = ({onCodeSubmit}) => {
    }
 
    return (
-     <div className="ui centered grid" style={{paddingTop: "15rem"}}>
-      <div className="ui container" style={{width: "25%"}}>
-        <div className="ui fluid card">
+     <Card width="25%">
 
         <div className="content">
           <div className="header">
@@ -45,9 +44,7 @@ const CodeInput = ({onCodeSubmit}) => {
               </Link>
             </form>
           </div>
-        </div>
-      </div>
-    </div>
+          </Card>
 
    );
 

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Link from '../router/Link';
 import Button from './Button';
+import Card from './Card';
 import '../css/Register.css';
 import api from '../services/api'
 
@@ -33,9 +34,7 @@ const Register = () => {
   }
 
   return (
-    <div className="ui centered grid" style={{paddingTop: "15rem"}}>
-      <div className="ui container" style={{width: "25%"}}>
-        <div className="ui grey fluid card">
+    <Card width="25%">
 
           <div className="content">
             <div className="header">
@@ -112,9 +111,7 @@ const Register = () => {
             </Link>
 
           </div>
-        </div>
-      </div>
-    </div>
+        </Card>
 
   );
 

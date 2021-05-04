@@ -53,7 +53,7 @@ const App = () => {
                setCandidateMeetings={setCandidateMeetings}
             />
          </Route>
-         <Route path='/profile'><ProfilePage/></Route>
+         <Route path='/profile'><ProfilePage name="stephen" email="email"/></Route>
          <Footer/>
       </div>
    );
