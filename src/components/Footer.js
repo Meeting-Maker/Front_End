@@ -16,6 +16,7 @@ const Footer = () => {
                 <Icon path={mdiGithub} size={2}/>
               </a>
             </div>
+
             <div className="fourteen wide right aligned column" style={{textAlign: "center"}}>
               <Link href="/" className="no-hover">
                 Contact Us
@@ -23,7 +24,7 @@ const Footer = () => {
               {' '}&bull;{' '}
               <Link href="/" className="no-hover">
                 Report a Bug
-              </Link>
+              </a>
             </div>
             <div className="one wide column">
 
