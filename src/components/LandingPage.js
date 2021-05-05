@@ -7,7 +7,7 @@ import '../css/LandingPage.css';
 const LandingPage = () => {
   return(
 
-      <div className="ui stackable grid" style={{paddingTop: "5%"}}>
+      <div className="ui stackable grid">
         <div className="row">
           <div className="seven wide right floated left aligned column" >
             <div className="greeting">
