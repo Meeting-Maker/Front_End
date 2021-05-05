@@ -21,8 +21,6 @@ const App = () => {
       <div>
          <Header />
          <Route path='/'> <LandingPage currentUser={currentUser}/> </Route>
-         <Route path='/login' > <Login currentUser={currentUser}/> </Route>
-         <Route path='/register'> <Register currentUser={currentUser}/> </Route>
          <Route path='/create'>
             <CreateMeeting
                currentUser={currentUser}
@@ -42,7 +40,6 @@ const App = () => {
                currentMeeting={currentMeeting}
             />
          </Route>
-         <Route path='/profile'><ProfilePage name="stephen" email="email"/></Route>
          <Footer/>
       </div>
    );
