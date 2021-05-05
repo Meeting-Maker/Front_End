@@ -52,7 +52,7 @@ const Header = () => {
                 <Button
                   className="custom-button light"
 
-                  onClick={(e) => setLogginIn(true)}
+                  onClick={(e) => setLoggedIn(true)}
                   disabled="true">
 
                     Login
