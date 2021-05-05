@@ -7,14 +7,14 @@ import '../css/LandingPage.css';
 const LandingPage = () => {
   return(
 
-      <div className="ui stackable grid" style={{paddingTop: "5%"}}>
+      <div className="ui stackable grid">
         <div className="row">
           <div className="seven wide right floated left aligned column" >
             <div className="greeting">
               <div className="ui grid" style={{width: "80%"}}>
 
-                <h1 >
-                  <div className="ui header two column row" >
+                <h1 className="ui header" style={{fontSize: "0.9em", margin: "0"}}>
+                  <div className="two column row" >
                     <div className="six wide right floated column">
                     Welcome to meeting
                     </div>
@@ -22,17 +22,17 @@ const LandingPage = () => {
                   </div>
                 </h1>
 
-                <h4>
+                <h4 style={{paddingLeft: "0"}}>
                   {"Schedule meetings faster than ever, "}
                  <b>no login required.</b>
                 </h4>
 
-                <div className="greeting-buttons">
+                <div className="greeting-buttons" style={{paddingLeft: "0", margin: "0"}}>
                   <Link href="/create">
                     <Button className="custom-button landing dark" fontSize="28px">Schedule a Meeting</Button> {' '}
                   </Link>
 
-                  <Link href="/join">
+                  <Link href="/join" overflow="hidden">
                     <Button className="custom-button landing dark" >Join a Meeting</Button>
                   </Link>
                 </div>
