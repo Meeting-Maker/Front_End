@@ -33,6 +33,20 @@ const CreateMeeting = ({currentUser, setCurrentUser, setCurrentMeeting}) => {
       await api.post('/createGuestMeeting', meetingDetails);
       setCurrentMeeting(meetingDetails.meetingID);
 
+      for(var i = 0; i < candidateMeetings.length; i++){
+         console.log('cm:  ', candidateMeetings);
+         console.log('here: ', candidateMeetings[i]);
+         const candidateMeeting = candidateMeetings[i];
+         await api.post('/createCandidateMeeting',
+            {
+               start: candidateMeeting.date + 'T' + candidateMeeting.time + ':00',
+               end: candidateMeeting.date + 'T' + candidateMeeting.time + ':00',
+               length: candidateMeeting.length,
+               meetingID: meetingDetails.meetingID
+            }
+         );
+      }
+
       window.history.pushState(
          {},
          '',
