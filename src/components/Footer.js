@@ -17,14 +17,14 @@ const Footer = () => {
               </a>
             </div>
             <div className="seven wide right aligned column">
-              <Link href="/" className="no-hover">
+              <a href="mailto:meeting.maker@outlook.com?subject=Meeting Maker - User Email" className="no-hover">
                 Contact Us
-              </Link>
+              </a>
             </div>
             <div className="eight wide column">
-              <Link href="/" className="no-hover">
+              <a href="mailto:meeting.maker@outlook.com?subject=Meeting Maker - Bug Report" className="no-hover">
                 Report a Bug
-              </Link>
+              </a>
             </div>
           </div>
       </div>

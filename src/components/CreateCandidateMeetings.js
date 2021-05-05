@@ -23,7 +23,6 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
       event.preventDefault();
 
       const option = {date: date, time: time, length: length};
-      console.log(option);
 
       if (!isValidCandidate(option)) return false;
 
