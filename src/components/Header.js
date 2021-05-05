@@ -6,7 +6,7 @@ import '../css/Header.css';
 const Header = () => {
 //backgroundColor: "#45A29E",
 
-  const [loggedIn, setLogginIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     console.log('logged in: ' + loggedIn);
@@ -14,7 +14,7 @@ const Header = () => {
 
   // TODO: modify login functionality
   return(
-      <div className="ui borderless fixed inverted menu">
+      <div className="ui borderless inverted menu">
         <div className="ui container" style={{width: "100%"}}>
 
           <div className="header item">
@@ -41,7 +41,7 @@ const Header = () => {
                       </Link>
                       <div
                         className="item no-hover"
-                        onClick={(e) => setLogginIn(false)}>
+                        onClick={(e) => setLoggedIn(false)}>
                           Logout
                       </div>
                   </div>
@@ -51,7 +51,7 @@ const Header = () => {
               <Link href="/login">
                 <Button
                   className="custom-button light"
-                  onClick={(e) => setLogginIn(true)}>
+                  onClick={(e) => setLoggedIn(true)}>
                     Login
                 </Button>
               </Link>

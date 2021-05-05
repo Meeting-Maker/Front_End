@@ -12,7 +12,6 @@ import Register from './Register';
 import Meeting from './Meeting';
 import ProfilePage from './ProfilePage';
 
-
 const App = () => {
    const [currentUser, setCurrentUser] = useState({userID: null});
    const [currentMeeting, setCurrentMeeting] = useState('');
