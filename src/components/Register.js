@@ -34,7 +34,7 @@ const Register = () => {
   }
 
   return (
-    <Card width="20rem">
+    <Card width="20rem" padding="10rem 0 0 0">
 
           <div className="content">
             <div className="header">

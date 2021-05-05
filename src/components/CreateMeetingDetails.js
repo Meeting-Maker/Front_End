@@ -31,7 +31,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
    };
 
    return (
-      <Card width="40%">
+      <Card width="40%" padding="10rem 0 0 0">
          <div className="content">
             <div className="header">
                Create Your Meeting

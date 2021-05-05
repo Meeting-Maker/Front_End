@@ -16,7 +16,7 @@ const LandingPage = () => {
                 <h1 className="ui header" style={{fontSize: "0.9em", margin: "0"}}>
                   <div className="two column row" >
                     <div className="six wide right floated column">
-                    Welcome to meeting
+                      Welcome to meeting
                     </div>
                     <div className="eight wide left aligned column" style={{color: "#45A29E"}}> maker </div>
                   </div>
@@ -32,7 +32,7 @@ const LandingPage = () => {
                     <Button className="custom-button landing dark" fontSize="28px">Schedule a Meeting</Button> {' '}
                   </Link>
 
-                  <Link href="/join" overflow="hidden">
+                  <Link href="/join">
                     <Button className="custom-button landing dark" >Join a Meeting</Button>
                   </Link>
                 </div>

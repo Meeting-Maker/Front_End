@@ -15,7 +15,7 @@ const CodeInput = ({onCodeSubmit}) => {
    }
 
    return (
-     <Card width="20rem">
+     <Card width="20rem" padding="5rem 0 0 0">
         <div className="content">
 
          <form className="ui large form"onSubmit={e => onFormSubmit(e)}>
