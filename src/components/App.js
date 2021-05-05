@@ -12,29 +12,33 @@ import Register from './Register';
 import Meeting from './Meeting';
 import ProfilePage from './ProfilePage';
 
-
 const App = () => {
    const [currentUser, setCurrentUser] = useState({userID: null});
+   const [currentMeeting, setCurrentMeeting] = useState('');
 
    return (
       <div>
          <Header />
          <Route path='/'> <LandingPage currentUser={currentUser}/> </Route>
-         <Route path='/login' > <Login currentUser={currentUser}/> </Route>
-         <Route path='/register'> <Register currentUser={currentUser}/> </Route>
          <Route path='/create'>
             <CreateMeeting
                currentUser={currentUser}
                setCurrentUser={setCurrentUser}
+               setCurrentMeeting={setCurrentMeeting}
             />
          </Route>
-         <Route path='/join'> <JoinMeeting currentUser={currentUser}/> </Route>
+         <Route path='/join'>
+            <JoinMeeting
+               currentUser={currentUser}
+               setCurrentMeeting={setCurrentMeeting}
+            />
+         </Route>
          <Route path='/meeting'>
             <Meeting
                currentUser={currentUser}
+               currentMeeting={currentMeeting}
             />
          </Route>
-         <Route path='/profile'><ProfilePage name="stephen" email="email"/></Route>
          <Footer/>
       </div>
    );

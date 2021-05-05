@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import CodeInput from "./CodeInput";
 import UserList from "./UserList";
 import CreateGuest from "./CreateGuest";
@@ -6,24 +6,27 @@ import api from '../services/api';
 
 //todo: conditionally render userName field, only if user is not logged in
 
-const JoinMeeting = ({userList, setUserList}) => {
+const JoinMeeting = ({currentUser, setCurrentMeeting}) => {
    const [meetingCode, setMeetingCode] = useState('');
    const [userID, setUserID] = useState('');
+   const [userList, setUserList] = useState([]);
 
    const onJoinMeeting = async (meetingID) => {
       if (!isValidJoinCode(meetingID)) return;
       console.log('Valid Code Entered: ' + meetingID);
       setMeetingCode(meetingID);
+      setCurrentMeeting(meetingID);
 
-      const response = await api.get('/getUsers',
-         {
-            params: {
-               meetingID: meetingID
-            }
-         }
+      //todo: change to work with link component instead
+      //change href to meeting
+      window.history.pushState(
+         {},
+         '',
+         '/meeting'
       );
 
-      setUserList(response.data.users);
+      const navEvent = new PopStateEvent('popstate');
+      window.dispatchEvent(navEvent)
    }
 
    const onCreateGuestUser = async (userName) => {
@@ -38,36 +41,14 @@ const JoinMeeting = ({userList, setUserList}) => {
       console.log(result);
 
       setUserList(userList.concat(guestUser));
-
-      //change href to meeting
-      window.history.pushState(
-         {},
-         '',
-         '/meeting'
-      );
-
-      const navEvent = new PopStateEvent('popstate');
-      window.dispatchEvent(navEvent)
-   }
-
-   if(!meetingCode){
-      return (
-         <div>
-            <h1>Meeting Code</h1>
-            <CodeInput onCodeSubmit={onJoinMeeting}/>
-         </div>
-
-      );
    }
 
    return (
       <div>
-         <h1>Select Your Name</h1>
-         <UserList userList={userList}/>
-         <CreateGuest onCreateGuestUser={onCreateGuestUser}/>
+         <h1>Meeting Code</h1>
+         <CodeInput onCodeSubmit={onJoinMeeting}/>
       </div>
    );
-
 };
 
 function isValidJoinCode(joinCode) {
