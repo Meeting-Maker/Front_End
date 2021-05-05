@@ -23,7 +23,8 @@ const ProfilePage = ({name, email}) => {
 
   return (
 
-      <Card width="32rem">
+      <Card width="32rem" padding="10rem 0 0 0">
+
         <div className="content">
           <div className="header">
             Profile
@@ -32,7 +33,6 @@ const ProfilePage = ({name, email}) => {
 
             <div className="content">
               <form className="ui large form" onSubmit={onSaveEdit}>
-
                   <div className="field">
                     <label className="left aligned">
                       Name

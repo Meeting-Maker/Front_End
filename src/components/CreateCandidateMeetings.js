@@ -23,7 +23,6 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
       event.preventDefault();
 
       const option = {date: date, time: time, length: length};
-      console.log(option);
 
       if (!isValidCandidate(option)) return false;
 
@@ -49,7 +48,7 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
    }
 
    return (
-      <Card width="25%">
+      <Card width="25%" padding="2rem 0 0 0">
          <div className="content">
             <div className="header">
                Create Your Meeting

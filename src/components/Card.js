@@ -1,10 +1,11 @@
 import React from 'react';
+import '../css/Card.css';
 
-const Card = ({width, children}) => {
+const Card = ({width, children, padding}) => {
 
   return (
 
-    <div className="ui centered grid" style={{paddingTop: "10rem"}}>
+    <div className={`ui grid`} style={{padding: `${padding}`}}>
        <div className="ui container" style={{width: `${width}`}}>
           <div className="ui grey fluid card">
 
