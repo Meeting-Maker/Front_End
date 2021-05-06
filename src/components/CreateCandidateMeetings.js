@@ -64,6 +64,7 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
                      placeholder="Meeting Date"
                      value={date}
                      onChange={(e) => setDate(e.target.value)}
+                     required
                   />
                </div>
 
@@ -74,6 +75,7 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
                      placeholder="Meeting Time"
                      value={time}
                      onChange={(e) => setTime(e.target.value)}
+                     required
                   />
                </div>
 
@@ -84,6 +86,7 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
                      placeholder="Length (minutes)"
                      value={length}
                      onChange={(e) => setLength(e.target.value)}
+                     required
                   />
                </div>
 

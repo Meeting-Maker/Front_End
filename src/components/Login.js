@@ -26,7 +26,6 @@ const Login = () => {
 
       <div className="content">
         <form className="ui large form" onSubmit={onFormSubmit}>
-
           <div className="field">
             <label className="left aligned">
               Email
@@ -36,6 +35,7 @@ const Login = () => {
               placeholder="Enter Email"
               value={email}
               onChange={e => setEmail(e.target.value)}
+              required
             />
           </div>
 
@@ -48,6 +48,7 @@ const Login = () => {
               placeholder="Password"
               value={password}
               onChange={e => setPassword(e.target.value)}
+              required
             />
             <Link href="/">
               <p style={{fontSize: "1"}}>Forgot your password?</p>
