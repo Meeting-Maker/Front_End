@@ -15,7 +15,7 @@ const Header = () => {
   // TODO: modify login functionality
   return(
       <div className="ui borderless inverted menu" style={{borderRadius: "0"}}>
-        <div className="ui container" style={{width: "100%"}}>
+        <div className="ui container" style={{width: "100%", padding: "0"}}>
 
           <div className="header item">
             <Link href='/' className="no-hover">
@@ -51,10 +51,8 @@ const Header = () => {
               <Link href="/login">
                 <Button
                   className="custom-button light"
-
                   onClick={(e) => setLoggedIn(true)}
-                  disabled="true">
-
+                  disabled>
                     Login
                 </Button>
               </Link>
