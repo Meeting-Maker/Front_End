@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Button from './Button';
 import Link from '../router/Link';
 import Card from './Card';
@@ -8,11 +8,20 @@ import Card from './Card';
 const CodeInput = ({onCodeSubmit}) => {
    const [joinCode, setJoinCode] = useState('');
 
+   //const [error, setError] = useState(false);
+
    const onFormSubmit = (event) => {
       event.preventDefault();
       console.log('joinCode: ', joinCode);
       onCodeSubmit(joinCode);
    }
+
+
+   // const handleChange = (event) => {
+   //   event.preventDefault();
+   //
+   //   setJoinCode(event.target.value)
+   // }
 
    return (
      <Card width="20rem" padding="5rem 0 0 0">
@@ -37,6 +46,7 @@ const CodeInput = ({onCodeSubmit}) => {
               Join
               </Button>
             </form>
+            {/*error ? 'Code must be length 6' : ''*/}
           </div>
           </Card>
 
