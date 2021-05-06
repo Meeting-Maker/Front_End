@@ -51,7 +51,8 @@ const Header = () => {
               <Link href="/login">
                 <Button
                   className="custom-button light"
-                  onClick={(e) => setLoggedIn(true)}>
+                  onClick={(e) => setLoggedIn(true)}
+                  disabled>
                     Login
                 </Button>
               </Link>

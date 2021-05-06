@@ -12,14 +12,10 @@ const LandingPage = () => {
     <div className="ui container" style={{margin: "auto", width: "50%", padding: "10rem 0 0 0"}}>
       <div className="ui container greeting" style={{padding: "0"}}>
 
-        <h1 className="ui header" style={{fontSize: "0.9em", margin: "0"}}>
-          <div className="row">
-            <div className="six wide right floated column">
+        <div className="ui header" style={{fontSize: "0.9em", margin: "0"}}>
               Welcome to meeting
-            </div>
-            <div className="eight wide left aligned column" style={{color: "#45A29E"}}> maker </div>
-          </div>
-        </h1>
+            <span className="" style={{color: "#45A29E", display: "inline-block"}}> maker </span>
+        </div>
 
         <h4 style={{paddingLeft: "0", textAlign: "center"}}>
           {"Schedule meetings faster than ever, "}
