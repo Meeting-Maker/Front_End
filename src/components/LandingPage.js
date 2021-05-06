@@ -10,12 +10,12 @@ const LandingPage = () => {
     <div className="ui container" style={{margin: "auto", width: "50%", padding: "10rem 0 0 0"}}>
        <div className="ui container greeting" style={{padding: "0"}}>
 
-         <div className="ui header" style={{fontSize: "1.3em", margin: "0"}}>
+         <div className="ui header" style={{fontSize: "0.9em", margin: "0"}}>
                Welcome to meeting
              <span className="" style={{color: "#45A29E", display: "inline-block"}}> maker </span>
          </div>
 
-         <h4 style={{paddingLeft: "0", textAlign: "center", fontSize: "0.5em"}}>
+         <h4 style={{paddingLeft: "0", textAlign: "center"}}>
            {"Schedule meetings faster than ever, "}
              <b>no login required.</b>
          </h4>

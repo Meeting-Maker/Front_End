@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import Button from './Button';
 import Link from '../router/Link';
 import Card from './Card';
-import '../css/Form.css';
 import {customAlphabet} from 'nanoid';
 
 const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) => {
