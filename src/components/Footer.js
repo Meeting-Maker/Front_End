@@ -24,7 +24,7 @@ const Footer = () => {
               {' '}&bull;{' '}
               <Link href="/" className="no-hover">
                 Report a Bug
-              </a>
+              </Link>
             </div>
             <div className="one wide column">
 

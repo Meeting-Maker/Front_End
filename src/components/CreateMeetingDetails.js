@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Button from './Button';
 import Link from '../router/Link';
 import Card from './Card';
+import '../css/Form.css';
 import {customAlphabet} from 'nanoid';
 
 const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) => {
@@ -51,6 +52,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                            placeholder="Your Name"
                            value={userName}
                            onChange={(e) => setUserName(e.target.value)}
+                           required
                         />
                      </div>
                }
@@ -61,6 +63,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                      placeholder="Meeting Name"
                      value={meetingName}
                      onChange={(e) => setMeetingName(e.target.value)}
+                     required
                   />
                </div>
 
@@ -71,6 +74,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                      placeholder="Description"
                      value={meetingDescription}
                      onChange={(e) => setMeetingDescription(e.target.value)}
+                     required
                   />
                </div>
 
@@ -83,6 +87,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                            placeholder="Date"
                            value={dueDate}
                            onChange={(e) => setDueDate(e.target.value)}
+                           required
                         />
                      </div>
                      <div className="field">
@@ -91,6 +96,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                            placeholder="Time"
                            value={dueTime}
                            onChange={(e) => setDueTime(e.target.value)}
+                           required
                         />
                      </div>
                   </div>

@@ -45,7 +45,6 @@ const JoinMeeting = ({currentUser, setCurrentMeeting}) => {
 
    return (
       <div>
-         <h1>Meeting Code</h1>
          <CodeInput onCodeSubmit={onJoinMeeting}/>
       </div>
    );
