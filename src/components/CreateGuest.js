@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import {Button, Form} from "react-bootstrap";
+import Button from './Button';
+import Card from './Card';
 
 const CreateGuest = ({onCreateGuestUser}) => {
    const [userName, setUserName] = useState('');
@@ -12,26 +13,29 @@ const CreateGuest = ({onCreateGuestUser}) => {
    }
 
    return (
-      <div>
-         <Form onSubmit={(e) => onFormSubmit(e)}>
-            <Form.Group>
-               <Button onClick={() => setAddGuest(!addGuest)}>
-                  Add Yourself as a Guest
-               </Button>
-               {
-                  addGuest ?
-                     <Form.Control
-                        type="text"
-                        placeholder="Your Name"
-                        value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
-                     />
-                  :
-                     null
-               }
-            </Form.Group>
-         </Form>
-      </div>
+      <Card width="20rem">
+        <div className="content">
+           <form className="ui large form"onSubmit={(e) => onFormSubmit(e)}>
+              <div>
+                 <Button className="custom-button dark thin" onClick={() => setAddGuest(!addGuest)}>
+                    Add Yourself as a Guest
+                 </Button>
+                 {
+                    addGuest ?
+                       <input
+                          type="text"
+                          placeholder="Your Name"
+                          value={userName}
+                          onChange={(e) => setUserName(e.target.value)}
+                          style={{marginTop: "0.5rem"}}
+                       />
+                    :
+                       null
+                 }
+              </div>
+           </form>
+         </div>
+      </Card>
    );
 }
 
