@@ -1,11 +1,16 @@
 .greeting {
   /*padding: 15.625rem 0rem 18.75rem 6.25rem;*/
   padding-top: 15rem;
-  font-size: 4rem;
+  font-size: 6rem;
+  text-align: center;
 }
 
 .greeting a:hover {
   text-decoration: none;
+}
+
+.greeting h4{
+  font-size: .33em;
 }
 
 .button:hover{
