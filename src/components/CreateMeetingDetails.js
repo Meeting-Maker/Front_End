@@ -32,11 +32,13 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
 
    return (
       <Card width="40%" padding="10rem 0 0 0">
+
          <div className="content">
             <div className="header">
                Create Your Meeting
             </div>
          </div>
+
          <div className="content">
             <form className="ui large form" onSubmit={(e) => onCreateMeetingDetails(e)}>
                {
@@ -49,6 +51,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                         <input
                            type="text"
                            placeholder="Your Name"
+                           name="meetingCreatorName"
                            value={userName}
                            onChange={(e) => setUserName(e.target.value)}
                            required
@@ -60,6 +63,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                   <input
                      type="text"
                      placeholder="Meeting Name"
+                     name="meetingName"
                      value={meetingName}
                      onChange={(e) => setMeetingName(e.target.value)}
                      required
@@ -71,6 +75,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                   <input
                      as="textarea"
                      placeholder="Description"
+                     name="description"
                      value={meetingDescription}
                      onChange={(e) => setMeetingDescription(e.target.value)}
                      required
@@ -84,6 +89,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                         <input
                            type="date"
                            placeholder="Date"
+                           name="date"
                            value={dueDate}
                            onChange={(e) => setDueDate(e.target.value)}
                            required
@@ -93,6 +99,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                         <input
                            type="time"
                            placeholder="Time"
+                           name="time"
                            value={dueTime}
                            onChange={(e) => setDueTime(e.target.value)}
                            required
