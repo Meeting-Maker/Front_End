@@ -11,54 +11,36 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
    const [dueDate, setDueDate] = useState('');
    const [dueTime, setDueTime] = useState('');
    const [pollType, setPollType] = useState(0);
-
-   //array of errors to be printed
-   const [errors, setErrors] = useState({
-     date: '',
-     empty: ''
-   });
+   const [error, setError] = useState(false);
 
    const onCreateMeetingDetails = (event) => {
       event.preventDefault();
 
-      console.log("before: ", errors);
+      if(
+         userName === ''
+         || meetingName === ''
+         || dueDate === ''
+         || dueTime === ''
+      ){
+         setError(true);
+         return;
+      }else{
+         setError(false);
+      }
 
-      //reset the errors on each submission of the form
+      setCurrentUser(userName);
 
-      setErrors([]).then(function() {
+      const meetingDetail = {
+         name: userName,
+         meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
+         title: meetingName,
+         description: meetingDescription,
+         dueDate: dueDate + 'T' + dueTime + ':00',
+         pollType: pollType
+      };
 
-        if(
-          userName === '' ||
-        ){
-
-
-        }else{
-
-        }
-          //console.log(errors);
-
-          setCurrentUser(userName);
-
-          const meetingDetail = {
-             name: userName,
-             meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
-             title: meetingName,
-             description: meetingDescription,
-             dueDate: dueDate + 'T' + dueTime + ':00',
-             pollType: pollType
-          };
-
-          console.log(meetingDetail);
-          setMeetingDetails(meetingDetail);
-
-
-      );
-
-      console.log("after: ", errors);
-
-      //if statement to check for errors within the form
-
-
+      console.log(meetingDetail);
+      setMeetingDetails(meetingDetail);
    };
 
    return (
@@ -144,20 +126,31 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                   Create Poll
                </Button>
             </form>
-
-            { //check to see if there are errors and then print them
-              errors.length > 0
-              ?
-              <div
-               className="ui error message"
-               style={{textAlign: "center", padding: "0.25rem 0.25rem", marginTop: "0.5rem"}}
-              >
-              {errors.map(error => <p key={error.type}>{error.errorMsg}</p>)}
-              </div>
-              :
-              ' '
+            {
+               error && ( userName === ''
+                  || meetingName === ''
+                  || dueDate === ''
+                  || dueTime === '')
+                  ?
+                  <div
+                     className="ui error message"
+                     style={{textAlign: "center", padding: "0.25rem 0.25rem", marginTop: "0.5rem"}}
+                  >
+                     {  userName
+                           ? null
+                           : <p>Please enter your name</p> }
+                     {  meetingName
+                           ? null
+                           : <p>Please enter a meeting name</p> }
+                     {  dueDate
+                           ? null
+                           : <p>Please enter a due date</p> }
+                     {  dueTime
+                           ? null
+                           : <p>Please enter a due time</p> }
+                  </div>
+                  : null
             }
-
          </div>
       </Card>
    );
