@@ -12,22 +12,48 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
    const [dueTime, setDueTime] = useState('');
    const [pollType, setPollType] = useState(0);
 
+   //array of errors to be printed
+   const [errors, setErrors] = useState([]);
+
    const onCreateMeetingDetails = (event) => {
       event.preventDefault();
 
-      setCurrentUser(userName);
+      console.log(errors);
+      //reset the errors on each submission of the form
+      setErrors([]);
 
-      const meetingDetail = {
-         name: userName,
-         meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
-         title: meetingName,
-         description: meetingDescription,
-         dueDate: dueDate + 'T' + dueTime + ':00',
-         pollType: pollType
-      };
+      //if statement to check for errors within the form
+      if(
+        userName === '' ||
+        meetingName === '' ||
+        meetingDescription === '' ||
+        dueTime === ''
+      ){
+        errors.push(<p>Please check form.</p>);
+        console.log(errors);
 
-      console.log(meetingDetail);
-      setMeetingDetails(meetingDetail);
+        //if statement to check for date errors -- does not work
+      }else if(dueDate.getTime() < Date.now() || dueDate === ''){
+        errors.push(<p>Please make sure the date is in the future.</p>);
+        console.log(errors);
+
+      }else{
+        console.log(errors);
+
+        setCurrentUser(userName);
+
+        const meetingDetail = {
+           name: userName,
+           meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
+           title: meetingName,
+           description: meetingDescription,
+           dueDate: dueDate + 'T' + dueTime + ':00',
+           pollType: pollType
+        };
+
+        console.log(meetingDetail);
+        setMeetingDetails(meetingDetail);
+      }
    };
 
    return (
@@ -41,6 +67,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
 
          <div className="content">
             <form className="ui large form" onSubmit={(e) => onCreateMeetingDetails(e)}>
+
                {
                   currentUser.userID
                      ?
@@ -54,10 +81,10 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                            name="meetingCreatorName"
                            value={userName}
                            onChange={(e) => setUserName(e.target.value)}
-                           required
                         />
                      </div>
                }
+
                <div className="field">
                   <label className="left aligned">Meeting Name</label>
                   <input
@@ -66,7 +93,6 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                      name="meetingName"
                      value={meetingName}
                      onChange={(e) => setMeetingName(e.target.value)}
-                     required
                   />
                </div>
 
@@ -78,7 +104,6 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                      name="description"
                      value={meetingDescription}
                      onChange={(e) => setMeetingDescription(e.target.value)}
-                     required
                   />
                </div>
 
@@ -92,7 +117,6 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                            name="date"
                            value={dueDate}
                            onChange={(e) => setDueDate(e.target.value)}
-                           required
                         />
                      </div>
                      <div className="field">
@@ -102,11 +126,11 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                            name="time"
                            value={dueTime}
                            onChange={(e) => setDueTime(e.target.value)}
-                           required
                         />
                      </div>
                   </div>
                </div>
+
                <hr/>
                <Button
                   className="custom-button dark span"
@@ -115,6 +139,20 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                   Create Poll
                </Button>
             </form>
+
+            { //check to see if there are errors and then print them
+              errors.length > 0
+              ?
+              <div
+               className="ui error message"
+               style={{textAlign: "center", padding: "0.25rem 0.25rem", marginTop: "0.5rem"}}
+              >
+              {errors.map(error => error)}
+              </div>
+              :
+              ' '
+            }
+
          </div>
       </Card>
    );

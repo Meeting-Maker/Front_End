@@ -14,14 +14,10 @@ const CodeInput = ({onCodeSubmit}) => {
       event.preventDefault();
       console.log('joinCode: ', joinCode);
 
-
-      if(joinCode.length < 6 || joinCode > 0){
+      if(joinCode.length < 6){
          setError(true)
       }else{
         setError(false)
-      }
-
-      if(!error){
         onCodeSubmit(joinCode);
       }
 
