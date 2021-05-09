@@ -3,157 +3,175 @@ import Button from './Button';
 import Link from '../router/Link';
 import Card from './Card';
 import {customAlphabet} from 'nanoid';
+import FormValidation from "./FormValidation";
 
 const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) => {
-   const [userName, setUserName] = useState('');
-   const [meetingName, setMeetingName] = useState('');
-   const [meetingDescription, setMeetingDescription] = useState('');
-   const [dueDate, setDueDate] = useState('');
-   const [dueTime, setDueTime] = useState('');
-   const [pollType, setPollType] = useState(0);
-   const [error, setError] = useState(false);
+    const [userName, setUserName] = useState('');
+    const [meetingName, setMeetingName] = useState('');
+    const [meetingDescription, setMeetingDescription] = useState('');
+    const [dueDate, setDueDate] = useState('');
+    const [dueTime, setDueTime] = useState('');
+    const [pollType, setPollType] = useState(0);
+    const [submitFlag, setSubmitFlag] = useState(false);
+    const [renderErrors, setRenderErrors] = useState(false);
 
-   const onCreateMeetingDetails = (event) => {
-      event.preventDefault();
-
-      if(
-         userName === ''
-         || meetingName === ''
-         || dueDate === ''
-         || dueTime === ''
-      ){
-         setError(true);
-         return;
-      }else{
-         setError(false);
-      }
-
-      setCurrentUser(userName);
-
-      const meetingDetail = {
-         name: userName,
-         meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
-         title: meetingName,
-         description: meetingDescription,
-         dueDate: dueDate + 'T' + dueTime + ':00',
-         pollType: pollType
-      };
-
-      console.log(meetingDetail);
-      setMeetingDetails(meetingDetail);
-   };
-
-   return (
-      <Card width="40%" padding="10rem 0 0 0">
-
-         <div className="content">
-            <div className="header">
-               Create Your Meeting
-            </div>
-         </div>
-
-         <div className="content">
-            <form className="ui large form" onSubmit={(e) => onCreateMeetingDetails(e)}>
-
-               {
-                  currentUser.userID
-                     ?
-                     null
-                     :
-                     <div className="field">
-                        <label className="left aligned">Your Name</label>
-                        <input
-                           type="text"
-                           placeholder="Your Name"
-                           name="meetingCreatorName"
-                           value={userName}
-                           onChange={(e) => setUserName(e.target.value)}
-                        />
-                     </div>
-               }
-
-               <div className="field">
-                  <label className="left aligned">Meeting Name</label>
-                  <input
-                     type="text"
-                     placeholder="Meeting Name"
-                     name="meetingName"
-                     value={meetingName}
-                     onChange={(e) => setMeetingName(e.target.value)}
-                  />
-               </div>
-
-               <div className="field">
-                  <label className="left aligned">Description</label>
-                  <input
-                     as="textarea"
-                     placeholder="Description"
-                     name="description"
-                     value={meetingDescription}
-                     onChange={(e) => setMeetingDescription(e.target.value)}
-                  />
-               </div>
-
-               <div className="field">
-                  <label className="left aligned">Response Needed By</label>
-                  <div className="two fields">
-                     <div className="field">
-                        <input
-                           type="date"
-                           placeholder="Date"
-                           name="date"
-                           value={dueDate}
-                           onChange={(e) => setDueDate(e.target.value)}
-                        />
-                     </div>
-                     <div className="field">
-                        <input
-                           type="time"
-                           placeholder="Time"
-                           name="time"
-                           value={dueTime}
-                           onChange={(e) => setDueTime(e.target.value)}
-                        />
-                     </div>
-                  </div>
-               </div>
-
-               <hr/>
-               <Button
-                  className="custom-button dark span"
-                  onClick={() => setPollType(0)}
-                  type="submit">
-                  Create Poll
-               </Button>
-            </form>
-            {
-               error && ( userName === ''
-                  || meetingName === ''
-                  || dueDate === ''
-                  || dueTime === '')
-                  ?
-                  <div
-                     className="ui error message"
-                     style={{textAlign: "center", padding: "0.25rem 0.25rem", marginTop: "0.5rem"}}
-                  >
-                     {  userName
-                           ? null
-                           : <p>Please enter your name</p> }
-                     {  meetingName
-                           ? null
-                           : <p>Please enter a meeting name</p> }
-                     {  dueDate
-                           ? null
-                           : <p>Please enter a due date</p> }
-                     {  dueTime
-                           ? null
-                           : <p>Please enter a due time</p> }
-                  </div>
-                  : null
+    const config = [
+        {
+            field: {
+                value: userName,
+                name: 'Name',
+                minLength: 0,
             }
-         </div>
-      </Card>
-   );
+        },
+        {
+            field: {
+                value: meetingName,
+                name: 'Meeting Name',
+                minLength: 0,
+            }
+        },
+        {
+            field: {
+                value: meetingDescription,
+                name: 'Meeting Description',
+            }
+        },
+        {
+            field: {
+                value: dueDate,
+                name: 'Meeting Date',
+                minLength: 0,
+                date: true,
+            }
+        },
+        {
+            field: {
+                value: dueTime,
+                name: 'Meeting Time',
+                minLength: 0,
+            }
+        }
+    ]
+
+    const onCreateMeetingDetails = (event) => {
+        event.preventDefault();
+        setRenderErrors(true);
+
+        setSubmitFlag(!submitFlag);
+
+
+        //need to call this code only after the form has been validated
+
+        // setCurrentUser(userName);
+        //
+        // const meetingDetail = {
+        //     name: userName,
+        //     meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
+        //     title: meetingName,
+        //     description: meetingDescription,
+        //     dueDate: dueDate + 'T' + dueTime + ':00',
+        //     pollType: pollType
+        // };
+        //
+        // console.log(meetingDetail);
+        // setMeetingDetails(meetingDetail);
+    };
+
+    return (
+        <Card width="40%" padding="10rem 0 0 0">
+
+            <div className="content">
+                <div className="header">
+                    Create Your Meeting
+                </div>
+            </div>
+
+            <div className="content">
+                <form className="ui large form" onSubmit={(e) => onCreateMeetingDetails(e)}>
+
+                    {
+                        currentUser.userID
+                            ?
+                            null
+                            :
+                            <div className="field">
+                                <label className="left aligned">Your Name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Your Name"
+                                    name="meetingCreatorName"
+                                    value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
+                                />
+                            </div>
+                    }
+
+                    <div className="field">
+                        <label className="left aligned">Meeting Name</label>
+                        <input
+                            type="text"
+                            placeholder="Meeting Name"
+                            name="meetingName"
+                            value={meetingName}
+                            onChange={(e) => setMeetingName(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="field">
+                        <label className="left aligned">Description</label>
+                        <input
+                            as="textarea"
+                            placeholder="Description"
+                            name="description"
+                            value={meetingDescription}
+                            onChange={(e) => setMeetingDescription(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="field">
+                        <label className="left aligned">Response Needed By</label>
+                        <div className="two fields">
+                            <div className="field">
+                                <input
+                                    type="date"
+                                    placeholder="Date"
+                                    name="date"
+                                    value={dueDate}
+                                    onChange={(e) => setDueDate(e.target.value)}
+                                />
+                            </div>
+                            <div className="field">
+                                <input
+                                    type="time"
+                                    placeholder="Time"
+                                    name="time"
+                                    value={dueTime}
+                                    onChange={(e) => setDueTime(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr/>
+                    <Button
+                        className="custom-button dark span"
+                        onClick={() => setPollType(0)}
+                        type="submit">
+                        Create Poll
+                    </Button>
+                </form>
+                {
+                    renderErrors
+                        ?
+                        <FormValidation
+                            config={config}
+                            submitFlag={submitFlag}>
+                        </FormValidation>
+                        : null
+                }
+            </div>
+        </Card>
+    );
 };
 
 export default CreateMeetingDetails;
