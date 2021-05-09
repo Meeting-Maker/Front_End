@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from './Button';
 import Card from './Card';
 
-const CreateMeetingDetails = ({currentUser, setCurrentUser, meetingID, setMeetingDetails}) => {
+const CreateMeetingDetails = ({guestID, setGuestID, meetingID, setMeetingDetails}) => {
    const [userName, setUserName] = useState('');
    const [meetingName, setMeetingName] = useState('');
    const [meetingDescription, setMeetingDescription] = useState('');
@@ -10,6 +10,17 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, meetingID, setMeetin
    const [dueTime, setDueTime] = useState('');
    const [pollType, setPollType] = useState(0);
    const [error, setError] = useState(false);
+
+   useEffect(
+      () => {
+         async function loadUserName() {
+            if(guestID){
+               await setUserName(guestID);
+            }
+         }
+         loadUserName();
+      }, [guestID]
+   );
 
    const onCreateMeetingDetails = (event) => {
       event.preventDefault();
@@ -26,7 +37,9 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, meetingID, setMeetin
          setError(false);
       }
 
-      setCurrentUser(userName);
+      //no errors exist, continue with execution
+
+      setGuestID(userName);
 
       const meetingDetail = {
          name: userName,
@@ -52,24 +65,16 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, meetingID, setMeetin
 
          <div className="content">
             <form className="ui large form" onSubmit={(e) => onCreateMeetingDetails(e)}>
-
-               {
-                  currentUser.userID
-                     ?
-                     null
-                     :
-                     <div className="field">
-                        <label className="left aligned">Your Name</label>
-                        <input
-                           type="text"
-                           placeholder="Your Name"
-                           name="meetingCreatorName"
-                           value={userName}
-                           onChange={(e) => setUserName(e.target.value)}
-                        />
-                     </div>
-               }
-
+               <div className="field">
+                  <label className="left aligned">Your Name</label>
+                  <input
+                     type="text"
+                     placeholder="Your Name"
+                     name="meetingCreatorName"
+                     value={userName}
+                     onChange={(e) => setUserName(e.target.value)}
+                  />
+               </div>
                <div className="field">
                   <label className="left aligned">Meeting Name</label>
                   <input
