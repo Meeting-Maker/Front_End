@@ -1,20 +1,21 @@
 import React, {useState, useEffect, useRef} from "react";
-import CandidateMeetingList from "./CandidateMeetingList";
-import MeetingDetails from "./MeetingDetails";
-import UserList from "./UserList";
 import api from '../services/api';
 import CommentList from "./CommentList";
 import {getComments, createComments} from "../services/Comment"
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Button from "./Button"
-const Meeting = ({currentUser, currentMeeting}) => {
-    const [userList, setUserList] = useState([]);
-    const [candidateMeetings, setCandidateMeetings] = useState([]);
-    const [comments, setComment] = useState([]); // state to keep track of comments
-    const commentForm = useRef(); // references to the comment form
-    const {height} = useWindowDimensions();
+import UserList from "./UserList";
+import CandidateMeetingList from "./CandidateMeetingList";
+import CreateGuest from "./CreateGuest";
 
-    useEffect(() => {
+const Meeting = ({guestID, meetingID}) => {
+   const [userList, setUserList] = useState([]);
+   const [candidateMeetings, setCandidateMeetings] = useState([]);
+   const [comments, setComment] = useState([]); // state to keep track of comments
+   const commentForm = useRef(); // references to the comment form
+   const {height} = useWindowDimensions();
+
+   useEffect(() => {
          const getUsers = async () => {
             const response = await api.get('/getUsers',
                {
@@ -40,7 +41,7 @@ const Meeting = ({currentUser, currentMeeting}) => {
             console.log(response.data.candidateMeetings);
             const candidateMeetings = response.data.candidateMeetings;
             const cms = [];
-            for(let i = 0; i < candidateMeetings.length; i++){
+            for (let i = 0; i < candidateMeetings.length; i++) {
                cms.push({
                   date: candidateMeetings[i].start.substring(0, 10),
                   time: candidateMeetings[i].start.substring(11, 16),
@@ -54,76 +55,85 @@ const Meeting = ({currentUser, currentMeeting}) => {
    );
 
 
-    /* TODO: @Brandon I don't know how you are storing the meetingID
-       so i just hard coded the meetingID i have in my my database, changing it
-       to each instance of the meeting
+   /* TODO: @Brandon I don't know how you are storing the meetingID
+      so i just hard coded the meetingID i have in my my database, changing it
+      to each instance of the meeting
+   */
+   useEffect(() => {
+      setComment([]);
+      getComments({
+         meetingID: 'ZQTNN1'
+      }).then(response => {
+         const comments = response.data.comments;
+         comments.forEach((comment) => setComment(old => [...old, comment]));
+      });
+   }, []);
+
+   /* TODO: Same with this, meetingID, name and userID is currently hard coded, you will need to replace it with
+      however you are storing the meetingID and name
     */
-    useEffect(() => {
-        setComment([]);
-        getComments({
-            meetingID: 'ZQTNN1'
-        }).then(response => {
-            const comments = response.data.comments;
-            comments.forEach((comment) => setComment(old => [...old, comment]));
-        });
-    }, []);
+   function submitComment(event) {
+      event.preventDefault();
+      createComments({
+         meetingID: "ZQTNN1",
+         name: "fgfdgfdgfdfg",
+         userID: "18",
+         content: event.target[0].value
+      }).then(response => {
+         setComment(old => [...old, response.data]);
+         commentForm.current.reset();
+      });
+   }
 
-    /* TODO: Same with this, meetingID, name and userID is currently hard coded, you will need to replace it with
-       however you are storing the meetingID and name
-     */
-    function submitComment(event) {
-        event.preventDefault();
-        createComments({
-            meetingID: "ZQTNN1",
-            name: "fgfdgfdgfdfg",
-            userID: "18",
-            content: event.target[0].value
-        }).then(response => {
-            setComment(old => [...old, response.data]);
-            commentForm.current.reset();
-        });
-    }
+   console.log('userList: ', userList);
+   if (!guestID) {
+      return (
+         <div>
+            <UserList userList={userList}/>
+            <CreateGuest/>
+         </div>
+      );
+   }
 
-    return (
-        <div>
-            <div className="center aligned ui three column very relaxed grid">
+   return (
+      <div>
+         <div className="center aligned ui three column very relaxed grid">
 
-                <div className="column">
-                    <h3>Users</h3>
-                    {/*<UserList userList={userList}></UserList>*/}
-                </div>
+            <div className="column">
+               <UserList userList={userList}></UserList>
+            </div>
 
-                <div className="column">
-                    <h3>Candidate Meetings</h3>
-                    {/*<CandidateMeetingList candidateMeetings={candidateMeetings}/>*/}
-                </div>
+            <div className="column">
+               <h3>Candidate Meetings</h3>
+               <CandidateMeetingList candidateMeetings={candidateMeetings}/>
+            </div>
 
-                <div className="column">
-                    <h3 className="centered">Comments</h3>
-                    <div className={"card"} style={{overflow: "hidden", height: `${height - 155}px`}}>
-                        <CommentList comments={comments} height={height}/>
-                        {/* comment input */}
-                        <form ref={commentForm}
-                              className="ui centered reply form" onSubmit={e => submitComment(e)}>
-                            <div className="centered field">
+            <div className="column">
+               <h3 className="centered">Comments</h3>
+               <div className={"card"} style={{overflow: "hidden", height: `${height - 155}px`}}>
+                  <CommentList comments={comments} height={height}/>
+                  {/* comment input */}
+                  <form ref={commentForm}
+                        className="ui centered reply form" onSubmit={e => submitComment(e)}>
+                     <div className="centered field">
                             <textarea name="content"
                                       placeholder="What are your thoughts?"
-                                      style={{width: "90%", height:"50px"}}/>
-                            </div>
-                            <div style={{textAlign: "center"}}>
-                                <Button type="submit"
-                                        className="custom-button dark thick span"
-                                        style={{width: "90%"}}>
-                                    Comment
-                                </Button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
+                                      style={{width: "90%", height: "50px"}}/>
+                     </div>
+                     <div style={{textAlign: "center"}}>
+                        <Button type="submit"
+                                className="custom-button dark thick span"
+                                style={{width: "90%"}}>
+                           Comment
+                        </Button>
+                     </div>
+                  </form>
+               </div>
             </div>
-        </div>
-    );
+
+         </div>
+      </div>
+   );
 }
 
 export default Meeting;
