@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Button from './Button';
 import Card from './Card';
 //todo: create structure for candidateMeeting based on database schema
@@ -11,13 +11,6 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
    const [time, setTime] = useState('');
    const [length, setLength] = useState(0);
    const [error, setError] = useState(false);
-
-   useEffect(
-      () => {
-
-      },
-      [candidateMeetings]
-   );
 
    //called when the 'Add Option' button is clicked
    const onAddOption = (event) => {
