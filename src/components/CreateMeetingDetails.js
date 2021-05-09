@@ -63,7 +63,7 @@ const CreateMeetingDetails = ({guestID, setGuestID, meetingID, setMeetingDetails
         setSubmitFlag(!submitFlag);
 
         if(!renderErrors){
-            setCurrentUser(userName);
+            setGuestID(userName);
 
             const meetingDetail = {
                 name: userName,
@@ -89,24 +89,16 @@ const CreateMeetingDetails = ({guestID, setGuestID, meetingID, setMeetingDetails
 
             <div className="content">
                 <form className="ui large form" onSubmit={(e) => onCreateMeetingDetails(e)}>
-
-                    {
-                        currentUser.userID
-                            ?
-                            null
-                            :
-                            <div className="field">
-                                <label className="left aligned">Your Name</label>
-                                <input
-                                    type="text"
-                                    placeholder="Your Name"
-                                    name="meetingCreatorName"
-                                    value={userName}
-                                    onChange={(e) => setUserName(e.target.value)}
-                                />
-                            </div>
-                    }
-
+                    <div className="field">
+                        <label className="left aligned">Your Name</label>
+                        <input
+                            type="text"
+                            placeholder="Your Name"
+                            name="meetingCreatorName"
+                            value={userName}
+                            onChange={(e) => setUserName(e.target.value)}
+                        />
+                    </div>
                     <div className="field">
                         <label className="left aligned">Meeting Name</label>
                         <input
