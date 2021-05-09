@@ -9,6 +9,7 @@ import Register from './Register';
 import Meeting from './Meeting';
 import ProfilePage from './ProfilePage';
 import CreateGuest from './CreateGuest';
+import MeetingDetails from "./MeetingDetails";
 
 const App = () => {
    const [guestID, setGuestID] = useState(null);
@@ -34,30 +35,30 @@ const App = () => {
    return (
       <div>
          <Header />
-         <Route path='/'> <LandingPage guestID={guestID}/> </Route>
-
+         {/*<Route path='/'> <LandingPage guestID={guestID}/> </Route>*/}
+         <CreateGuest/>
          {/*<Route path='/createGuest'><CreateGuest/></Route>*/}
 
-         <Route path='/create'>
-            <CreateMeeting
-               guestID={guestID}
-               setGuestID={onUpdateGuestID}
-               meetingID={meetingID}
-               setMeetingID={setMeetingID}
-            />
-         </Route>
-         <Route path='/join'>
-            <JoinMeeting
-               guestID={guestID}
-               setMeetingID={setMeetingID}
-            />
-         </Route>
-         <Route path='/meeting'>
-            <Meeting
-               guestID={guestID}
-               meetingID={meetingID}
-            />
-         </Route>
+         {/*<Route path='/create'>*/}
+         {/*   <CreateMeeting*/}
+         {/*      guestID={guestID}*/}
+         {/*      setGuestID={onUpdateGuestID}*/}
+         {/*      meetingID={meetingID}*/}
+         {/*      setMeetingID={setMeetingID}*/}
+         {/*   />*/}
+         {/*</Route>*/}
+         {/*<Route path='/join'>*/}
+         {/*   <JoinMeeting*/}
+         {/*      guestID={guestID}*/}
+         {/*      setMeetingID={setMeetingID}*/}
+         {/*   />*/}
+         {/*</Route>*/}
+         {/*<Route path='/meeting'>*/}
+         {/*   <Meeting*/}
+         {/*      guestID={guestID}*/}
+         {/*      meetingID={meetingID}*/}
+         {/*   />*/}
+         {/*</Route>*/}
          <Footer/>
       </div>
    );
