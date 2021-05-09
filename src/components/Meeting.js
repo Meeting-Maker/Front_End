@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useRef} from "react";
-import api from '../services/api';
 import CommentList from "./CommentList";
 import {getComments, createComments} from "../services/Comment"
+import {getUsers} from "../services/Meeting"
+import {getCandidateMeetings} from "../services/CandidateMeeting";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Button from "./Button"
 import UserList from "./UserList";
@@ -11,67 +12,51 @@ import CreateGuest from "./CreateGuest";
 const Meeting = ({guestID, meetingID}) => {
    const [userList, setUserList] = useState([]);
    const [candidateMeetings, setCandidateMeetings] = useState([]);
-   const [comments, setComment] = useState([]); // state to keep track of comments
+   const [comments, setComments] = useState([]); // state to keep track of comments
    const commentForm = useRef(); // references to the comment form
    const {height} = useWindowDimensions();
 
    useEffect(() => {
-         const getUsers = async () => {
-            const response = await api.get('/getUsers',
-               {
-                  params: {
-                     meetingID: meetingID
-                  }
-               }
-            )
-            setUserList(response.data.users);
-         };
-         getUsers();
+         setUserList([]);
+         getUsers({
+            meetingID: meetingID
+         }).then(response => {
+            const users = response.data.users;
+            users.forEach(user => setUserList(old => [...old, user]));
+         });
 
-         const getCandidateMeetings = async () => {
-            const response = await api.get('/getCandidateMeetings',
-               {
-                  params: {
-                     meetingID: meetingID
-                  }
-               }
-            )
-            //todo: assign meetinglist
-            //todo: use service function to convert db date values
-            console.log(response.data.candidateMeetings);
-            const candidateMeetings = response.data.candidateMeetings;
-            const cms = [];
-            for (let i = 0; i < candidateMeetings.length; i++) {
-               cms.push({
-                  date: candidateMeetings[i].start.substring(0, 10),
-                  time: candidateMeetings[i].start.substring(11, 16),
-                  length: candidateMeetings[i].length
-               });
-            }
-            setCandidateMeetings(cms);
-         };
-         getCandidateMeetings();
+         setComments([]);
+         getComments({
+            meetingID: meetingID
+         }).then(response => {
+            const comments = response.data.comments;
+            comments.forEach((comment) => setComments(old => [...old, comment]));
+         });
+
+         setCandidateMeetings([]);
+         getCandidateMeetings({
+            meetingID: meetingID
+         }).then(response => {
+            const candidateMeetings = response.data.candidateMeetings
+            candidateMeetings.forEach((candidateMeeting) => {
+               setCandidateMeetings(old => [...old, {
+                  date: candidateMeeting.start.substring(0, 10),
+                  time: candidateMeeting.start.substring(11, 16),
+                  length: candidateMeeting.length
+               }])
+            })
+         });
       }, []
    );
 
-
    /* TODO: @Brandon I don't know how you are storing the meetingID
-      so i just hard coded the meetingID i have in my my database, changing it
-      to each instance of the meeting
+       so i just hard coded the meetingID i have in my my database, changing it
+       to each instance of the meeting
    */
-   useEffect(() => {
-      setComment([]);
-      getComments({
-         meetingID: 'ZQTNN1'
-      }).then(response => {
-         const comments = response.data.comments;
-         comments.forEach((comment) => setComment(old => [...old, comment]));
-      });
-   }, []);
 
    /* TODO: Same with this, meetingID, name and userID is currently hard coded, you will need to replace it with
-      however you are storing the meetingID and name
-    */
+       however you are storing the meetingID and name
+   */
    function submitComment(event) {
       event.preventDefault();
       createComments({
@@ -80,12 +65,11 @@ const Meeting = ({guestID, meetingID}) => {
          userID: "18",
          content: event.target[0].value
       }).then(response => {
-         setComment(old => [...old, response.data]);
+         setComments(old => [...old, response.data]);
          commentForm.current.reset();
       });
    }
 
-   console.log('userList: ', userList);
    if (!guestID) {
       return (
          <div>
@@ -100,7 +84,8 @@ const Meeting = ({guestID, meetingID}) => {
          <div className="center aligned ui three column very relaxed grid">
 
             <div className="column">
-               <UserList userList={userList}></UserList>
+               <h3>Users</h3>
+               <UserList userList={userList}/>
             </div>
 
             <div className="column">
@@ -130,7 +115,6 @@ const Meeting = ({guestID, meetingID}) => {
                   </form>
                </div>
             </div>
-
          </div>
       </div>
    );
