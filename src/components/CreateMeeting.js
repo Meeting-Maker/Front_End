@@ -37,7 +37,7 @@ const CreateMeeting = ({currentGuest, setCurrentGuest, meetingID, setMeetingID})
    };
 
    //todo: convert CreateMeeting button in CreateCandidateMeetings component to Link,
-   // remove window.history.pushState here
+   //remove window.history.pushState here
    const onCreateMeeting = async () => {
       storeCurrentGuest({
          id: currentGuest.id,

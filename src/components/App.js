@@ -7,6 +7,9 @@ import Footer from './Footer';
 import CreateMeeting from './CreateMeeting';
 import JoinMeeting from './JoinMeeting';
 import Meeting from './Meeting';
+import ProfilePage from './ProfilePage';
+import CreateGuest from './CreateGuest';
+import MeetingDetails from "./MeetingDetails";
 
 const App = () => {
    const [currentGuest, setCurrentGuest] = useState({id: null, name: ''});

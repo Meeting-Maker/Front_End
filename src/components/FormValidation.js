@@ -32,7 +32,6 @@ const FormValidation = ({config, submitFlag, setRenderErrors}) => {
                 }
             }
 
-
             if (field.hasOwnProperty('requiredFuture')) {
 
                 let now = new Date();
