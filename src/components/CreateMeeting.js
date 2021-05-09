@@ -66,7 +66,7 @@ const CreateMeeting = ({guestID, setGuestID, meetingID, setMeetingID}) => {
                guestID={guestID}
                setGuestID={setGuestID}
                meetingID={meetingID}
-               setMeetingDetails={setMeetingDetails}            />
+               setMeetingDetails={setMeetingDetails}/>
          </div>
       );
    }

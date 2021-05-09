@@ -30,7 +30,7 @@ const Meeting = ({guestID, meetingID}) => {
             meetingID: meetingID
          }).then(response => {
             const comments = response.data.comments;
-            comments.forEach((comment) => setComments(old => [...old, comment]));
+            setComments(comments);
          });
 
          setCandidateMeetings([]);
@@ -61,12 +61,23 @@ const Meeting = ({guestID, meetingID}) => {
       event.preventDefault();
       createComments({
          meetingID: "ZQTNN1",
-         name: "fgfdgfdgfdfg",
-         userID: "18",
+         name: "anotheruser",
+         userID: "19",
          content: event.target[0].value
       }).then(response => {
          setComments(old => [...old, response.data]);
          commentForm.current.reset();
+      });
+   }
+
+   function updateComments() {
+      setComments([]);
+      getComments({
+         meetingID: "ZQTNN1"
+      }).then(response => {
+         const comments = response.data.comments;
+         console.log(comments);
+         setComments(comments);
       });
    }
 
@@ -96,7 +107,10 @@ const Meeting = ({guestID, meetingID}) => {
             <div className="column">
                <h3 className="centered">Comments</h3>
                <div className={"card"} style={{overflow: "hidden", height: `${height - 155}px`}}>
-                  <CommentList comments={comments} height={height}/>
+                  <CommentList
+                     updateComments={updateComments}
+                     comments={comments}
+                     height={height}/>
                   {/* comment input */}
                   <form ref={commentForm}
                         className="ui centered reply form" onSubmit={e => submitComment(e)}>

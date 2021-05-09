@@ -1,14 +1,15 @@
 import Comment from './Comment';
+import React from "react";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default ({comments, height}) => {
+export default (props) => {
 
-    const renderList = comments.map((comment) => {
+    const renderList = props.comments.map((comment) => {
         return (
             <div key={comment.commentID} className={"item"} style={{paddingTop: "0.5em"}}>
                 <div className={"content"}>
                     <div>
-                        <Comment name={comment.name} date={comment.createdAt} content={comment.content}/>
+                        <Comment updateComments={props.updateComments} commentUserID={comment.userID} commentID={comment.commentID} name={comment.name} date={comment.createdAt} content={comment.content}/>
                     </div>
                 </div>
             </div>
