@@ -12,6 +12,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
     const [dueDate, setDueDate] = useState('');
     const [dueTime, setDueTime] = useState('');
     const [pollType, setPollType] = useState(0);
+
     const [submitFlag, setSubmitFlag] = useState(false);
     const [renderErrors, setRenderErrors] = useState(false);
 
@@ -19,7 +20,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
         {
             field: {
                 value: userName,
-                name: 'Name',
+                name: 'Your Name',
                 minLength: 0,
             }
         },
@@ -38,19 +39,12 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
         },
         {
             field: {
-                value: dueDate,
-                name: 'Meeting Date',
+                value: dueDate + 'T' + dueTime,
+                name: 'Response Needed By',
                 minLength: 0,
-                date: true,
+                requiredFuture: true,
             }
         },
-        {
-            field: {
-                value: dueTime,
-                name: 'Meeting Time',
-                minLength: 0,
-            }
-        }
     ]
 
     const onCreateMeetingDetails = (event) => {
@@ -59,22 +53,24 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
 
         setSubmitFlag(!submitFlag);
 
+        if(!renderErrors){
+            setCurrentUser(userName);
 
-        //need to call this code only after the form has been validated
+            const meetingDetail = {
+                name: userName,
+                meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
+                title: meetingName,
+                description: meetingDescription,
+                dueDate: dueDate + 'T' + dueTime + ':00',
+                pollType: pollType
+            };
 
-        // setCurrentUser(userName);
-        //
-        // const meetingDetail = {
-        //     name: userName,
-        //     meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
-        //     title: meetingName,
-        //     description: meetingDescription,
-        //     dueDate: dueDate + 'T' + dueTime + ':00',
-        //     pollType: pollType
-        // };
-        //
-        // console.log(meetingDetail);
-        // setMeetingDetails(meetingDetail);
+            console.log(meetingDetail);
+            setMeetingDetails(meetingDetail);
+
+        }
+
+
     };
 
     return (
@@ -165,7 +161,8 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                         ?
                         <FormValidation
                             config={config}
-                            submitFlag={submitFlag}>
+                            submitFlag={submitFlag}
+                        setRenderErrors={setRenderErrors}>
                         </FormValidation>
                         : null
                 }

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-const FormValidation = ({config, submitFlag}) => {
+const FormValidation = ({config, submitFlag, setRenderErrors}) => {
 
     const [errors, setErrors] = useState([]);
 
@@ -12,20 +12,19 @@ const FormValidation = ({config, submitFlag}) => {
 
 
     const validateForm = () => {
-
         let tempErrorsArray = [];
 
         for (let i = 0; i < config.length; i++) {
             const field = config[i].field
-            const key = field.value;
+            const value = field.value;
 
             if (field.hasOwnProperty('minLength')) {
-                if (key === '') {
+                if (value === '' || value === 'T') {
                     tempErrorsArray.push({
                         message: field.name + ' is required.',
                         key: field.name + '-required'
                     });
-                } else if (key.length < field.minLength) {
+                } else if (value.length < field.minLength) {
                     tempErrorsArray.push({
                         message: field.name + ' must be ' + field.minLength + ' characters long.',
                         key: field.name + '-minLength'
@@ -34,25 +33,31 @@ const FormValidation = ({config, submitFlag}) => {
             }
 
 
-            //fix this
-            if(field.hasOwnProperty('date')){
+            if (field.hasOwnProperty('requiredFuture')) {
+
                 let now = new Date();
-                console.log("date", key);
-                console.log("today", now);
-                console.log("month", now.getMonth());
-                console.log("day", now.getDay());
-               // now.setHours(0,0,0,0)
-               //  if(key < now){
-               //      console.log('past');
-               //  }
+
+                const [date, time] = value.split('T');
+                const [year, month, day] = date.split('-');
+                const [hour, minute] = time.split(':');
+
+                let selectedDate = new Date(parseInt(year), month - 1, parseInt(day), parseInt(hour),
+                    parseInt(minute), 0, 0);
+
+                if (selectedDate < now) {
+                    tempErrorsArray.push({
+                        message: field.name + ' has already passed.',
+                        key: field.name + '-date'
+                    })
+                }
             }
-
-            //todo: date validation future/past
-
         }
 
         setErrors(tempErrorsArray);
-        console.log(errors);
+
+        if(tempErrorsArray.length === 0){
+            console.log('validated');
+        }
     };
 
 
