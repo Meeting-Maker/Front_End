@@ -6,10 +6,11 @@ import Card from './Card';
 //todo: fix concat to append new option to candidateList
 //todo: onCreateMeeting does not prevent default / causes error. return list to parent component with onFormSubmit
 
-const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCandidateMeeting}) => {
+const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting, onCreateCandidateMeeting}) => {
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
    const [length, setLength] = useState(0);
+   const [error, setError] = useState(false);
 
    useEffect(
       () => {
@@ -22,7 +23,23 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
    const onAddOption = (event) => {
       event.preventDefault();
 
-      const option = {date: date, time: time, length: length};
+      if(
+        date === ''
+        || time === ''
+        || length < 15
+      ){
+        setError(true);
+        return;
+      }else{
+        setError(false);
+      }
+
+      const option = {
+         start: date + 'T' + time + ':00',
+         end: date + 'T' + time + ':00',
+         length: length,
+         meetingID: meetingID
+      };
 
       if (!isValidCandidate(option)) return false;
 
@@ -43,12 +60,13 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
       if (candidateMeetings.length < 2) {
          console.error('You need at least two candidates to create a meeting.');
       } else {
+         //todo: use service file to create time values compatible with db
          onCreateMeeting();
       }
    }
 
    return (
-      <Card width="25%">
+      <Card width="25%" padding="2rem 0 0 0">
          <div className="content">
             <div className="header">
                Create Your Meeting
@@ -64,6 +82,7 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
                      placeholder="Meeting Date"
                      value={date}
                      onChange={(e) => setDate(e.target.value)}
+                     required
                   />
                </div>
 
@@ -74,28 +93,52 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
                      placeholder="Meeting Time"
                      value={time}
                      onChange={(e) => setTime(e.target.value)}
+                     required
                   />
                </div>
 
                <div className="field">
-                  <label className="left aligned">Length</label>
+                  <label className="left aligned">Length (Minutes)</label>
                   <input
                      type="text"
                      placeholder="Length (minutes)"
                      value={length}
                      onChange={(e) => setLength(e.target.value)}
+                     required
                   />
                </div>
 
-               <Button className="custom-button dark thin" onClick={(e) => onAddOption(e)}>
-                  Add Option
-               </Button>
-               {' '}
-               <Button className="custom-button dark thin" onClick={() => onFormSubmit()}>
-                  Create Meeting
-               </Button>
-
+               <div style={{textAlign: "center"}}>
+                 <Button className="custom-button dark thin" onClick={(e) => onAddOption(e)}>
+                    Add Option
+                 </Button>
+                 {' '}
+                 <Button className="custom-button dark thin" onClick={() => onFormSubmit()}>
+                    Create Meeting
+                 </Button>
+               </div>
             </form>
+            {
+              error && ( date === ''
+                 || time === ''
+                 || length < 15)
+                 ?
+                 <div
+                    className="ui error message"
+                    style={{textAlign: "center", padding: "0.25rem 0.25rem", marginTop: "0.5rem"}}
+                 >
+                    {  date
+                          ? null
+                          : <p>Please enter a meeting date.</p> }
+                    {  time
+                          ? null
+                          : <p>Please enter a meeting time.</p> }
+                    {  length > 15
+                          ? null
+                          : <p>Please enter a meeting length. (at least 15 minutes)</p> }
+                 </div>
+                 : null
+            }
          </div>
       </Card>
 

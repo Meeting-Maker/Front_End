@@ -3,8 +3,9 @@ import CreateMeetingDetails from "./CreateMeetingDetails";
 import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";
 import api from "../services/api";
+import {customAlphabet} from "nanoid";
 
-const CreateMeeting = ({currentUser, setCurrentUser, setCurrentMeeting}) => {
+const CreateMeeting = ({guestID, setGuestID, meetingID, setMeetingID}) => {
    const [candidateMeetings, setCandidateMeetings] = useState([]);
    const [meetingDetails, setMeetingDetails] = useState({
       name: '',
@@ -17,21 +18,35 @@ const CreateMeeting = ({currentUser, setCurrentUser, setCurrentMeeting}) => {
 
    useEffect(
       () => {
-         console.log('Create Meeting Rendered (useEffect)');
-         //return cleanup
+         if(!meetingID){
+            const id = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)();
+            console.log('MEETING ID GENERATED: ' + id);
+            setMeetingID(id);
+            const tempMeetingDetails = meetingDetails;
+            tempMeetingDetails.meetingID = id;
+            setMeetingDetails(tempMeetingDetails);
+         }
       },
-      [currentUser, meetingDetails.meetingID]
+      []
    );
 
    const onCreateCandidateMeeting = (candidateMeeting) => {
       setCandidateMeetings(candidateMeetings.concat([candidateMeeting]));
+      console.log('meetingID: ' + meetingID);
    };
 
    //todo: convert CreateMeeting button in CreateCandidateMeetings component to Link,
    // remove window.history.pushState here
    const onCreateMeeting = async () => {
+      localStorage.setItem('guestID', meetingDetails.name);
       await api.post('/createGuestMeeting', meetingDetails);
-      setCurrentMeeting(meetingDetails.meetingID);
+
+      //todo: fix 'end' value, which needs to be calculated using date functions
+      for(let i = 0; i < candidateMeetings.length; i++){
+         await api.post('/createCandidateMeeting',
+            candidateMeetings[i]
+         );
+      }
 
       window.history.pushState(
          {},
@@ -44,14 +59,14 @@ const CreateMeeting = ({currentUser, setCurrentUser, setCurrentMeeting}) => {
    };
 
    //if user or meeting has not been set, get those details
-   if (!currentUser || !meetingDetails.meetingID) {
+   if (!meetingDetails.name || !meetingDetails.dueDate || !meetingDetails.title) {
       return (
          <div>
             <CreateMeetingDetails
-               currentUser={currentUser}
-               setCurrentUser={setCurrentUser}
-               setMeetingDetails={setMeetingDetails}
-            />
+               guestID={guestID}
+               setGuestID={setGuestID}
+               meetingID={meetingID}
+               setMeetingDetails={setMeetingDetails}            />
          </div>
       );
    }
@@ -60,6 +75,7 @@ const CreateMeeting = ({currentUser, setCurrentUser, setCurrentMeeting}) => {
    return (
       <div>
          <CreateCandidateMeetings
+            meetingID={meetingID}
             candidateMeetings={candidateMeetings}
             onCreateCandidateMeeting={(candidateMeeting) => onCreateCandidateMeeting(candidateMeeting)}
             onCreateMeeting={onCreateMeeting}
@@ -68,35 +84,5 @@ const CreateMeeting = ({currentUser, setCurrentUser, setCurrentMeeting}) => {
       </div>
    );
 };
-
-const postNewGuestUser = async () => {
-   try {
-      const result = await api.post('createGuestUser', {
-         name: 'from front_end',
-         meetingID: "abc987",
-         title: 'title from front_end',
-         description: 'description from front_end',
-         pollType: 1
-      });
-      console.log(result.data);
-   } catch (err) {
-      console.log('error', err);
-   }
-}
-
-const postMeeting = async () => {
-   try {
-      const result = await api.post('createGuestMeeting', {
-         name: 'from front_end',
-         meetingID: "abc987",
-         title: 'title from front_end',
-         description: 'description from front_end',
-         pollType: 1
-      });
-      console.log(result.data);
-   } catch (err) {
-      console.log('error', err);
-   }
-}
 
 export default CreateMeeting;

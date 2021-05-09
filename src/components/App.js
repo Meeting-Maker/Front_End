@@ -5,40 +5,62 @@ import LandingPage from './LandingPage';
 import Footer from './Footer';
 import CreateMeeting from './CreateMeeting';
 import JoinMeeting from './JoinMeeting';
-import Meeting from "./Meeting";
+import Register from './Register';
+import Meeting from './Meeting';
+import ProfilePage from './ProfilePage';
+import CreateGuest from './CreateGuest';
 
 const App = () => {
-    const [currentUser, setCurrentUser] = useState({userID: null});
-    const [currentMeeting, setCurrentMeeting] = useState('');
+   const [guestID, setGuestID] = useState(null);
+   const [meetingID, setMeetingID] = useState('');
 
-    return (
-        <div>
+   useEffect(
+      () => {
+         const fetchGuestID = async () => {
+            const tempGuestID = localStorage.getItem('guestID');
+            await setGuestID(tempGuestID);
+            console.log('GUEST LOADED: ' + tempGuestID);
+         }
+         fetchGuestID();
+      }
+      , []
+   );
 
-            <Header/>
-            {/*<Route path='/'> <LandingPage currentUser={currentUser}/> </Route>*/}
-            {/*<Route path='/create'>*/}
-            {/*    <CreateMeeting*/}
-            {/*        currentUser={currentUser}*/}
-            {/*        setCurrentUser={setCurrentUser}*/}
-            {/*        setCurrentMeeting={setCurrentMeeting}*/}
-            {/*    />*/}
-            {/*</Route>*/}
-            {/*<Route path='/join'>*/}
-            {/*    <JoinMeeting*/}
-            {/*        currentUser={currentUser}*/}
-            {/*        setCurrentMeeting={setCurrentMeeting}*/}
-            {/*    />*/}
-            {/*</Route>*/}
-            {/*<Route path='/meeting'>*/}
-            {/*    <Meeting*/}
-            {/*        currentUser={currentUser}*/}
-            {/*        currentMeeting={currentMeeting}*/}
-            {/*    />*/}
-            {/*</Route>*/}
-            <Meeting />
-            <Footer/>
-        </div>
-    );
+   const onUpdateGuestID = (newGuestID) => {
+      localStorage.setItem('guestID', newGuestID)
+      setGuestID(newGuestID);
+   }
+
+   return (
+      <div>
+         <Header />
+         <Route path='/'> <LandingPage guestID={guestID}/> </Route>
+
+         {/*<Route path='/createGuest'><CreateGuest/></Route>*/}
+
+         <Route path='/create'>
+            <CreateMeeting
+               guestID={guestID}
+               setGuestID={onUpdateGuestID}
+               meetingID={meetingID}
+               setMeetingID={setMeetingID}
+            />
+         </Route>
+         <Route path='/join'>
+            <JoinMeeting
+               guestID={guestID}
+               setMeetingID={setMeetingID}
+            />
+         </Route>
+         <Route path='/meeting'>
+            <Meeting
+               guestID={guestID}
+               meetingID={meetingID}
+            />
+         </Route>
+         <Footer/>
+      </div>
+   );
 };
 
 export default App;

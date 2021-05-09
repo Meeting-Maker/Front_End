@@ -1,7 +1,10 @@
 import React from "react";
-import {Card} from 'react-bootstrap';
+import Card from './Card';
 
 const UserList = ({userList}) => {
+
+   console.error(userList);
+
    const onUserClick = (userID) => {
       //do something
       console.log('userID: ' + userID);
@@ -9,13 +12,9 @@ const UserList = ({userList}) => {
 
    if(userList.length === 0){
       return (
-         <div>
-            <Card>
-               <Card.Body>
-                  There are no users
-               </Card.Body>
-            </Card>
-         </div>
+         <Card>
+            There are no users
+         </Card>
       );
    }
 
@@ -23,20 +22,20 @@ const UserList = ({userList}) => {
       return (
          <div key={user.id} onClick={() => onUserClick(user.id)}>
             <Card>
-               <Card.Body>
                   {user.name}
-               </Card.Body>
             </Card>
          </div>
       );
    });
 
-   return <div>
+   return (
+     <div>
       <h2>
-         Users
+        Users
       </h2>
       {renderedList}
-   </div>;
+     </div>
+ );
 };
 
 export default UserList;
