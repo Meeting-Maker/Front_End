@@ -13,7 +13,7 @@ const Footer = () => {
           <div className="footer-text ui grid">
             <div className="one wide column">
               <a href="https://github.com/Meeting-Maker">
-                <Icon path={mdiGithub} size={2}/>
+                <Icon path={mdiGithub} size={1}/>
               </a>
             </div>
 

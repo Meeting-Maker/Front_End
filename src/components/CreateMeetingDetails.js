@@ -1,20 +1,29 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from './Button';
-import Link from '../router/Link';
 import Card from './Card';
 import {customAlphabet} from 'nanoid';
 import FormValidation from "./FormValidation";
 
-const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) => {
+const CreateMeetingDetails = ({guestID, setGuestID, meetingID, setMeetingDetails}) => {
     const [userName, setUserName] = useState('');
     const [meetingName, setMeetingName] = useState('');
     const [meetingDescription, setMeetingDescription] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [dueTime, setDueTime] = useState('');
     const [pollType, setPollType] = useState(0);
-
     const [submitFlag, setSubmitFlag] = useState(false);
     const [renderErrors, setRenderErrors] = useState(false);
+  
+     useEffect(
+      () => {
+         async function loadUserName() {
+            if(guestID){
+               await setUserName(guestID);
+            }
+         }
+         loadUserName();
+      }, [guestID]
+   );
 
     const config = [
         {
@@ -45,7 +54,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                 requiredFuture: true,
             }
         },
-    ]
+    ];
 
     const onCreateMeetingDetails = (event) => {
         event.preventDefault();
@@ -64,13 +73,9 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                 dueDate: dueDate + 'T' + dueTime + ':00',
                 pollType: pollType
             };
-
             console.log(meetingDetail);
             setMeetingDetails(meetingDetail);
-
         }
-
-
     };
 
     return (

@@ -2,6 +2,9 @@ import React from "react";
 import Card from './Card';
 
 const UserList = ({userList}) => {
+
+   console.error(userList);
+
    const onUserClick = (userID) => {
       //do something
       console.log('userID: ' + userID);
