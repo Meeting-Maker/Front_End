@@ -1,15 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import CodeInput from "./CodeInput";
-import UserList from "./UserList";
-import CreateGuest from "./CreateGuest";
-import api from '../services/api';
 
 //todo: conditionally render userName field, only if user is not logged in
 
-const JoinMeeting = ({guestID, setMeetingID}) => {
+const JoinMeeting = ({currentGuest, setMeetingID}) => {
    const [meetingCode, setMeetingCode] = useState('');
-   const [userID, setUserID] = useState('');
-   const [userList, setUserList] = useState([]);
 
    const onJoinMeeting = async (meetingID) => {
       if (!isValidJoinCode(meetingID)) return;
@@ -27,20 +22,6 @@ const JoinMeeting = ({guestID, setMeetingID}) => {
 
       const navEvent = new PopStateEvent('popstate');
       window.dispatchEvent(navEvent)
-   }
-
-   const onCreateGuestUser = async (userName) => {
-      console.log('in on create guest user function');
-
-      const guestUser = {
-         name: userName,
-         meetingID: meetingCode
-      };
-
-      const result = await api.post('/createGuestUser', guestUser);
-      console.log(result);
-
-      setUserList(userList.concat(guestUser));
    }
 
    return (

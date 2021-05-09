@@ -4,7 +4,7 @@ import Card from './Card';
 import {customAlphabet} from 'nanoid';
 import FormValidation from "./FormValidation";
 
-const CreateMeetingDetails = ({guestID, setGuestID, meetingID, setMeetingDetails}) => {
+const CreateMeetingDetails = ({currentGuest, setCurrentGuest, meetingID, setMeetingDetails}) => {
     const [userName, setUserName] = useState('');
     const [meetingName, setMeetingName] = useState('');
     const [meetingDescription, setMeetingDescription] = useState('');
@@ -17,12 +17,12 @@ const CreateMeetingDetails = ({guestID, setGuestID, meetingID, setMeetingDetails
      useEffect(
       () => {
          async function loadUserName() {
-            if(guestID){
-               await setUserName(guestID);
+            if(currentGuest.name){
+               await setUserName(currentGuest.name);
             }
          }
          loadUserName();
-      }, [guestID]
+      }, [currentGuest]
    );
 
     const config = [
@@ -63,7 +63,10 @@ const CreateMeetingDetails = ({guestID, setGuestID, meetingID, setMeetingDetails
         setSubmitFlag(!submitFlag);
 
         if(!renderErrors){
-            setGuestID(userName);
+            setCurrentGuest({
+                id: currentGuest.id,
+                name: userName
+            });
 
             const meetingDetail = {
                 name: userName,

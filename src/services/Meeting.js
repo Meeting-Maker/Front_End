@@ -17,7 +17,7 @@ export async function createGuestMeeting(meetingDetails) {
 }
 
 export async function addGuest(guestDetails) {
-    await api.post('/addGuestUser', guestDetails);
+    return await api.post('/addGuestUser', guestDetails);
 }
 
 export async function editMeetingType(meetingType) {
