@@ -18,13 +18,13 @@ const Footer = () => {
             </div>
 
             <div className="fourteen wide right aligned column" style={{textAlign: "center"}}>
-              <Link href="/" className="no-hover">
+              <a href="mailto:meeting.maker@outlook.com?subject=Meeting Maker Contact" className="no-hover">
                 Contact Us
-              </Link>
+              </a>
               {' '}&bull;{' '}
-              <Link href="/" className="no-hover">
+              <a href="mailto:meeting.maker@outlook.com?subject=Meeting Maker Bug"  className="no-hover">
                 Report a Bug
-              </Link>
+              </a>
             </div>
             <div className="one wide column">
 
