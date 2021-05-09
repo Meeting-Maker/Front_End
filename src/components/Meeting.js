@@ -56,9 +56,7 @@ const Meeting = ({currentUser, currentMeeting}) => {
 
    return (
       <div>
-         <h3>Users</h3>
          <UserList userList={userList}></UserList>
-         <h3>Candidate Meetings</h3>
          <CandidateMeetingList candidateMeetings={candidateMeetings}/>
       </div>
    );

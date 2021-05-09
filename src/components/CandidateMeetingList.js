@@ -22,12 +22,9 @@ const CandidateMeetingList = ({candidateMeetings}) => {
       return (
          //sets unique key by concatenating info from candidateMeeting
          <div key={candidateMeeting.date + '-' + candidateMeeting.time + '-' + candidateMeeting.length} onClick={() => onCandidateMeetingClick(candidateMeeting)}>
-
                   {candidateMeeting.date}, {`at `}
                   {candidateMeeting.time}<br/>
                   {candidateMeeting.length} minutes
-
-
          </div>
       );
    });
