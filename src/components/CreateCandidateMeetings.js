@@ -55,6 +55,7 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
       if (candidateMeetings.length < 2) {
          console.error('You need at least two candidates to create a meeting.');
       } else {
+         //todo: use service file to create time values compatible with db
          onCreateMeeting();
       }
    }

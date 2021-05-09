@@ -47,8 +47,18 @@ const Meeting = ({currentUser, currentMeeting}) => {
                }
             )
             //todo: assign meetinglist
-            console.log(response.data);
-            //setCandidateMeetings(response.data);
+            //todo: use service function to convert db date values
+            console.log(response.data.candidateMeetings);
+            const candidateMeetings = response.data.candidateMeetings;
+            const cms = [];
+            for(let i = 0; i < candidateMeetings.length; i++){
+               cms.push({
+                  date: candidateMeetings[i].start.substring(0, 10),
+                  time: candidateMeetings[i].start.substring(11, 16),
+                  length: candidateMeetings[i].length
+               });
+            }
+            setCandidateMeetings(cms);
          };
          getCandidateMeetings();
       }, []
