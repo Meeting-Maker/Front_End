@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import Button from './Button';
-import Link from '../router/Link';
 import Card from './Card';
-import {customAlphabet} from 'nanoid';
 
-const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) => {
+const CreateMeetingDetails = ({currentUser, setCurrentUser, meetingID, setMeetingDetails}) => {
    const [userName, setUserName] = useState('');
    const [meetingName, setMeetingName] = useState('');
    const [meetingDescription, setMeetingDescription] = useState('');
@@ -32,7 +30,7 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
 
       const meetingDetail = {
          name: userName,
-         meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
+         meetingID: meetingID,
          title: meetingName,
          description: meetingDescription,
          dueDate: dueDate + 'T' + dueTime + ':00',

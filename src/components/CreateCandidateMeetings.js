@@ -6,7 +6,7 @@ import Card from './Card';
 //todo: fix concat to append new option to candidateList
 //todo: onCreateMeeting does not prevent default / causes error. return list to parent component with onFormSubmit
 
-const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCandidateMeeting}) => {
+const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting, onCreateCandidateMeeting}) => {
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
    const [length, setLength] = useState(0);
@@ -34,7 +34,12 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
         setError(false);
       }
 
-      const option = {date: date, time: time, length: length};
+      const option = {
+         start: date + 'T' + time + ':00',
+         end: date + 'T' + time + ':00',
+         length: length,
+         meetingID: meetingID
+      };
 
       if (!isValidCandidate(option)) return false;
 

@@ -6,7 +6,7 @@ import api from '../services/api';
 
 //todo: conditionally render userName field, only if user is not logged in
 
-const JoinMeeting = ({currentUser, setCurrentMeeting}) => {
+const JoinMeeting = ({currentUser, setMeetingID}) => {
    const [meetingCode, setMeetingCode] = useState('');
    const [userID, setUserID] = useState('');
    const [userList, setUserList] = useState([]);
@@ -15,7 +15,7 @@ const JoinMeeting = ({currentUser, setCurrentMeeting}) => {
       if (!isValidJoinCode(meetingID)) return;
       console.log('Valid Code Entered: ' + meetingID);
       setMeetingCode(meetingID);
-      setCurrentMeeting(meetingID);
+      setMeetingID(meetingID);
 
       //todo: change to work with link component instead
       //change href to meeting

@@ -6,7 +6,7 @@ import api from '../services/api';
 
 //todo: conditional rendering for types of meeting (poll/common availability)
 
-const Meeting = ({currentUser, currentMeeting}) => {
+const Meeting = ({currentUser, meetingID}) => {
    const [userList, setUserList] = useState([]);
    const [candidateMeetings, setCandidateMeetings] = useState([]);
 
@@ -16,7 +16,7 @@ const Meeting = ({currentUser, currentMeeting}) => {
    //          const response = await api.get('/getCandidateMeetings',
    //             {
    //                params: {
-   //                   meetingID: currentMeeting
+   //                   meetingID: meetingID
    //                }
    //             }
    //          );
@@ -30,7 +30,7 @@ const Meeting = ({currentUser, currentMeeting}) => {
             const response = await api.get('/getUsers',
                {
                   params: {
-                     meetingID: currentMeeting
+                     meetingID: meetingID
                   }
                }
             )
@@ -42,7 +42,7 @@ const Meeting = ({currentUser, currentMeeting}) => {
             const response = await api.get('/getCandidateMeetings',
                {
                   params: {
-                     meetingID: currentMeeting
+                     meetingID: meetingID
                   }
                }
             )
@@ -66,7 +66,7 @@ const Meeting = ({currentUser, currentMeeting}) => {
 
    return (
       <div>
-         <UserList userList={userList}></UserList>
+         <UserList userList={userList}/>
          <CandidateMeetingList candidateMeetings={candidateMeetings}/>
       </div>
    );

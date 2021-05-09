@@ -1,14 +1,12 @@
-import React from "react";
+import React from 'react';
+import Button from './Button';
 
-const CandidateMeetingList = ({candidateMeetings}) => {
-
+const CandidateMeetingList = ({meetingID, candidateMeetings}) => {
    //todo: convert to unique id from database
    const onCandidateMeetingClick = (candidateMeeting) => {
       //do something
       console.log('candidate meeting clicked: ', candidateMeeting);
    };
-
-   console.log('cm: ', candidateMeetings);
 
    if (candidateMeetings.length === 0) {
       return (
@@ -18,19 +16,22 @@ const CandidateMeetingList = ({candidateMeetings}) => {
       );
    }
 
+   const onDeleteCandidateMeeting = (meetingID) =>{
+      //delete candidate from db
+      console.log("deleted candidate: " + meetingID);
+   }
+
+   //todo: render with nice date formats
    const renderedList = candidateMeetings.map((candidateMeeting) => {
       return (
          //sets unique key by concatenating info from candidateMeeting
-         <div key={candidateMeeting.date + '-' + candidateMeeting.time + '-' + candidateMeeting.length} onClick={() => onCandidateMeetingClick(candidateMeeting)}>
-                  {candidateMeeting.date}, {`at `}
-                  {candidateMeeting.time}<br/>
+         <div key={candidateMeeting.meetingID + '-' + candidateMeeting.start + '-' + candidateMeeting.length} onClick={() => onCandidateMeetingClick(candidateMeeting)}>
+                  {candidateMeeting.start}<br/>
                   {candidateMeeting.length} minutes
+                  <Button className="custom-button dark thick" onClick={() =>onDeleteCandidateMeeting(candidateMeeting)}>Delete</Button>
          </div>
       );
    });
-
-
-   console.log('rendered list: ', renderedList);
 
    return (
       <div>

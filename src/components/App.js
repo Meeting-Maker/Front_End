@@ -13,7 +13,7 @@ import CreateGuest from './CreateGuest';
 
 const App = () => {
    const [currentUser, setCurrentUser] = useState({userID: null});
-   const [currentMeeting, setCurrentMeeting] = useState('');
+   const [meetingID, setMeetingID] = useState('');
 
    return (
       <div>
@@ -26,19 +26,20 @@ const App = () => {
             <CreateMeeting
                currentUser={currentUser}
                setCurrentUser={setCurrentUser}
-               setCurrentMeeting={setCurrentMeeting}
+               meetingID={meetingID}
+               setMeetingID={setMeetingID}
             />
          </Route>
          <Route path='/join'>
             <JoinMeeting
                currentUser={currentUser}
-               setCurrentMeeting={setCurrentMeeting}
+               setMeetingID={setMeetingID}
             />
          </Route>
          <Route path='/meeting'>
             <Meeting
                currentUser={currentUser}
-               currentMeeting={currentMeeting}
+               meetingID={meetingID}
             />
          </Route>
          <Footer/>
