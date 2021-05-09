@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Route from '../router/Route';
 import Header from './Header';
 import LandingPage from './LandingPage';
 import Footer from './Footer';
-import Login from './Login';
 import CreateMeeting from './CreateMeeting';
 import JoinMeeting from './JoinMeeting';
 import Register from './Register';
