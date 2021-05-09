@@ -4,8 +4,9 @@ import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";
 import api from "../services/api";
 import {customAlphabet} from "nanoid";
+import {storeCurrentGuest} from "../services/LocalStorage";
 
-const CreateMeeting = ({guestID, setGuestID, meetingID, setMeetingID}) => {
+const CreateMeeting = ({currentGuest, setCurrentGuest, meetingID, setMeetingID}) => {
    const [candidateMeetings, setCandidateMeetings] = useState([]);
    const [meetingDetails, setMeetingDetails] = useState({
       name: '',
@@ -38,7 +39,10 @@ const CreateMeeting = ({guestID, setGuestID, meetingID, setMeetingID}) => {
    //todo: convert CreateMeeting button in CreateCandidateMeetings component to Link,
    //remove window.history.pushState here
    const onCreateMeeting = async () => {
-      localStorage.setItem('guestID', meetingDetails.name);
+      storeCurrentGuest({
+         id: currentGuest.id,
+         name: meetingDetails.name
+      });
       await api.post('/createGuestMeeting', meetingDetails);
 
       //todo: fix 'end' value, which needs to be calculated using date functions
@@ -63,8 +67,8 @@ const CreateMeeting = ({guestID, setGuestID, meetingID, setMeetingID}) => {
       return (
          <div>
             <CreateMeetingDetails
-               guestID={guestID}
-               setGuestID={setGuestID}
+               currentGuest={currentGuest}
+               setCurrentGuest={setCurrentGuest}
                meetingID={meetingID}
                setMeetingDetails={setMeetingDetails}            />
          </div>

@@ -3,13 +3,14 @@ import CommentList from "./CommentList";
 import {getComments, createComments} from "../services/Comment"
 import {getUsers} from "../services/Meeting"
 import {getCandidateMeetings} from "../services/CandidateMeeting";
+import {addGuest} from "../services/Meeting";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Button from "./Button"
 import UserList from "./UserList";
 import CandidateMeetingList from "./CandidateMeetingList";
 import CreateGuest from "./CreateGuest";
 
-const Meeting = ({guestID, meetingID}) => {
+const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
    const [userList, setUserList] = useState([]);
    const [candidateMeetings, setCandidateMeetings] = useState([]);
    const [comments, setComments] = useState([]); // state to keep track of comments
@@ -49,20 +50,21 @@ const Meeting = ({guestID, meetingID}) => {
       }, []
    );
 
-   /* TODO: @Brandon I don't know how you are storing the meetingID
-       so i just hard coded the meetingID i have in my my database, changing it
-       to each instance of the meeting
-   */
+   const onCreateGuestUser = async (name) => {
+      addGuest({name: name, meetingID: meetingID}).then(response => {
+         setCurrentGuest({
+            id: response.data.userID,
+            name: name
+         });
+      });
+   };
 
-   /* TODO: Same with this, meetingID, name and userID is currently hard coded, you will need to replace it with
-       however you are storing the meetingID and name
-   */
    function submitComment(event) {
       event.preventDefault();
       createComments({
-         meetingID: "ZQTNN1",
-         name: "fgfdgfdgfdfg",
-         userID: "18",
+         meetingID: meetingID,
+         name: currentGuest.name,
+         userID: currentGuest.id,
          content: event.target[0].value
       }).then(response => {
          setComments(old => [...old, response.data]);
@@ -70,11 +72,12 @@ const Meeting = ({guestID, meetingID}) => {
       });
    }
 
-   if (!guestID) {
+   //if user does not have a guestID or name, todo: or if their guest id is not in the current meeting's userList
+   if (!currentGuest.id || !currentGuest.name) {
       return (
          <div>
             <UserList userList={userList}/>
-            <CreateGuest/>
+            <CreateGuest onCreateGuestUser={onCreateGuestUser}/>
          </div>
       );
    }
