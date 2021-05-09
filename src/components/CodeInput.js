@@ -2,25 +2,37 @@ import React, {useState, useEffect} from 'react';
 import Button from './Button';
 import Link from '../router/Link';
 import Card from './Card';
+import FormValidation from './FormValidation';
 
 //todo: conditionally render userName field, only if user is not logged in
 
 const CodeInput = ({onCodeSubmit}) => {
    const [joinCode, setJoinCode] = useState('');
-
    const [error, setError] = useState(false);
+   const [submitFlag, setSubmitFlag] = useState(false);
+   const [renderErrors, setRenderErrors] =useState(false);
+
+   const config = [
+       {field: {
+          value: joinCode,
+          name: 'Meeting Code',
+          minLength: 6,
+          }
+       }
+   ]
 
    const onFormSubmit = (event) => {
       event.preventDefault();
-      console.log('joinCode: ', joinCode);
+      setRenderErrors(true);
 
       if(joinCode.length < 6){
-         setError(true)
+         setError(true);
       }else{
-        setError(false)
+        setError(false);
         onCodeSubmit(joinCode);
       }
 
+      setSubmitFlag(!submitFlag);
    }
 
 
@@ -45,17 +57,16 @@ const CodeInput = ({onCodeSubmit}) => {
               Join
             </Button>
           </form>
-            {error
-              ?
-              <div
-                className="ui error message"
-                style={{textAlign: "center", padding: "0.25rem 0.25rem", marginTop: "0.5rem"}}
-              >
-                Invalid Meeting Code
-              </div>
-             :
-             ' '
-           }
+            {
+                renderErrors
+                ? <FormValidation
+                   config={config}
+                   submitFlag={submitFlag}>
+                  </FormValidation>
+                : null
+            }
+
+
         </div>
       </Card>
    );
