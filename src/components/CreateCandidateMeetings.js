@@ -10,6 +10,7 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
    const [length, setLength] = useState(0);
+   const [error, setError] = useState(false);
 
    useEffect(
       () => {
@@ -21,6 +22,17 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
    //called when the 'Add Option' button is clicked
    const onAddOption = (event) => {
       event.preventDefault();
+
+      if(
+        date === ''
+        || time === ''
+        || length < 15
+      ){
+        setError(true);
+        return;
+      }else{
+        setError(false);
+      }
 
       const option = {date: date, time: time, length: length};
 
@@ -80,7 +92,7 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
                </div>
 
                <div className="field">
-                  <label className="left aligned">Length</label>
+                  <label className="left aligned">Length (Minutes)</label>
                   <input
                      type="text"
                      placeholder="Length (minutes)"
@@ -90,15 +102,37 @@ const CreateCandidateMeetings = ({candidateMeetings, onCreateMeeting, onCreateCa
                   />
                </div>
 
-               <Button className="custom-button dark thin" onClick={(e) => onAddOption(e)}>
-                  Add Option
-               </Button>
-               {' '}
-               <Button className="custom-button dark thin" onClick={() => onFormSubmit()}>
-                  Create Meeting
-               </Button>
-
+               <div style={{textAlign: "center"}}>
+                 <Button className="custom-button dark thin" onClick={(e) => onAddOption(e)}>
+                    Add Option
+                 </Button>
+                 {' '}
+                 <Button className="custom-button dark thin" onClick={() => onFormSubmit()}>
+                    Create Meeting
+                 </Button>
+               </div>
             </form>
+            {
+              error && ( date === ''
+                 || time === ''
+                 || length < 15)
+                 ?
+                 <div
+                    className="ui error message"
+                    style={{textAlign: "center", padding: "0.25rem 0.25rem", marginTop: "0.5rem"}}
+                 >
+                    {  date
+                          ? null
+                          : <p>Please enter a meeting date.</p> }
+                    {  time
+                          ? null
+                          : <p>Please enter a meeting time.</p> }
+                    {  length > 15
+                          ? null
+                          : <p>Please enter a meeting length. (at least 15 minutes)</p> }
+                 </div>
+                 : null
+            }
          </div>
       </Card>
 

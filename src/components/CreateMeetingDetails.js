@@ -11,49 +11,36 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
    const [dueDate, setDueDate] = useState('');
    const [dueTime, setDueTime] = useState('');
    const [pollType, setPollType] = useState(0);
-
-   //array of errors to be printed
-   const [errors, setErrors] = useState([]);
+   const [error, setError] = useState(false);
 
    const onCreateMeetingDetails = (event) => {
       event.preventDefault();
 
-      console.log(errors);
-      //reset the errors on each submission of the form
-      setErrors([]);
-
-      //if statement to check for errors within the form
       if(
-        userName === '' ||
-        meetingName === '' ||
-        meetingDescription === '' ||
-        dueTime === ''
+         userName === ''
+         || meetingName === ''
+         || dueDate === ''
+         || dueTime === ''
       ){
-        errors.push(<p>Please check form.</p>);
-        console.log(errors);
-
-        //if statement to check for date errors -- does not work
-      }else if(dueDate.getTime() < Date.now() || dueDate === ''){
-        errors.push(<p>Please make sure the date is in the future.</p>);
-        console.log(errors);
-
+         setError(true);
+         return;
       }else{
-        console.log(errors);
-
-        setCurrentUser(userName);
-
-        const meetingDetail = {
-           name: userName,
-           meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
-           title: meetingName,
-           description: meetingDescription,
-           dueDate: dueDate + 'T' + dueTime + ':00',
-           pollType: pollType
-        };
-
-        console.log(meetingDetail);
-        setMeetingDetails(meetingDetail);
+         setError(false);
       }
+
+      setCurrentUser(userName);
+
+      const meetingDetail = {
+         name: userName,
+         meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
+         title: meetingName,
+         description: meetingDescription,
+         dueDate: dueDate + 'T' + dueTime + ':00',
+         pollType: pollType
+      };
+
+      console.log(meetingDetail);
+      setMeetingDetails(meetingDetail);
    };
 
    return (
@@ -139,20 +126,31 @@ const CreateMeetingDetails = ({currentUser, setCurrentUser, setMeetingDetails}) 
                   Create Poll
                </Button>
             </form>
-
-            { //check to see if there are errors and then print them
-              errors.length > 0
-              ?
-              <div
-               className="ui error message"
-               style={{textAlign: "center", padding: "0.25rem 0.25rem", marginTop: "0.5rem"}}
-              >
-              {errors.map(error => error)}
-              </div>
-              :
-              ' '
+            {
+               error && ( userName === ''
+                  || meetingName === ''
+                  || dueDate === ''
+                  || dueTime === '')
+                  ?
+                  <div
+                     className="ui error message"
+                     style={{textAlign: "center", padding: "0.25rem 0.25rem", marginTop: "0.5rem"}}
+                  >
+                     {  userName
+                           ? null
+                           : <p>Please enter your name</p> }
+                     {  meetingName
+                           ? null
+                           : <p>Please enter a meeting name</p> }
+                     {  dueDate
+                           ? null
+                           : <p>Please enter a due date</p> }
+                     {  dueTime
+                           ? null
+                           : <p>Please enter a due time</p> }
+                  </div>
+                  : null
             }
-
          </div>
       </Card>
    );
