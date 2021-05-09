@@ -30,14 +30,14 @@ const CreateMeetingDetails = ({guestID, setGuestID, meetingID, setMeetingDetails
             field: {
                 value: userName,
                 name: 'Your Name',
-                minLength: 0,
+                minLength: 2,
             }
         },
         {
             field: {
                 value: meetingName,
                 name: 'Meeting Name',
-                minLength: 0,
+                minLength: 4,
             }
         },
         {
@@ -159,7 +159,7 @@ const CreateMeetingDetails = ({guestID, setGuestID, meetingID, setMeetingDetails
                         <FormValidation
                             config={config}
                             submitFlag={submitFlag}
-                        setRenderErrors={setRenderErrors}>
+                            setRenderErrors={setRenderErrors}>
                         </FormValidation>
                         : null
                 }

@@ -26,7 +26,7 @@ const FormValidation = ({config, submitFlag, setRenderErrors}) => {
                     });
                 } else if (value.length < field.minLength) {
                     tempErrorsArray.push({
-                        message: field.name + ' must be ' + field.minLength + ' characters long.',
+                        message: field.name + ' must be at least ' + field.minLength + ' characters long.',
                         key: field.name + '-minLength'
                     });
                 }
@@ -36,6 +36,7 @@ const FormValidation = ({config, submitFlag, setRenderErrors}) => {
             if (field.hasOwnProperty('requiredFuture')) {
 
                 let now = new Date();
+                now.setHours(now.getHours(), now.getMinutes(), 0, 0);
 
                 const [date, time] = value.split('T');
                 const [year, month, day] = date.split('-');
@@ -56,7 +57,7 @@ const FormValidation = ({config, submitFlag, setRenderErrors}) => {
         setErrors(tempErrorsArray);
 
         if(tempErrorsArray.length === 0){
-            console.log('validated');
+            setRenderErrors(false);
         }
     };
 
