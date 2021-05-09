@@ -67,7 +67,7 @@ const CreateMeetingDetails = ({guestID, setGuestID, meetingID, setMeetingDetails
 
             const meetingDetail = {
                 name: userName,
-                meetingID: customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)(),
+                meetingID: meetingID,
                 title: meetingName,
                 description: meetingDescription,
                 dueDate: dueDate + 'T' + dueTime + ':00',

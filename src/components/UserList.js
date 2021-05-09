@@ -3,7 +3,7 @@ import Card from './Card';
 
 const UserList = ({userList}) => {
 
-   console.error(userList);
+   console.log('USERLIST: ', userList);
 
    const onUserClick = (userID) => {
       //do something
