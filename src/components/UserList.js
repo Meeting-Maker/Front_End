@@ -12,9 +12,9 @@ const UserList = ({userList}) => {
 
    if(userList.length === 0){
       return (
-         <Card>
-            There are no users
-         </Card>
+            <div className="ui container">
+                There are no users
+            </div>
       );
    }
 

@@ -36,7 +36,7 @@ const CreateMeeting = ({guestID, setGuestID, meetingID, setMeetingID}) => {
    };
 
    //todo: convert CreateMeeting button in CreateCandidateMeetings component to Link,
-   // remove window.history.pushState here
+   //remove window.history.pushState here
    const onCreateMeeting = async () => {
       localStorage.setItem('guestID', meetingDetails.name);
       await api.post('/createGuestMeeting', meetingDetails);
