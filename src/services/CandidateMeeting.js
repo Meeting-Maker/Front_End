@@ -1,6 +1,6 @@
 import api from './api';
 
-export async function getCandidateMeeting(meetingID) {
+export async function getCandidateMeetings(meetingID) {
     return await api.get('/getCandidateMeetings', {
         params: meetingID
     });
