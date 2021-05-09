@@ -13,27 +13,29 @@ const App = () => {
 
     return (
         <div>
+
             <Header/>
-            <Route path='/'> <LandingPage currentUser={currentUser}/> </Route>
-            <Route path='/create'>
-                <CreateMeeting
-                    currentUser={currentUser}
-                    setCurrentUser={setCurrentUser}
-                    setCurrentMeeting={setCurrentMeeting}
-                />
-            </Route>
-            <Route path='/join'>
-                <JoinMeeting
-                    currentUser={currentUser}
-                    setCurrentMeeting={setCurrentMeeting}
-                />
-            </Route>
-            <Route path='/meeting'>
-                <Meeting
-                    currentUser={currentUser}
-                    currentMeeting={currentMeeting}
-                />
-            </Route>
+            {/*<Route path='/'> <LandingPage currentUser={currentUser}/> </Route>*/}
+            {/*<Route path='/create'>*/}
+            {/*    <CreateMeeting*/}
+            {/*        currentUser={currentUser}*/}
+            {/*        setCurrentUser={setCurrentUser}*/}
+            {/*        setCurrentMeeting={setCurrentMeeting}*/}
+            {/*    />*/}
+            {/*</Route>*/}
+            {/*<Route path='/join'>*/}
+            {/*    <JoinMeeting*/}
+            {/*        currentUser={currentUser}*/}
+            {/*        setCurrentMeeting={setCurrentMeeting}*/}
+            {/*    />*/}
+            {/*</Route>*/}
+            {/*<Route path='/meeting'>*/}
+            {/*    <Meeting*/}
+            {/*        currentUser={currentUser}*/}
+            {/*        currentMeeting={currentMeeting}*/}
+            {/*    />*/}
+            {/*</Route>*/}
+            <Meeting />
             <Footer/>
         </div>
     );
