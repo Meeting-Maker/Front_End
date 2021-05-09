@@ -6,23 +6,9 @@ import api from '../services/api';
 
 //todo: conditional rendering for types of meeting (poll/common availability)
 
-const Meeting = ({currentUser, meetingID}) => {
+const Meeting = ({guestID, meetingID}) => {
    const [userList, setUserList] = useState([]);
    const [candidateMeetings, setCandidateMeetings] = useState([]);
-
-   // useEffect(
-   //    () => {
-   //       const getCandidates = async () => {
-   //          const response = await api.get('/getCandidateMeetings',
-   //             {
-   //                params: {
-   //                   meetingID: meetingID
-   //                }
-   //             }
-   //          );
-   //       };
-   //    }, [candidateMeetings]
-   // );
 
    useEffect(
       () => {
