@@ -5,12 +5,10 @@ const Card = ({width, children, padding}) => {
 
   return (
 
-    <div className={`ui grid`} style={{padding: `${padding}`}}>
-       <div className="ui container" style={{width: `${width}`}}>
-          <div className="ui grey fluid card">
-
+    <div className={`ui grid`}>
+       <div className="ui container" style={{width: `${width}`, paddingBottom: "1em"}}>
+          <div className="ui grey fluid card" style={{}}>
             {children}
-
           </div>
         </div>
       </div>

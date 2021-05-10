@@ -1,69 +1,22 @@
 import React, {useEffect, useState} from 'react';
 
-const FormValidation = ({config, submitFlag, setRenderErrors}) => {
 
+
+const FormValidation = ({config, submitFlag}) => {
     const [errors, setErrors] = useState([]);
 
     useEffect(() => {
-
-        validateForm();
-
+        const validate = async () => {
+            await validateForm(config).then(response => {
+                setErrors(response);
+            });
+        }
+        console.log("submitted");
+        validate();
     }, [submitFlag])
-
-
-    const validateForm = () => {
-        let tempErrorsArray = [];
-
-        for (let i = 0; i < config.length; i++) {
-            const field = config[i].field
-            const value = field.value;
-
-            if (field.hasOwnProperty('minLength')) {
-                if (value === '' || value === 'T') {
-                    tempErrorsArray.push({
-                        message: field.name + ' is required.',
-                        key: field.name + '-required'
-                    });
-                } else if (value.length < field.minLength) {
-                    tempErrorsArray.push({
-                        message: field.name + ' must be at least ' + field.minLength + ' characters long.',
-                        key: field.name + '-minLength'
-                    });
-                }
-            }
-
-            if (field.hasOwnProperty('requiredFuture')) {
-
-                let now = new Date();
-                now.setHours(now.getHours(), now.getMinutes(), 0, 0);
-
-                const [date, time] = value.split('T');
-                const [year, month, day] = date.split('-');
-                const [hour, minute] = time.split(':');
-
-                let selectedDate = new Date(parseInt(year), month - 1, parseInt(day), parseInt(hour),
-                    parseInt(minute), 0, 0);
-
-                if (selectedDate < now) {
-                    tempErrorsArray.push({
-                        message: field.name + ' has already passed.',
-                        key: field.name + '-date'
-                    })
-                }
-            }
-        }
-
-        setErrors(tempErrorsArray);
-
-        if(tempErrorsArray.length === 0){
-            setRenderErrors(false);
-        }
-    };
-
 
     return (
         <div>
-
             {errors.length > 0
                 ?
                 <div
@@ -75,11 +28,53 @@ const FormValidation = ({config, submitFlag, setRenderErrors}) => {
                 :
                 null
             }
-
-
         </div>
     );
-
 };
 
 export default FormValidation;
+
+export async function validateForm(config) {
+    let tempErrorsArray = [];
+
+    for (let i = 0; i < config.length; i++) {
+        const field = config[i].field
+        const value = field.value;
+
+        if (field.hasOwnProperty('minLength')) {
+            if (value === '' || value === 'T') {
+                tempErrorsArray.push({
+                    message: field.name + ' is required.',
+                    key: field.name + '-required'
+                });
+            } else if (value.length < field.minLength) {
+                tempErrorsArray.push({
+                    message: field.name + ' must be at least ' + field.minLength + ' characters long.',
+                    key: field.name + '-minLength'
+                });
+            }
+        }
+
+        if (field.hasOwnProperty('requiredFuture')) {
+
+            let now = new Date();
+            now.setHours(now.getHours(), now.getMinutes(), 0, 0);
+
+            const [date, time] = value.split('T');
+            const [year, month, day] = date.split('-');
+            const [hour, minute] = time.split(':');
+
+            let selectedDate = new Date(parseInt(year), month - 1, parseInt(day), parseInt(hour),
+               parseInt(minute), 0, 0);
+
+            if (selectedDate < now) {
+                tempErrorsArray.push({
+                    message: field.name + ' has already passed.',
+                    key: field.name + '-date'
+                })
+            }
+        }
+    }
+
+    return tempErrorsArray;
+}
