@@ -13,11 +13,11 @@ const CreateGuest = ({onCreateGuestUser}) => {
    }
 
    return (
-      <Card width="20rem">
+      <Card padding="5rem 0 0 0"width="20rem">
         <div className="content">
            <form className="ui large form"onSubmit={(e) => onFormSubmit(e)}>
               <div>
-                 <Button className="custom-button dark thin" onClick={() => setAddGuest(!addGuest)}>
+                 <Button type="button" className="custom-button dark thin" onClick={() => setAddGuest(true)}>
                     Add Yourself as a Guest
                  </Button>
                  {
