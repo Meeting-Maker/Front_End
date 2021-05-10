@@ -93,7 +93,7 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
                <div className="field">
                   <label className="left aligned">Length (Minutes)</label>
                   <input
-                     type="text"
+                     type="number"
                      placeholder="Length (minutes)"
                      value={length}
                      onChange={(e) => setLength(e.target.value)}

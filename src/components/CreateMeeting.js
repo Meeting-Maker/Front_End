@@ -70,7 +70,7 @@ const CreateMeeting = ({currentGuest, setCurrentGuest, meetingID, setMeetingID})
                currentGuest={currentGuest}
                setCurrentGuest={setCurrentGuest}
                meetingID={meetingID}
-               setMeetingDetails={setMeetingDetails}            />
+               setMeetingDetails={setMeetingDetails}/>
          </div>
       );
    }

@@ -31,7 +31,7 @@ const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
             meetingID: meetingID
          }).then(response => {
             const comments = response.data.comments;
-            comments.forEach((comment) => setComments(old => [...old, comment]));
+            setComments(comments);
          });
 
          setCandidateMeetings([]);
@@ -72,6 +72,18 @@ const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
       });
    }
 
+   function updateComments() {
+      setComments([]);
+      getComments({
+         meetingID: "ZQTNN1"
+      }).then(response => {
+         const comments = response.data.comments;
+         console.log(comments);
+         setComments(comments);
+      });
+   }
+
+
    //if user does not have a guestID or name, todo: or if their guest id is not in the current meeting's userList
    if (!currentGuest.id || !currentGuest.name) {
       return (
@@ -94,27 +106,30 @@ const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
             <h3>Candidate Meetings</h3>
             <CandidateMeetingList candidateMeetings={candidateMeetings}/>
          </div>
-
-         <div className="column">
-            <h3 className="centered">Comments</h3>
-            <div className={"card"} style={{overflow: "hidden", height: `${height - 155}px`}}>
-               <CommentList comments={comments} height={height}/>
-               {/* comment input */}
-               <form ref={commentForm}
-                     className="ui centered reply form" onSubmit={e => submitComment(e)}>
-                  <div className="centered field">
-                     <textarea name="content"
-                               placeholder="What are your thoughts?"
-                               style={{width: "90%", height: "50px"}}/>
-                  </div>
-                  <div style={{textAlign: "center"}}>
-                     <Button type="submit"
-                             className="custom-button dark thin span"
-                             style={{width: "90%"}}>
-                        Comment
-                     </Button>
-                  </div>
-               </form>
+            <div className="column">
+               <h3 className="centered">Comments</h3>
+               <div className={"card"} style={{overflow: "hidden", height: `${height - 155}px`}}>
+                  <CommentList
+                     updateComments={updateComments}
+                     comments={comments}
+                     height={height}/>
+                  {/* comment input */}
+                  <form ref={commentForm}
+                        className="ui centered reply form" onSubmit={e => submitComment(e)}>
+                     <div className="centered field">
+                            <textarea name="content"
+                                      placeholder="What are your thoughts?"
+                                      style={{width: "90%", height: "50px"}}/>
+                     </div>
+                     <div style={{textAlign: "center"}}>
+                        <Button type="submit"
+                                className="custom-button dark thick span"
+                                style={{width: "90%"}}>
+                           Comment
+                        </Button>
+                     </div>
+                  </form>
+               </div>
             </div>
          </div>
 
