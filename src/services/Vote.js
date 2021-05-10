@@ -1,7 +1,7 @@
 import api from "./api";
 
-export async function getVote(candidateID) {
-    return await api.get('/getVote', {
+export async function getVotes(candidateID) {
+    return await api.get('/getVotes', {
         params: candidateID
     });
 }
