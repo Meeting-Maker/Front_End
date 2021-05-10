@@ -3,21 +3,30 @@ import CommentList from "./CommentList";
 import {getComments, createComments} from "../services/Comment"
 import {getUsers} from "../services/Meeting"
 import {getCandidateMeetings} from "../services/CandidateMeeting";
-import {addGuest} from "../services/Meeting";
+import {addGuest, getMeetingDetails} from "../services/Meeting";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Button from "./Button"
 import UserList from "./UserList";
 import CandidateMeetingList from "./CandidateMeetingList";
 import CreateGuest from "./CreateGuest";
+import MeetingDetails from "./MeetingDetails";
 
 const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
+   const [meetingDetails, setMeetingDetails] = useState();
    const [userList, setUserList] = useState([]);
    const [candidateMeetings, setCandidateMeetings] = useState([]);
-   const [comments, setComments] = useState([]); // state to keep track of comments
+   const [comments, setComments] = useState([]);
    const commentForm = useRef(); // references to the comment form
    const {height} = useWindowDimensions();
 
    useEffect(() => {
+         getMeetingDetails({
+            meetingID: meetingID
+         }).then(response => {
+            console.log(response);
+            setMeetingDetails(response.data.meetingDetails);
+         });
+
          setUserList([]);
          getUsers({
             meetingID: meetingID
@@ -86,6 +95,7 @@ const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
       <div className="center aligned ui three column very relaxed stackable grid">
 
             <div className="column">
+               <MeetingDetails meetingDetails={meetingDetails}/>
                <h3>Users</h3>
                <UserList userList={userList}/>
             </div>

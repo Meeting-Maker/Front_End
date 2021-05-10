@@ -6,6 +6,12 @@ export async function getMeeting(meetingID) {
     });
 }
 
+export async function getMeetingDetails(meetingID) {
+    return await api.get('/getMeetingDetails', {
+        params: meetingID
+    });
+}
+
 export async function getUsers(meetingDetails) {
     return await api.get('/getUsers', {
         params: meetingDetails
