@@ -2,15 +2,18 @@ import React, {useState, useEffect} from 'react';
 import Button from './Button';
 import Link from '../router/Link';
 import Card from './Card';
-import FormValidation from './FormValidation';
+import FormValidation, {validateForm} from './FormValidation';
+
 
 //todo: conditionally render userName field, only if user is not logged in
 
 const CodeInput = ({onCodeSubmit}) => {
     const [joinCode, setJoinCode] = useState('');
 
+    //todo: remove one of these useStates for form validation
     const [submitFlag, setSubmitFlag] = useState(false);
-    const [renderErrors, setRenderErrors] = useState(false);
+    const [valid, setValid] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
 
     const config = [
         {
@@ -22,13 +25,19 @@ const CodeInput = ({onCodeSubmit}) => {
         }
     ]
 
-    const onFormSubmit = (event) => {
+    const onFormSubmit = async (event) => {
         event.preventDefault();
-        setRenderErrors(true);
-
         setSubmitFlag(!submitFlag);
-    }
+        setSubmitted(true);
 
+        await validateForm(config).then(response => {
+            if(response.length === 0){
+                onCodeSubmit(joinCode);
+            }else{
+                setValid(false);
+            }
+        });
+    }
 
     return (
         <Card width="20rem" padding="5rem 0 0 0">
@@ -52,7 +61,7 @@ const CodeInput = ({onCodeSubmit}) => {
                     </Button>
                 </form>
                 {
-                    renderErrors
+                    !valid && submitted
                         ?
                         <FormValidation
                             config={config}

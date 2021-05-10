@@ -10,6 +10,7 @@ import Meeting from './Meeting';
 import ProfilePage from './ProfilePage';
 import CreateGuest from './CreateGuest';
 import MeetingDetails from "./MeetingDetails";
+import UserList from "./UserList";
 
 const App = () => {
    const [currentGuest, setCurrentGuest] = useState({id: null, name: ''});
@@ -31,7 +32,6 @@ const App = () => {
       <div>
          <Header/>
          <Route path='/'> <LandingPage currentGuest={currentGuest}/> </Route>
-
          <Route path='/create'>
             <CreateMeeting
                currentGuest={currentGuest}

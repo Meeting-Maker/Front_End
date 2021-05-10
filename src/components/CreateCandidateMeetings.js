@@ -13,9 +13,7 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
    const [error, setError] = useState(false);
 
    //called when the 'Add Option' button is clicked
-   const onAddOption = (event) => {
-      event.preventDefault();
-
+   const onAddOption = () => {
       if(
         date === ''
         || time === ''
@@ -49,7 +47,8 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
 
    //called when the 'Create Meeting' button is clicked
    //verifies that at least 2 candidates exist
-   const onFormSubmit = () => {
+   const onFormSubmit = (event) => {
+      event.preventDefault();
       if (candidateMeetings.length < 2) {
          console.error('You need at least two candidates to create a meeting.');
       } else {
@@ -65,9 +64,8 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
                Create Your Meeting
             </div>
          </div>
-
          <div className="content">
-            <form className="ui large form" onSubmit={(e) => onAddOption(e)}>
+            <form className="ui large form" onSubmit={(e) => onFormSubmit(e)}>
                <div className="field">
                   <label className="left aligned">Meeting Date</label>
                   <input
@@ -78,7 +76,6 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
                      required
                   />
                </div>
-
                <div className="field">
                   <label className="left aligned">Time</label>
                   <input
@@ -89,7 +86,6 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
                      required
                   />
                </div>
-
                <div className="field">
                   <label className="left aligned">Length (Minutes)</label>
                   <input
@@ -100,13 +96,20 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
                      required
                   />
                </div>
-
                <div style={{textAlign: "center"}}>
-                 <Button className="custom-button dark thin" onClick={(e) => onAddOption(e)}>
+                 <Button
+                    className="custom-button dark thin"
+                    onClick={() => onAddOption()}
+                    type="button"
+                 >
                     Add Option
                  </Button>
                  {' '}
-                 <Button className="custom-button dark thin" onClick={() => onFormSubmit()}>
+                 <Button
+                    className="custom-button dark thin"
+                    onClick={(e) => onFormSubmit(e)}
+                    type="submit"
+                 >
                     Create Meeting
                  </Button>
                </div>
@@ -114,7 +117,7 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
             {
               error && ( date === ''
                  || time === ''
-                 || length < 15)
+                 || length < 5)
                  ?
                  <div
                     className="ui error message"
@@ -126,9 +129,9 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
                     {  time
                           ? null
                           : <p>Please enter a meeting time.</p> }
-                    {  length > 15
+                    {  length >= 5
                           ? null
-                          : <p>Please enter a meeting length. (at least 15 minutes)</p> }
+                          : <p>Please enter a meeting length > 5 minutes</p> }
                  </div>
                  : null
             }

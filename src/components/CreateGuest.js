@@ -13,27 +13,39 @@ const CreateGuest = ({onCreateGuestUser}) => {
    }
 
    return (
-      <Card padding="5rem 0 0 0"width="20rem">
-        <div className="content">
-           <form className="ui large form"onSubmit={(e) => onFormSubmit(e)}>
-              <div>
-                 <Button type="button" className="custom-button dark thin" onClick={() => setAddGuest(true)}>
-                    Add Yourself as a Guest
-                 </Button>
-                 {
-                    addGuest ?
-                       <input
-                          type="text"
-                          placeholder="Your Name"
-                          value={userName}
-                          onChange={(e) => setUserName(e.target.value)}
-                          style={{marginTop: "0.5rem"}}
-                       />
-                    :
-                       null
-                 }
-              </div>
-           </form>
+      <Card padding="2rem 0 0 0" width="27rem">
+         <div className="content">
+            <form className="ui large form" onSubmit={(e) => onFormSubmit(e)}>
+               <div>
+                  {
+                     addGuest ?
+                        <div>
+                           <div className="field">
+                              <input
+                                 type="text"
+                                 placeholder="Your Name"
+                                 name="guestName"
+                                 value={userName}
+                                 onChange={e => setUserName(e.target.value)}
+                              />
+                           </div>
+                           <div style={{textAlign: "center"}}>
+                              <Button
+                                 type="submit"
+                                 className="custom-button dark thin span">
+                                 Submit
+                              </Button>
+                              {' '}
+                           </div>
+                        </div>
+                        :
+                        <Button type="button" className="custom-button dark thin span"
+                                onClick={() => setAddGuest(true)}>
+                           Add Yourself as a Guest
+                        </Button>
+                  }
+               </div>
+            </form>
          </div>
       </Card>
    );
