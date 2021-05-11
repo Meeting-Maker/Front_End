@@ -46,6 +46,32 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
       }
    };
 
+   const config = [
+      {
+         field: {
+            value: date,
+            name: 'Candidate Meeting Date',
+            requiredFuture: true,
+         }
+      },
+      {
+         field: {
+            value: time,
+            name: 'Candidate Meeting Time',
+            requiredFuture: true,
+         }
+      },
+      {
+         field: {
+            value: length,
+            name: 'Candidate Meeting Length',
+            requiredPositive: true,
+         }
+      }
+   ]
+
+
+
    //called when the 'Create Meeting' button is clicked
    //verifies that at least 2 candidates exist
    const onFormSubmit = (event) => {

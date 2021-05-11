@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Button.css';
 
-const Button = ({className, children, onClick, fontSize, type, onSubmit, disabled, style}) => {
+const Button = ({className, children, onClick, type, onSubmit, disabled, style}) => {
 
   return(
 

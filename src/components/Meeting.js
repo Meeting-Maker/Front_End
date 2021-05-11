@@ -124,6 +124,7 @@ const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
          <div className="column">
             <CandidateMeetingList candidateMeetings={candidateMeetings}/>
          </div>
+
          <div className="column">
             <div className={"card"} style={{overflow: "hidden", height: `${height - 155}px`}}>
                <CommentList

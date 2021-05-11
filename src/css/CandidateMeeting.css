@@ -1,0 +1,8 @@
+.candidate-meeting a:hover{
+    text-decoration: none;
+    color: black;
+}
+
+.candidate-meeting a{
+    color: black;
+}
