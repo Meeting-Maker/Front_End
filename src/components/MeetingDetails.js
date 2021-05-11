@@ -5,7 +5,7 @@ import Icon from '@mdi/react';
 import {mdiCogOutline} from '@mdi/js';
 
 const MeetingDetails = ({meetingDetails}) => {
-   if(!meetingDetails){
+   if (!meetingDetails) {
       console.error('is null, exiting');
       return null;
    }
@@ -22,7 +22,7 @@ const MeetingDetails = ({meetingDetails}) => {
             <span style={{fontWeight: "500"}}>
                {meetingDetails.title}
             </span>
-            <span style={{color: "grey", fontWeight: "100"}} >
+            <span style={{color: "grey", fontWeight: "100"}}>
                {' #'}{meetingDetails.meetingID}
             </span>
 
@@ -33,9 +33,16 @@ const MeetingDetails = ({meetingDetails}) => {
             </span>
          </div>
 
-         <div className="content">
-            <p style={{fontWeight: "400", fontSize: "1.2em"}}>{meetingDetails.description}</p>
-         </div>
+         {
+            meetingDetails.description
+               ?
+               <div className="content">
+                  <p style={{fontWeight: "400", fontSize: "1.2em"}}>{meetingDetails.description}</p>
+               </div>
+               :
+               null
+         }
+
 
          <div className="extra content">
             <span style={{color: "black"}}>Response Needed by: {date} at {time}</span>
