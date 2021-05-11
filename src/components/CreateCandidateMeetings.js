@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Button from './Button';
 import Card from './Card';
+import '../css/CreateCandidateMeetings.css';
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
 //todo: fix concat to append new option to candidateList
@@ -14,15 +15,15 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
 
    //called when the 'Add Option' button is clicked
    const onAddOption = () => {
-      if(
-        date === ''
-        || time === ''
-        || length < 15
-      ){
-        setError(true);
-        return;
-      }else{
-        setError(false);
+      if (
+         date === ''
+         || time === ''
+         || length < 15
+      ) {
+         setError(true);
+         return;
+      } else {
+         setError(false);
       }
 
       const option = {
@@ -57,13 +58,30 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
       }
    }
 
+   const onHandleLengthChangeButton = (event) => {
+      event.preventDefault();
+
+      let tempLength = length;
+
+      if(event.target.id === 'minus' && tempLength > 0){
+         tempLength -= 5;
+      }else if(event.target.id === 'plus'){
+         tempLength += 5;
+      }
+
+      tempLength = Math.round(tempLength / 5) * 5;
+      setLength(tempLength);
+   }
+
    return (
-      <Card width="25%" padding="2rem 0 0 0">
+      <Card width="30rem" padding="2rem 0 0 0">
+
          <div className="content">
             <div className="header">
                Create Your Meeting
             </div>
          </div>
+
          <div className="content">
             <form className="ui large form" onSubmit={(e) => onFormSubmit(e)}>
                <div className="field">
@@ -86,54 +104,82 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
                      required
                   />
                </div>
-               <div className="field">
+
+
+               <div className="field ui container" style={{width: "100%", padding: "0"}}>
                   <label className="left aligned">Length (Minutes)</label>
-                  <input
-                     type="number"
-                     placeholder="Length (minutes)"
-                     value={length}
-                     onChange={(e) => setLength(e.target.value)}
-                     required
-                  />
+
+                  <span className={"ui icon input"}>
+                     <span className={"ui ignored icon font buttons"}>
+                        <a id="minus" className={"decrease ui button"}
+                           style={{padding: "14px 11px 0 11px",
+                              borderTopRightRadius: "0",
+                              borderBottomRightRadius: "0"}}
+                           onClick={onHandleLengthChangeButton}>
+                           <i id="minus" className={"minus icon"}/>
+                        </a>
+                     </span>
+
+                     <input
+                        type="number"
+                        placeholder="Length (minutes)"
+                        value={length}
+                        onChange={(e) => setLength(e.target.value)}
+                        style={{borderRadius: "0"}}
+                     />
+
+                     <span className={"ui ignored icon font buttons"}>
+                        <a id="plus" className={"increase ui button"}
+                           style={{padding: "14px 11px 0 11px",
+                              borderTopLeftRadius: "0",
+                              borderBottomLeftRadius: "0"}}
+                           onClick={onHandleLengthChangeButton}>
+                           <i id="plus" className={"plus icon"}/>
+                        </a>
+                     </span>
+                  </span>
+
                </div>
+
+
                <div style={{textAlign: "center"}}>
-                 <Button
-                    className="custom-button dark thin"
-                    onClick={() => onAddOption()}
-                    type="button"
-                 >
-                    Add Option
-                 </Button>
-                 {' '}
-                 <Button
-                    className="custom-button dark thin"
-                    onClick={(e) => onFormSubmit(e)}
-                    type="submit"
-                 >
-                    Create Meeting
-                 </Button>
+                  <Button
+                     className="custom-button dark thin"
+                     onClick={() => onAddOption()}
+                     type="button"
+                  >
+                     Add Option
+                  </Button>
+                  {' '}
+                  <Button
+                     className="custom-button dark thin"
+                     onClick={(e) => onFormSubmit(e)}
+                     type="submit"
+                  >
+                     Create Meeting
+                  </Button>
                </div>
             </form>
             {
-              error && ( date === ''
-                 || time === ''
-                 || length < 5)
-                 ?
-                 <div
-                    className="ui error message"
-                    style={{textAlign: "center", padding: "0.25rem 0.25rem", marginTop: "0.5rem"}}
-                 >
-                    {  date
-                          ? null
-                          : <p>Please enter a meeting date.</p> }
-                    {  time
-                          ? null
-                          : <p>Please enter a meeting time.</p> }
-                    {  length >= 5
-                          ? null
-                          : <p>Please enter a meeting length > 5 minutes</p> }
-                 </div>
-                 : null
+               error && (date === ''
+                  || time === ''
+                  || length < 5)
+                  ?
+                  <div
+                     className="ui error message"
+                     style={{textAlign: "center", padding: "0.25rem 0.25rem", marginTop: "0.5rem"}}
+                  >
+                     {date
+                        ? null
+                        : <p>Please enter a meeting date.</p>}
+                     {time
+                        ? null
+                        : <p>Please enter a meeting time.</p>}
+                     {length >= 5
+                        ? null
+                        : <p>Please enter a meeting length > 5 minutes</p>}
+                  </div>
+                  : null
             }
          </div>
       </Card>
