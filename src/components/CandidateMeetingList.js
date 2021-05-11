@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from './Button';
+import CandidateMeeting from "./CandidateMeeting";
 
 const CandidateMeetingList = ({candidateMeetings}) => {
    //todo: convert to unique id from database
