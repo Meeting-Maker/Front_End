@@ -23,9 +23,10 @@ export default ({commentUserID, updateComments, commentID, name, content, date})
 
    // TODO: update the hardcoded value
    function showDelete() {
-      if(commentUserID === 18)
+      if (commentUserID === 18)
          return <Icon onClick={deletecomment} className={"right floated"} path={mdiDelete} size={1}/>
    }
+
    return (
       <div className={"ui container comments"}>
          <div className={"ui card centered"} style={{width: "90%"}}>

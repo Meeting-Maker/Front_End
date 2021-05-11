@@ -116,6 +116,7 @@ const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
             <h3>Candidate Meetings</h3>
             <CandidateMeetingList candidateMeetings={candidateMeetings}/>
          </div>
+
          <div className="column">
             <h3 className="centered">Comments</h3>
             <div className={"card"} style={{overflow: "hidden", height: `${height - 155}px`}}>
