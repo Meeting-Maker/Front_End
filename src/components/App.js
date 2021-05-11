@@ -44,7 +44,7 @@ const App = () => {
          </Route>
          <Route path='/join'>
             <JoinMeeting
-               setMeetingID={setMeetingID}
+               setMeetingID={onUpdateMeeting}
             />
          </Route>
          <Route path='/meeting'>

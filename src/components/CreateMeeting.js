@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react';
 import CreateMeetingDetails from "./CreateMeetingDetails";
 import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";
-import api from "../services/api";
 import {createCandidateMeeting} from "../services/CandidateMeeting";
 import {customAlphabet} from "nanoid";
 import {storeCurrentGuest} from "../services/LocalStorage";
 import {createGuestMeeting} from "../services/Meeting";
 
-const CreateMeeting = ({currentGuest, setCurrentGuest, meetingID, setMeetingID}) => {
+const CreateMeeting = ({currentGuest, setCurrentGuest}) => {
    const [candidateMeetings, setCandidateMeetings] = useState([]);
+   const [newMeetingID, setNewMeetingID] = useState('');
    const [meetingDetails, setMeetingDetails] = useState({
       name: '',
       meetingID: '',
@@ -21,21 +21,19 @@ const CreateMeeting = ({currentGuest, setCurrentGuest, meetingID, setMeetingID})
 
    useEffect(
       () => {
-         if(!meetingID){
-            const id = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)();
-            console.log('MEETING ID GENERATED: ' + id);
-            setMeetingID(id);
-            const tempMeetingDetails = meetingDetails;
-            tempMeetingDetails.meetingID = id;
-            setMeetingDetails(tempMeetingDetails);
-         }
+         const id = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)();
+         console.log('MEETING ID GENERATED: ' + id);
+         setNewMeetingID(id);
+         const tempMeetingDetails = meetingDetails;
+         tempMeetingDetails.meetingID = id;
+         setMeetingDetails(tempMeetingDetails);
       },
       []
    );
 
    const onCreateCandidateMeeting = (candidateMeeting) => {
       setCandidateMeetings(candidateMeetings.concat([candidateMeeting]));
-      console.log('meetingID: ' + meetingID);
+      console.log('meetingID: ' + newMeetingID);
    };
 
    //todo: convert CreateMeeting button in CreateCandidateMeetings component to Link,
@@ -49,6 +47,7 @@ const CreateMeeting = ({currentGuest, setCurrentGuest, meetingID, setMeetingID})
 
       //todo: fix 'end' value, which needs to be calculated using date functions
       for(let i = 0; i < candidateMeetings.length; i++){
+         console.log('PUSHING MEETING TO DB: ', candidateMeetings);
          await createCandidateMeeting(candidateMeetings[i]);
       }
 
@@ -69,7 +68,7 @@ const CreateMeeting = ({currentGuest, setCurrentGuest, meetingID, setMeetingID})
             <CreateMeetingDetails
                currentGuest={currentGuest}
                setCurrentGuest={setCurrentGuest}
-               meetingID={meetingID}
+               meetingID={newMeetingID}
                setMeetingDetails={setMeetingDetails}/>
          </div>
       );
@@ -79,7 +78,7 @@ const CreateMeeting = ({currentGuest, setCurrentGuest, meetingID, setMeetingID})
    return (
       <div>
          <CreateCandidateMeetings
-            meetingID={meetingID}
+            newMeetingID={newMeetingID}
             candidateMeetings={candidateMeetings}
             onCreateCandidateMeeting={(candidateMeeting) => onCreateCandidateMeeting(candidateMeeting)}
             onCreateMeeting={onCreateMeeting}

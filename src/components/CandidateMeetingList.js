@@ -1,9 +1,13 @@
 import React from 'react';
-import CandidateMeeting from "./CandidateMeeting";
+import Button from './Button';
 
-const CandidateMeetingList = ({meetingID, candidateMeetings}) => {
-
+const CandidateMeetingList = ({candidateMeetings}) => {
    //todo: convert to unique id from database
+
+   const onCandidateMeetingClick = (candidateMeeting) => {
+      //do something
+      console.log('candidate meeting clicked: ', candidateMeeting);
+   };
 
    if (candidateMeetings.length === 0) {
       return (

@@ -7,7 +7,7 @@ import '../css/CreateCandidateMeetings.css';
 //todo: fix concat to append new option to candidateList
 //todo: onCreateMeeting does not prevent default / causes error. return list to parent component with onFormSubmit
 
-const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting, onCreateCandidateMeeting}) => {
+const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeting, onCreateCandidateMeeting}) => {
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
    const [length, setLength] = useState(0);
@@ -30,7 +30,7 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
          start: date + 'T' + time + ':00',
          end: date + 'T' + time + ':00',
          length: length,
-         meetingID: meetingID
+         meetingID: newMeetingID
       };
 
       if (!isValidCandidate(option)) return false;
@@ -101,19 +101,16 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
       if(val % 5 !== 0){
          val = (Math.floor(val /5) + 1) * 5;
       }
-
       setLength(val);
    }
 
    return (
       <Card width="30rem" padding="2rem 0 0 0">
-
          <div className="content">
             <div className="header">
                Create Your Meeting
             </div>
          </div>
-
          <div className="content">
             <form className="ui large form" onSubmit={(e) => onFormSubmit(e)}>
                <div className="field">
@@ -207,9 +204,6 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
                      {time
                         ? null
                         : <p>Please enter a meeting time.</p>}
-                     {length >= 5
-                        ? null
-                        : <p>Please enter a meeting length > 5 minutes</p>}
                   </div>
                   : null
             }
@@ -238,7 +232,7 @@ function isValidCandidate(candidateMeeting) {
    }
 
    //check for length > 0
-   if (candidateMeeting.length === 0) {
+   if (candidateMeeting.length < 5) {
       console.error('candidate cant have length 0');
       return false;
    }

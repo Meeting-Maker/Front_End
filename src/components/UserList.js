@@ -1,18 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
 import '../css/UserList.css'
 import Icon from '@mdi/react';
 import {mdiAccount} from '@mdi/js';
 import Card from './Card';
 
-const UserList = ({userList}) => {
+const UserList = ({userList, onSelectUser}) => {
 
    console.log('USERLIST: ', userList);
 
-   const onUserClick = (userID, userName) => {
-      //do something
-      console.log('userID: ', userID + 'userName: ', userName);
+   useEffect(
+      () => {
 
-   };
+      }, [userList]
+   );
 
    if (userList.length === 0) {
       return (
@@ -26,7 +26,7 @@ const UserList = ({userList}) => {
       return (
          <div className="user-card"
               key={user.id}
-              onClick={() => onUserClick(user.id, user.name)}
+              onClick={() => onSelectUser({id: user.id, name: user.name})}
                style={{padding: "0.25rem 0 0.25rem 0"}}>
             <div className="ui container" style={{width: "25rem"}}>
                <a className="ui grey fluid card">
