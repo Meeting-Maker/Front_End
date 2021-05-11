@@ -31,7 +31,7 @@ const UserList = ({userList}) => {
             <div className="ui container" style={{width: "25rem"}}>
                <a className="ui grey fluid card">
                   <div className="content">
-                     <div className={"ui header"}>
+                     <div className={"ui header floated left"}>
                         {user.name}
                      </div>
                   </div>
