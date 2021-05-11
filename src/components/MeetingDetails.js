@@ -5,12 +5,10 @@ import Icon from '@mdi/react';
 import {mdiCogOutline} from '@mdi/js';
 
 const MeetingDetails = ({meetingDetails}) => {
-   console.error('MEETING DETAILS: ', meetingDetails);
    if(!meetingDetails){
       console.error('is null, exiting');
       return null;
    }
-   console.error('not null.   CONTINUINS');
    const [date, time] = meetingDetails.dueDate.split('T');
 
    const onEditClick = (event) => {

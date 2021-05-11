@@ -1,14 +1,19 @@
 export function storeCurrentGuest (user) {
    localStorage.setItem('guestID', user.id);
    localStorage.setItem('guestName', user.name);
-   console.log('STORED GUEST IN LOCALSTORAGE: ', user);
 }
 
 export function fetchCurrentGuest () {
-   const currentGuest = {
+   return {
       id: localStorage.getItem('guestID'),
       name: localStorage.getItem('guestName')
    };
-   console.log('FETCHED GUEST FROM LOCAL STORAGE: ', currentGuest);
-   return currentGuest;
+}
+
+export function storeCurrentMeeting (meetingID) {
+   localStorage.setItem('meetingID', meetingID);
+}
+
+export function fetchCurrentMeeting () {
+   return localStorage.getItem('meetingID');
 }

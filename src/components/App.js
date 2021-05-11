@@ -7,10 +7,7 @@ import Footer from './Footer';
 import CreateMeeting from './CreateMeeting';
 import JoinMeeting from './JoinMeeting';
 import Meeting from './Meeting';
-import ProfilePage from './ProfilePage';
-import CreateGuest from './CreateGuest';
-import MeetingDetails from "./MeetingDetails";
-import UserList from "./UserList";
+import {fetchCurrentMeeting} from "../services/LocalStorage"
 
 const App = () => {
    const [currentGuest, setCurrentGuest] = useState({id: null, name: ''});
@@ -19,6 +16,7 @@ const App = () => {
    useEffect(
       () => {
          setCurrentGuest(fetchCurrentGuest());
+         setMeetingID(fetchCurrentMeeting())
       }
       , []
    );
@@ -27,6 +25,8 @@ const App = () => {
       storeCurrentGuest(guest);
       setCurrentGuest(guest);
    }
+
+
 
    return (
       <div>
@@ -42,7 +42,6 @@ const App = () => {
          </Route>
          <Route path='/join'>
             <JoinMeeting
-               currentGuest={currentGuest}
                setMeetingID={setMeetingID}
             />
          </Route>
