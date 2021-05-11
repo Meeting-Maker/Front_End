@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Button from './Button';
 import Card from './Card';
 import {customAlphabet} from 'nanoid';
-import FormValidation from "./FormValidation";
+import FormValidation, {validateForm} from "./FormValidation";
 
 const CreateMeetingDetails = ({currentGuest, setCurrentGuest, meetingID, setMeetingDetails}) => {
     const [userName, setUserName] = useState('');
@@ -11,8 +11,13 @@ const CreateMeetingDetails = ({currentGuest, setCurrentGuest, meetingID, setMeet
     const [dueDate, setDueDate] = useState('');
     const [dueTime, setDueTime] = useState('');
     const [pollType, setPollType] = useState(0);
+
+    //states for form validation
     const [submitFlag, setSubmitFlag] = useState(false);
-    const [renderErrors, setRenderErrors] = useState(false);
+    const [valid, setValid] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+
+
   
      useEffect(
       () => {
@@ -56,29 +61,33 @@ const CreateMeetingDetails = ({currentGuest, setCurrentGuest, meetingID, setMeet
         },
     ];
 
-    const onCreateMeetingDetails = (event) => {
+    const onCreateMeetingDetails = async (event) => {
         event.preventDefault();
-        setRenderErrors(true);
-
         setSubmitFlag(!submitFlag);
+        setSubmitted(true);
 
-        if(!renderErrors){
-            setCurrentGuest({
-                id: currentGuest.id,
-                name: userName
-            });
+        await validateForm(config).then(response => {
+            if(response.length === 0){
+                setCurrentGuest({
+                    id: currentGuest.id,
+                    name: userName
+                });
 
-            const meetingDetail = {
-                name: userName,
-                meetingID: meetingID,
-                title: meetingName,
-                description: meetingDescription,
-                dueDate: dueDate + 'T' + dueTime + ':00',
-                pollType: pollType
-            };
-            console.log(meetingDetail);
-            setMeetingDetails(meetingDetail);
-        }
+                const meetingDetail = {
+                    name: userName,
+                    meetingID: meetingID,
+                    title: meetingName,
+                    description: meetingDescription,
+                    dueDate: dueDate + 'T' + dueTime + ':00',
+                    pollType: pollType
+                };
+                console.log(meetingDetail);
+                setMeetingDetails(meetingDetail);
+            }else{
+                setValid(false);
+            }
+        });
+
     };
 
     return (
@@ -157,12 +166,11 @@ const CreateMeetingDetails = ({currentGuest, setCurrentGuest, meetingID, setMeet
                     </Button>
                 </form>
                 {
-                    renderErrors
+                    !valid && submitted
                         ?
                         <FormValidation
                             config={config}
-                            submitFlag={submitFlag}
-                            setRenderErrors={setRenderErrors}>
+                            submitFlag={submitFlag}>
                         </FormValidation>
                         : null
                 }

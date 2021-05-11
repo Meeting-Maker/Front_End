@@ -142,6 +142,8 @@ const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
             </div>
          </div>
       </div>
+
+
    );
 }
 

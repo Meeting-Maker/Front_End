@@ -7,7 +7,7 @@ import Footer from './Footer';
 import CreateMeeting from './CreateMeeting';
 import JoinMeeting from './JoinMeeting';
 import Meeting from './Meeting';
-import {fetchCurrentMeeting} from "../services/LocalStorage";
+import {fetchCurrentMeeting} from "../services/LocalStorage"
 
 const App = () => {
    const [currentGuest, setCurrentGuest] = useState({id: null, name: ''});
@@ -32,7 +32,6 @@ const App = () => {
       <div>
          <Header/>
          <Route path='/'> <LandingPage currentGuest={currentGuest}/> </Route>
-
          <Route path='/create'>
             <CreateMeeting
                currentGuest={currentGuest}

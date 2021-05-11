@@ -1,41 +1,54 @@
 import React from "react";
+import '../css/UserList.css'
+import Icon from '@mdi/react';
+import {mdiAccount} from '@mdi/js';
 import Card from './Card';
 
 const UserList = ({userList}) => {
 
    console.log('USERLIST: ', userList);
 
-   const onUserClick = (userID) => {
+   const onUserClick = (userID, userName) => {
       //do something
-      console.log('userID: ' + userID);
+      console.log('userID: ', userID + 'userName: ', userName);
+
    };
 
-   if(userList.length === 0){
+   if (userList.length === 0) {
       return (
-         <Card>
+         <div className="ui container">
             There are no users
-         </Card>
+         </div>
       );
    }
 
    const renderedList = userList.map((user) => {
       return (
-         <div key={user.id} onClick={() => onUserClick(user.id)}>
-            <Card>
-                  {user.name}
-            </Card>
+         <div className="user-card"
+              key={user.id}
+              onClick={() => onUserClick(user.id, user.name)}
+               style={{padding: "0.25rem 0 0.25rem 0"}}>
+            <div className="ui container" style={{width: "25rem"}}>
+               <a className="ui grey fluid card">
+                  <div className="content">
+                     <div className={"ui header"}>
+                        {user.name}
+                     </div>
+                  </div>
+               </a>
+            </div>
          </div>
       );
    });
 
    return (
-     <div>
-      <h2>
-        Users
-      </h2>
-      {renderedList}
-     </div>
- );
+      <div style={{paddingTop: "5rem"}}>
+         <Card width={"27rem"} padding={"1rem"}>
+            {renderedList}
+         </Card>
+      </div>
+
+   );
 };
 
 export default UserList;
