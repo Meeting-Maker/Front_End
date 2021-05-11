@@ -1,27 +1,29 @@
-import React, {useEffect, useState} from 'react';
+import {meetingExists} from "../services/Meeting";
 import CodeInput from "./CodeInput";
 
 //todo: conditionally render userName field, only if user is not logged in
 
-const JoinMeeting = ({currentGuest, setMeetingID}) => {
-   const [meetingCode, setMeetingCode] = useState('');
+const JoinMeeting = ({setMeetingID}) => {
 
    const onJoinMeeting = async (meetingID) => {
-      if (!isValidJoinCode(meetingID)) return;
-      console.log('Valid Code Entered: ' + meetingID);
-      setMeetingCode(meetingID);
-      setMeetingID(meetingID);
+      await meetingExists(meetingID).then(response => {
+         const exists = response.data.meetingExists;
+         if(!exists){
+            console.error('NO MEETING EXISTS FOR CODE ' + meetingID);
+         }else{
+            console.log('Valid Code Entered: ' + meetingID);
+            setMeetingID(meetingID);
 
-      //todo: change to work with link component instead
-      //change href to meeting
-      window.history.pushState(
-         {},
-         '',
-         '/meeting'
-      );
+            window.history.pushState(
+               {},
+               '',
+               '/meeting'
+            );
 
-      const navEvent = new PopStateEvent('popstate');
-      window.dispatchEvent(navEvent)
+            const navEvent = new PopStateEvent('popstate');
+            window.dispatchEvent(navEvent)
+         }
+      });
    }
 
    return (
@@ -30,13 +32,5 @@ const JoinMeeting = ({currentGuest, setMeetingID}) => {
       </div>
    );
 };
-
-function isValidJoinCode(joinCode) {
-   if (joinCode.length < 6) {
-      console.error('Invalid Code');
-      return false;
-   }
-   return true;
-}
 
 export default JoinMeeting;

@@ -1,7 +1,21 @@
 import api from './api';
 
+export async function meetingExists(meetingID) {
+    return await api.get('/meetingExists', {
+        params: {
+            meetingID: meetingID
+        }
+    });
+}
+
 export async function getMeeting(meetingID) {
     return await api.get('/getMeeting', {
+        params: meetingID
+    });
+}
+
+export async function getMeetingDetails(meetingID) {
+    return await api.get('/getMeetingDetails', {
         params: meetingID
     });
 }

@@ -1,6 +1,16 @@
 import React from "react";
 
 const MeetingDetails = ({meetingDetails}) => {
+   if(!meetingDetails){
+      console.error('is null, exiting');
+      return null;
+   }
+   const [date, time] = meetingDetails.dueDate.split('T');
+
+   const onEditClick = (event) => {
+      console.log("edit meeting");
+   };
+
    return (
      <div>
         <h3>{meetingDetails.title}</h3>
