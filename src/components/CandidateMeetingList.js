@@ -1,8 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Button from './Button';
 
-const CandidateMeetingList = ({meetingID, candidateMeetings}) => {
+const CandidateMeetingList = ({candidateMeetings}) => {
    //todo: convert to unique id from database
+
+   useEffect(
+      () => {
+         console.log('candidateMeetigns: ', candidateMeetings);
+      }, [candidateMeetings]
+   );
+
    const onCandidateMeetingClick = (candidateMeeting) => {
       //do something
       console.log('candidate meeting clicked: ', candidateMeeting);

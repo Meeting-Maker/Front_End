@@ -19,6 +19,12 @@ const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
    const commentForm = useRef(); // references to the comment form
    const {height} = useWindowDimensions();
 
+   useEffect(
+      () => {
+         console.error('CMS CMS CMS: ', candidateMeetings);
+      }, [meetingID]
+   );
+
    useEffect(() => {
          getMeetingDetails({
             meetingID: meetingID
@@ -44,9 +50,7 @@ const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
          });
 
          setCandidateMeetings([]);
-         getCandidateMeetings({
-            meetingID: meetingID
-         }).then(response => {
+         getCandidateMeetings(meetingID).then(response => {
             const candidateMeetings = response.data.candidateMeetings
             candidateMeetings.forEach((candidateMeeting) => {
                setCandidateMeetings(old => [...old, {
@@ -56,17 +60,8 @@ const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
                }])
             })
          });
-      }, []
+      }, [meetingID, currentGuest]
    );
-
-   const onCreateGuestUser = async (name) => {
-      addGuest({name: name, meetingID: meetingID}).then(response => {
-         setCurrentGuest({
-            id: response.data.userID,
-            name: name
-         });
-      });
-   };
 
    function submitComment(event) {
       event.preventDefault();
@@ -92,12 +87,28 @@ const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
       });
    }
 
+   const onGuestJoin = (guest) => {
+      setCurrentGuest(guest);
+   };
+
+   const onCreateGuestUser = async (name) => {
+      addGuest({name: name, meetingID: meetingID}).then(response => {
+         onGuestJoin({
+            id: response.data.userID,
+            name: name
+         });
+      });
+   };
+
+   const onHighlightUser = (user) => {
+      console.error('HIGHLIGHT USER: ', user);
+   };
 
    //if user does not have a guestID or name, todo: or if their guest id is not in the current meeting's userList
    if (!currentGuest.id || !currentGuest.name) {
       return (
          <div>
-            <UserList userList={userList}/>
+            <UserList userList={userList} onSelectUser={onGuestJoin}/>
             <CreateGuest onCreateGuestUser={onCreateGuestUser}/>
          </div>
       );
@@ -105,19 +116,15 @@ const Meeting = ({currentGuest, setCurrentGuest, meetingID}) => {
 
    return (
       <div className="center aligned ui three column very relaxed stackable grid">
-
          <div className="column">
             <MeetingDetails meetingDetails={meetingDetails}/>
-            <h3>Users</h3>
-            <UserList userList={userList}/>
+            <UserList userList={userList} onSelectUser={onHighlightUser}/>
          </div>
 
          <div className="column">
-            <h3>Candidate Meetings</h3>
             <CandidateMeetingList candidateMeetings={candidateMeetings}/>
          </div>
          <div className="column">
-            <h3 className="centered">Comments</h3>
             <div className={"card"} style={{overflow: "hidden", height: `${height - 155}px`}}>
                <CommentList
                   updateComments={updateComments}

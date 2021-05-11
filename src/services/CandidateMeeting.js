@@ -2,7 +2,9 @@ import api from './api';
 
 export async function getCandidateMeetings(meetingID) {
     return await api.get('/getCandidateMeetings', {
-        params: meetingID
+        params: {
+            meetingID: meetingID
+        }
     });
 }
 
