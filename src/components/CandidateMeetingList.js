@@ -9,16 +9,7 @@ const CandidateMeetingList = ({candidateMeetings}) => {
       console.log('candidate meeting clicked: ', candidateMeeting);
    };
 
-   if (candidateMeetings.length === 0) {
-      return (
-         <div className="ui container">
-            No Candidate Meetings Exist
-         </div>
-      );
-   }
-
    //todo: render with nice date formats
-
    const renderedList = candidateMeetings.map((candidateMeeting) => {
       return (
          //sets unique key by concatenating info from candidateMeeting
@@ -34,15 +25,24 @@ const CandidateMeetingList = ({candidateMeetings}) => {
 
    return (
       <div className={"ui card centered grey"} style={{overflow: "hidden", width: "30rem"}}>
-         <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
-            Candidate Meetings
-         </div>
+         {candidateMeetings.length === 0
+            ?
+            <div className={"ui medium header"} style={{margin: "0.5em 0 0.5em 0", textAlign: "center"}}>
+               No Candidate Meetings Exist
+            </div>
+            :
+            <div>
+               <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
+                  Candidate Meetings
+               </div>
+               <div className={"ui list"} style={{ overflow: "", marginBottom: '0'}}>
+                  {renderedList}
+               </div>
+            </div>
 
-         <div className={"ui list"} style={{ overflow: "", marginBottom: '0'}}>
-            {renderedList}
-         </div>
+         }
       </div>
    );
-};
+}
 
 export default CandidateMeetingList;

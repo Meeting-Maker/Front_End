@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Button from './Button';
 import Card from './Card';
-import {customAlphabet} from 'nanoid';
 import FormValidation, {validateForm} from "./FormValidation";
 
 const CreateMeetingDetails = ({currentGuest, setCurrentGuest, meetingID, setMeetingDetails}) => {

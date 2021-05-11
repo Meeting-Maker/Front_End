@@ -2,7 +2,6 @@ import React from 'react';
 import Icon from "@mdi/react";
 import {mdiDelete, mdiClockTimeFourOutline, mdiTimerSand, mdiCalendarRange} from "@mdi/js";
 import '../css/CandidateMeeting.css';
-import {formatDate} from "../services/Comment";
 
 const CandidateMeeting = ({key, candidateMeetingID, candidateMeetingStart, candidateMeetingLength}) => {
 
