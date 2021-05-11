@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {fetchCurrentGuest, storeCurrentGuest} from "../services/LocalStorage";
+import {fetchCurrentGuest, storeCurrentGuest, storeCurrentMeeting} from "../services/LocalStorage";
 import Route from '../router/Route';
 import Header from './Header';
 import LandingPage from './LandingPage';
@@ -26,7 +26,10 @@ const App = () => {
       setCurrentGuest(guest);
    }
 
-
+   const onUpdateMeeting = (meetingID) => {
+      storeCurrentMeeting(meetingID);
+      setMeetingID(meetingID);
+   }
 
    return (
       <div>
@@ -37,7 +40,6 @@ const App = () => {
                currentGuest={currentGuest}
                setCurrentGuest={onUpdateGuest}
                meetingID={meetingID}
-               setMeetingID={setMeetingID}
             />
          </Route>
          <Route path='/join'>
@@ -50,6 +52,7 @@ const App = () => {
                currentGuest={currentGuest}
                setCurrentGuest={onUpdateGuest}
                meetingID={meetingID}
+               setMeetingID={onUpdateMeeting}
             />
          </Route>
          <Footer/>

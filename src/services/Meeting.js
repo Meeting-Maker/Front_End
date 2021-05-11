@@ -1,6 +1,7 @@
 import api from './api';
 
 export async function meetingExists(meetingID) {
+    if(meetingID.length !== 6) return false;
     return await api.get('/meetingExists', {
         params: {
             meetingID: meetingID
