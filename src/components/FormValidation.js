@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
 
-
-
 const FormValidation = ({config, submitFlag}) => {
     const [errors, setErrors] = useState([]);
 
@@ -72,6 +70,15 @@ export async function validateForm(config) {
                     message: field.name + ' has already passed.',
                     key: field.name + '-date'
                 })
+            }
+        }
+
+        if(field.hasOwnProperty('requiredPositive')){
+            if (value <= 0){
+                tempErrorsArray.push({
+                   message: 'Please enter a ' + field.name,
+                   key: field.name + '-requiredPositive'
+                });
             }
         }
     }
