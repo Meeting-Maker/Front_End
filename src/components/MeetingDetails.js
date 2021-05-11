@@ -1,6 +1,4 @@
-import React, {useRef} from "react";
 import Card from './Card';
-import Button from './Button';
 import Icon from '@mdi/react';
 import {mdiCogOutline} from '@mdi/js';
 

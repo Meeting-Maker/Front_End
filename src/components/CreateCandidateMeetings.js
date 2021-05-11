@@ -58,19 +58,25 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
       }
    }
 
-   const onHandleLengthChangeButton = (event) => {
-      event.preventDefault();
-
-      let tempLength = length;
-
-      if(event.target.id === 'minus' && tempLength > 0){
-         tempLength -= 5;
-      }else if(event.target.id === 'plus'){
-         tempLength += 5;
+   const onChangeLength = (input) => {
+      let val;
+      switch(input){
+         case 'plus':
+            val = length + 5;
+            break;
+         case 'minus':
+            val = length - 5;
+            break;
+         default:
+            val = input;
+            break;
       }
 
-      tempLength = Math.round(tempLength / 5) * 5;
-      setLength(tempLength);
+      if(val % 5 !== 0){
+         val = (Math.floor(val /5) + 1) * 5;
+      }
+
+      setLength(val);
    }
 
    return (
@@ -94,6 +100,7 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
                      required
                   />
                </div>
+
                <div className="field">
                   <label className="left aligned">Time</label>
                   <input
@@ -105,7 +112,6 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
                   />
                </div>
 
-
                <div className="field ui container" style={{width: "100%", padding: "0"}}>
                   <label className="left aligned">Length (Minutes)</label>
 
@@ -115,7 +121,7 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
                            style={{padding: "14px 11px 0 11px",
                               borderTopRightRadius: "0",
                               borderBottomRightRadius: "0"}}
-                           onClick={onHandleLengthChangeButton}>
+                           onClick={() => onChangeLength('minus')}>
                            <i id="minus" className={"minus icon"}/>
                         </a>
                      </span>
@@ -125,6 +131,7 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
                         placeholder="Length (minutes)"
                         value={length}
                         onChange={(e) => setLength(e.target.value)}
+                        onBlur={() => onChangeLength(length)}
                         style={{borderRadius: "0"}}
                      />
 
@@ -133,14 +140,13 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
                            style={{padding: "14px 11px 0 11px",
                               borderTopLeftRadius: "0",
                               borderBottomLeftRadius: "0"}}
-                           onClick={onHandleLengthChangeButton}>
+                           onClick={() => onChangeLength('plus')}>
                            <i id="plus" className={"plus icon"}/>
                         </a>
                      </span>
                   </span>
 
                </div>
-
 
                <div style={{textAlign: "center"}}>
                   <Button
