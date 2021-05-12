@@ -10,7 +10,6 @@ import UserList from "./UserList";
 import CandidateMeetingList from "./CandidateMeetingList";
 import CreateGuest from "./CreateGuest";
 import MeetingDetails from "./MeetingDetails";
-import {Spinner} from "react-bootstrap";
 
 const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    const [meetingID, setMeetingID] = useState('');
@@ -31,7 +30,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          console.log('candidateMeetings', candidateMeetings);
          console.log('comments', comments);
 
-      }, [meetingID, meetingDetails, userList, candidateMeetings, comments]
+      }, [meetingID, meetingDetails, userList, candidateMeetings, comments, currentGuest]
    );
 
    useEffect(
@@ -43,39 +42,10 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    useEffect(
       () => {
          if (!meetingID || meetingID.length !== 6) return;
-
-         getMeetingDetails(meetingID).then(response => {
-            setMeetingDetails(response.data.meetingDetails);
-         });
-
-         setUserList([]);
-         getUsers({
-            meetingID: meetingID
-         }).then(response => {
-            const users = response.data.users;
-            users.forEach(user => setUserList(old => [...old, user]));
-         });
-
-         setComments([]);
-         getComments({
-            meetingID: meetingID
-         }).then(response => {
-            const comments = response.data.comments;
-            setComments(comments);
-         });
-
-         setCandidateMeetings([]);
-         getCandidateMeetings(meetingID).then(response => {
-               const candidateMeetings = response.data.candidateMeetings
-               candidateMeetings.forEach((candidateMeeting) => {
-                  setCandidateMeetings(old => [...old, {
-                     date: candidateMeeting.start.substring(0, 10),
-                     time: candidateMeeting.start.substring(11, 16),
-                     length: candidateMeeting.length
-                  }])
-               })
-            }
-         );
+         updateMeetingDetails();
+         updateComments();
+         updateUserList();
+         updateCandidateMeetings();
       }, [meetingID]
    );
 
@@ -131,6 +101,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             id: response.data.userID,
             name: name
          });
+         updateUserList();
       });
    };
 
@@ -147,15 +118,45 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       });
    }
 
+   function updateMeetingDetails(){
+      getMeetingDetails(meetingID).then(response => {
+         setMeetingDetails(response.data.meetingDetails);
+      });
+   }
+
+   function updateUserList() {
+      setUserList([]);
+      getUsers({
+         meetingID: meetingID
+      }).then(response => {
+         const users = response.data.users;
+         users.forEach(user => setUserList(old => [...old, user]));
+      });
+   }
+
    function updateComments() {
       setComments([]);
       getComments({
-         meetingID: "ZQTNN1"
+         meetingID: meetingID
       }).then(response => {
          const comments = response.data.comments;
-         console.log(comments);
          setComments(comments);
       });
+   }
+
+   function updateCandidateMeetings(){
+      setCandidateMeetings([]);
+      getCandidateMeetings(meetingID).then(response => {
+            const candidateMeetings = response.data.candidateMeetings
+            candidateMeetings.forEach((candidateMeeting) => {
+               setCandidateMeetings(old => [...old, {
+                  date: candidateMeeting.start.substring(0, 10),
+                  time: candidateMeeting.start.substring(11, 16),
+                  length: candidateMeeting.length
+               }])
+            })
+         }
+      );
    }
 
    const onGuestJoin = (guest) => {
