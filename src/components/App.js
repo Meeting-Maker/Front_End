@@ -7,28 +7,29 @@ import Footer from './Footer';
 import CreateMeeting from './CreateMeeting';
 import JoinMeeting from './JoinMeeting';
 import Meeting from './Meeting';
-import {fetchCurrentMeeting} from "../services/LocalStorage"
 
 const App = () => {
    const [currentGuest, setCurrentGuest] = useState({id: null, name: ''});
-   const [meetingID, setMeetingID] = useState('');
 
+   //fetch the meetingID and guest from localStorage on first app load
    useEffect(
       () => {
          setCurrentGuest(fetchCurrentGuest());
-         setMeetingID(fetchCurrentMeeting())
       }
       , []
    );
 
+   //update state variable and localStorage,
+   //should be passed as prop in place of setState functions
    const onUpdateGuest = (guest) => {
       storeCurrentGuest(guest);
       setCurrentGuest(guest);
    }
 
-   const onUpdateMeeting = (meetingID) => {
+   //update state variable and localStorage,
+   //should be passed as prop in place of setState functions
+   const onUpdateMeetingID = (meetingID) => {
       storeCurrentMeeting(meetingID);
-      setMeetingID(meetingID);
    }
 
    return (
@@ -38,21 +39,20 @@ const App = () => {
          <Route path='/create'>
             <CreateMeeting
                currentGuest={currentGuest}
-               setCurrentGuest={onUpdateGuest}
-               meetingID={meetingID}
+               onUpdateGuest={onUpdateGuest}
+               onUpdateMeetingID={onUpdateMeetingID}
             />
          </Route>
          <Route path='/join'>
             <JoinMeeting
-               setMeetingID={onUpdateMeeting}
+               onUpdateMeetingID={onUpdateMeetingID}
             />
          </Route>
          <Route path='/meeting'>
             <Meeting
                currentGuest={currentGuest}
-               setCurrentGuest={onUpdateGuest}
-               meetingID={meetingID}
-               setMeetingID={onUpdateMeeting}
+               onUpdateGuest={onUpdateGuest}
+               onUpdateMeetingID={onUpdateMeetingID}
             />
          </Route>
          <Footer/>

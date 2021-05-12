@@ -17,17 +17,23 @@ const CandidateMeetingList = ({candidateMeetings}) => {
       );
    }
 
+   const onDeleteCandidateMeeting = (meetingID) => {
+      //delete candidate from db
+      console.log("deleted candidate: " + meetingID);
+   }
    //todo: render with nice date formats
 
    const renderedList = candidateMeetings.map((candidateMeeting) => {
       return (
          //sets unique key by concatenating info from candidateMeeting
-         <div key={candidateMeeting.meetingID + '-' + candidateMeeting.start + '-' + candidateMeeting.length}>
-            <CandidateMeeting
-               candidateMeetingID={candidateMeeting.meetingID}
-               candidateMeetingStart={candidateMeeting.start}
-               candidateMeetingLength={candidateMeeting.length}
-            />
+         <div
+            key={candidateMeeting.start + '-' + candidateMeeting.length}
+            onClick={() => onCandidateMeetingClick(candidateMeeting)}
+         >
+            {candidateMeeting.start}<br/>
+            {candidateMeeting.length} minutes
+            <Button className="custom-button dark thick"
+                    onClick={() => onDeleteCandidateMeeting(candidateMeeting)}>Delete</Button>
          </div>
       );
    });
