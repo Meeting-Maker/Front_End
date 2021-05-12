@@ -11,18 +11,19 @@ const CreateMeetingDetails = ({currentGuest, onUpdateGuest, newMeetingID, setMee
     const [dueTime, setDueTime] = useState('');
     const [pollType, setPollType] = useState(0);
 
-    //states for form validation
-    const [submitFlag, setSubmitFlag] = useState(false);
-    const [valid, setValid] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
+   //states for form validation
+   const [submitFlag, setSubmitFlag] = useState(false);
+   const [valid, setValid] = useState(false);
+   const [submitted, setSubmitted] = useState(false);
 
      useEffect(
       () => {
          async function loadUserName() {
-            if(currentGuest.name){
+            if (currentGuest.name) {
                await setUserName(currentGuest.name);
             }
          }
+
          loadUserName();
       }, [currentGuest]
    );
@@ -85,96 +86,95 @@ const CreateMeetingDetails = ({currentGuest, onUpdateGuest, newMeetingID, setMee
                 setValid(false);
             }
         });
+   };
 
-    };
+   return (
+      <Card width="50rem" padding="10rem 0 0 0">
 
-    return (
-        <Card width="40%" padding="10rem 0 0 0">
-
-            <div className="content">
-                <div className="header">
-                    Create Your Meeting
-                </div>
+         <div className="content">
+            <div className="header">
+               Create Your Meeting
             </div>
+         </div>
 
-            <div className="content">
-                <form className="ui large form" onSubmit={(e) => onCreateMeetingDetails(e)}>
-                    <div className="field">
-                        <label className="left aligned">Your Name</label>
+         <div className="content">
+            <form className="ui large form" onSubmit={(e) => onCreateMeetingDetails(e)}>
+               <div className="field">
+                  <label className="left aligned">Your Name</label>
+                  <input
+                     type="text"
+                     placeholder="Your Name"
+                     name="meetingCreatorName"
+                     value={userName}
+                     onChange={(e) => setUserName(e.target.value)}
+                  />
+               </div>
+               <div className="field">
+                  <label className="left aligned">Meeting Name</label>
+                  <input
+                     type="text"
+                     placeholder="Meeting Name"
+                     name="meetingName"
+                     value={meetingName}
+                     onChange={(e) => setMeetingName(e.target.value)}
+                  />
+               </div>
+
+               <div className="field">
+                  <label className="left aligned">Description (optional) </label>
+                  <input
+                     as="textarea"
+                     placeholder="Meeting details, location, etc."
+                     name="description"
+                     value={meetingDescription}
+                     onChange={(e) => setMeetingDescription(e.target.value)}
+                  />
+               </div>
+
+               <div className="field">
+                  <label className="left aligned">Response Needed By</label>
+                  <div className="two fields">
+                     <div className="field">
                         <input
-                            type="text"
-                            placeholder="Your Name"
-                            name="meetingCreatorName"
-                            value={userName}
-                            onChange={(e) => setUserName(e.target.value)}
+                           type="date"
+                           placeholder="Date"
+                           name="date"
+                           value={dueDate}
+                           onChange={(e) => setDueDate(e.target.value)}
                         />
-                    </div>
-                    <div className="field">
-                        <label className="left aligned">Meeting Name</label>
+                     </div>
+                     <div className="field">
                         <input
-                            type="text"
-                            placeholder="Meeting Name"
-                            name="meetingName"
-                            value={meetingName}
-                            onChange={(e) => setMeetingName(e.target.value)}
+                           type="time"
+                           placeholder="Time"
+                           name="time"
+                           value={dueTime}
+                           onChange={(e) => setDueTime(e.target.value)}
                         />
-                    </div>
+                     </div>
+                  </div>
+               </div>
 
-                    <div className="field">
-                        <label className="left aligned">Description</label>
-                        <input
-                            as="textarea"
-                            placeholder="Description"
-                            name="description"
-                            value={meetingDescription}
-                            onChange={(e) => setMeetingDescription(e.target.value)}
-                        />
-                    </div>
-
-                    <div className="field">
-                        <label className="left aligned">Response Needed By</label>
-                        <div className="two fields">
-                            <div className="field">
-                                <input
-                                    type="date"
-                                    placeholder="Date"
-                                    name="date"
-                                    value={dueDate}
-                                    onChange={(e) => setDueDate(e.target.value)}
-                                />
-                            </div>
-                            <div className="field">
-                                <input
-                                    type="time"
-                                    placeholder="Time"
-                                    name="time"
-                                    value={dueTime}
-                                    onChange={(e) => setDueTime(e.target.value)}
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr/>
-                    <Button
-                        className="custom-button dark span"
-                        onClick={() => setPollType(0)}
-                        type="submit">
-                        Create Poll
-                    </Button>
-                </form>
-                {
-                    !valid && submitted
-                        ?
-                        <FormValidation
-                            config={config}
-                            submitFlag={submitFlag}>
-                        </FormValidation>
-                        : null
-                }
-            </div>
-        </Card>
-    );
+               <hr/>
+               <Button
+                  className="custom-button dark span"
+                  onClick={() => setPollType(0)}
+                  type="submit">
+                  Create Poll
+               </Button>
+            </form>
+            {
+               !valid && submitted
+                  ?
+                  <FormValidation
+                     config={config}
+                     submitFlag={submitFlag}>
+                  </FormValidation>
+                  : null
+            }
+         </div>
+      </Card>
+   );
 };
 
 export default CreateMeetingDetails;

@@ -157,11 +157,28 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       });
    }
 
+   const onGuestJoin = (guest) => {
+      setCurrentGuest(guest);
+   };
+
+   const onCreateGuestUser = async (name) => {
+      addGuest({name: name, meetingID: meetingID}).then(response => {
+         onGuestJoin({
+            id: response.data.userID,
+            name: name
+         });
+      });
+   };
+
+   const onHighlightUser = (user) => {
+      console.error('HIGHLIGHT USER: ', user);
+   };
+
    //if user does not have a guestID or name, todo: or if their guest id is not in the current meeting's userList
    if (!currentGuest.id || !currentGuest.name) {
       return (
          <div>
-            <UserList userList={userList}/>
+            <UserList userList={userList} onSelectUser={onGuestJoin}/>
             <CreateGuest onCreateGuestUser={onCreateGuestUser}/>
          </div>
       );
@@ -191,18 +208,16 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
 
    return (
       <div className="center aligned ui three column very relaxed stackable grid">
-
          <div className="column">
             <MeetingDetails meetingDetails={meetingDetails}/>
-            <UserList userList={userList}/>
+            <UserList userList={userList} onSelectUser={onHighlightUser}/>
          </div>
 
          <div className="column">
-            <h3>Candidate Meetings</h3>
             <CandidateMeetingList candidateMeetings={candidateMeetings}/>
          </div>
+
          <div className="column">
-            <h3 className="centered">Comments</h3>
             <div className={"card"} style={{overflow: "hidden", height: `${height - 155}px`}}>
                <CommentList
                   updateComments={updateComments}
@@ -227,8 +242,6 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             </div>
          </div>
       </div>
-
-
    );
 }
 

@@ -5,8 +5,8 @@ import CandidateMeetingList from "./CandidateMeetingList";
 import {createCandidateMeeting, createCandidateMeetings} from "../services/CandidateMeeting";
 import {customAlphabet} from "nanoid";
 import {createGuestMeeting} from "../services/Meeting";
-
 const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
+
    const [candidateMeetings, setCandidateMeetings] = useState([]);
    const [newMeetingID, setNewMeetingID] = useState('');
    const [meetingDetails, setMeetingDetails] = useState({
@@ -53,7 +53,6 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
                '',
                '/meeting?meetingID=' + newMeetingID
             );
-
             const navEvent = new PopStateEvent('popstate');
             window.dispatchEvent(navEvent)
          });

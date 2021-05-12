@@ -46,6 +46,32 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
       }
    };
 
+   const config = [
+      {
+         field: {
+            value: date,
+            name: 'Candidate Meeting Date',
+            requiredFuture: true,
+         }
+      },
+      {
+         field: {
+            value: time,
+            name: 'Candidate Meeting Time',
+            requiredFuture: true,
+         }
+      },
+      {
+         field: {
+            value: length,
+            name: 'Candidate Meeting Length',
+            requiredPositive: true,
+         }
+      }
+   ]
+
+
+
    //called when the 'Create Meeting' button is clicked
    //verifies that at least 2 candidates exist
    const onFormSubmit = (event) => {
@@ -75,19 +101,16 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
       if(val % 5 !== 0){
          val = (Math.floor(val /5) + 1) * 5;
       }
-
       setLength(val);
    }
 
    return (
       <Card width="30rem" padding="2rem 0 0 0">
-
          <div className="content">
             <div className="header">
                Create Your Meeting
             </div>
          </div>
-
          <div className="content">
             <form className="ui large form" onSubmit={(e) => onFormSubmit(e)}>
                <div className="field">
@@ -181,16 +204,11 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
                      {time
                         ? null
                         : <p>Please enter a meeting time.</p>}
-                     {length >= 5
-                        ? null
-                        : <p>Please enter a meeting length > 5 minutes</p>}
                   </div>
                   : null
             }
          </div>
       </Card>
-
-
    );
 };
 
@@ -214,7 +232,7 @@ function isValidCandidate(candidateMeeting) {
    }
 
    //check for length > 0
-   if (candidateMeeting.length === 0) {
+   if (candidateMeeting.length < 5) {
       console.error('candidate cant have length 0');
       return false;
    }

@@ -72,6 +72,15 @@ export async function validateForm(config) {
                 })
             }
         }
+
+        if(field.hasOwnProperty('requiredPositive')){
+            if (value <= 0){
+                tempErrorsArray.push({
+                   message: 'Please enter a ' + field.name,
+                   key: field.name + '-requiredPositive'
+                });
+            }
+        }
     }
 
     return tempErrorsArray;
