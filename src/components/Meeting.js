@@ -158,16 +158,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    }
 
    const onGuestJoin = (guest) => {
-      setCurrentGuest(guest);
-   };
-
-   const onCreateGuestUser = async (name) => {
-      addGuest({name: name, meetingID: meetingID}).then(response => {
-         onGuestJoin({
-            id: response.data.userID,
-            name: name
-         });
-      });
+      onUpdateGuest(guest);
    };
 
    const onHighlightUser = (user) => {
