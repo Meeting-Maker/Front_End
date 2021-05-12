@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
 
-
-
 const FormValidation = ({config, submitFlag}) => {
     const [errors, setErrors] = useState([]);
 

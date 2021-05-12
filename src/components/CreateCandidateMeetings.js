@@ -7,7 +7,7 @@ import '../css/CreateCandidateMeetings.css';
 //todo: fix concat to append new option to candidateList
 //todo: onCreateMeeting does not prevent default / causes error. return list to parent component with onFormSubmit
 
-const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting, onCreateCandidateMeeting}) => {
+const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeting, onCreateCandidateMeeting}) => {
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
    const [length, setLength] = useState(0);
@@ -30,7 +30,7 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, onCreateMeeting,
          start: date + 'T' + time + ':00',
          end: date + 'T' + time + ':00',
          length: length,
-         meetingID: meetingID
+         meetingID: newMeetingID
       };
 
       if (!isValidCandidate(option)) return false;

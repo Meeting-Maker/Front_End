@@ -10,13 +10,13 @@ const CandidateMeetingList = ({meetingID, candidateMeetings}) => {
 
    if (candidateMeetings.length === 0) {
       return (
-         <div className="ui container" >
+         <div className="ui container">
             No Candidate Meetings Exist
          </div>
       );
    }
 
-   const onDeleteCandidateMeeting = (meetingID) =>{
+   const onDeleteCandidateMeeting = (meetingID) => {
       //delete candidate from db
       console.log("deleted candidate: " + meetingID);
    }
@@ -25,10 +25,14 @@ const CandidateMeetingList = ({meetingID, candidateMeetings}) => {
    const renderedList = candidateMeetings.map((candidateMeeting) => {
       return (
          //sets unique key by concatenating info from candidateMeeting
-         <div key={candidateMeeting.meetingID + '-' + candidateMeeting.start + '-' + candidateMeeting.length} onClick={() => onCandidateMeetingClick(candidateMeeting)}>
-                  {candidateMeeting.start}<br/>
-                  {candidateMeeting.length} minutes
-                  <Button className="custom-button dark thick" onClick={() =>onDeleteCandidateMeeting(candidateMeeting)}>Delete</Button>
+         <div
+            key={candidateMeeting.start + '-' + candidateMeeting.length}
+            onClick={() => onCandidateMeetingClick(candidateMeeting)}
+         >
+            {candidateMeeting.start}<br/>
+            {candidateMeeting.length} minutes
+            <Button className="custom-button dark thick"
+                    onClick={() => onDeleteCandidateMeeting(candidateMeeting)}>Delete</Button>
          </div>
       );
    });

@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import Button from './Button';
 import Card from './Card';
-import {customAlphabet} from 'nanoid';
 import FormValidation, {validateForm} from "./FormValidation";
 
-const CreateMeetingDetails = ({currentGuest, setCurrentGuest, meetingID, setMeetingDetails}) => {
+const CreateMeetingDetails = ({currentGuest, onUpdateGuest, newMeetingID, setMeetingDetails}) => {
     const [userName, setUserName] = useState('');
     const [meetingName, setMeetingName] = useState('');
     const [meetingDescription, setMeetingDescription] = useState('');
@@ -17,8 +16,6 @@ const CreateMeetingDetails = ({currentGuest, setCurrentGuest, meetingID, setMeet
     const [valid, setValid] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
-
-  
      useEffect(
       () => {
          async function loadUserName() {
@@ -68,19 +65,20 @@ const CreateMeetingDetails = ({currentGuest, setCurrentGuest, meetingID, setMeet
 
         await validateForm(config).then(response => {
             if(response.length === 0){
-                setCurrentGuest({
+                onUpdateGuest({
                     id: currentGuest.id,
                     name: userName
                 });
 
                 const meetingDetail = {
                     name: userName,
-                    meetingID: meetingID,
+                    meetingID: newMeetingID,
                     title: meetingName,
                     description: meetingDescription,
                     dueDate: dueDate + 'T' + dueTime + ':00',
                     pollType: pollType
                 };
+
                 console.log(meetingDetail);
                 setMeetingDetails(meetingDetail);
             }else{

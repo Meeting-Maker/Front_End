@@ -1,19 +1,33 @@
 import React, {useState, useEffect} from 'react';
 import Button from './Button';
-import Link from '../router/Link';
 import Card from './Card';
 import FormValidation, {validateForm} from './FormValidation';
 
 
 //todo: conditionally render userName field, only if user is not logged in
 
-const CodeInput = ({onCodeSubmit}) => {
+const CodeInput = ({onCodeSubmit, meetingIDFromParam}) => {
     const [joinCode, setJoinCode] = useState('');
-
     //todo: remove one of these useStates for form validation
     const [submitFlag, setSubmitFlag] = useState(false);
     const [valid, setValid] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+
+    useEffect(
+       () => {
+
+       }, [joinCode]
+    );
+
+    useEffect(
+       () => {
+           if(meetingIDFromParam){
+               setJoinCode(meetingIDFromParam);
+               setSubmitted(true);
+               setSubmitFlag(!submitFlag);
+           }
+       }, [meetingIDFromParam]
+    );
 
     const config = [
         {
@@ -69,12 +83,9 @@ const CodeInput = ({onCodeSubmit}) => {
                         </FormValidation>
                         : null
                 }
-
-
             </div>
         </Card>
     );
-
 };
 
 export default CodeInput;
