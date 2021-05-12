@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from './Button';
+import CandidateMeeting from "./CandidateMeeting";
 
 const CandidateMeetingList = ({candidateMeetings}) => {
    //todo: convert to unique id from database
@@ -26,22 +27,17 @@ const CandidateMeetingList = ({candidateMeetings}) => {
    const renderedList = candidateMeetings.map((candidateMeeting) => {
       return (
          //sets unique key by concatenating info from candidateMeeting
-         <div
+         <CandidateMeeting
+            candidateMeeting={candidateMeeting}
             key={candidateMeeting.start + '-' + candidateMeeting.length}
-            onClick={() => onCandidateMeetingClick(candidateMeeting)}
-         >
-            {candidateMeeting.start}<br/>
-            {candidateMeeting.length} minutes
-            <Button className="custom-button dark thick"
-                    onClick={() => onDeleteCandidateMeeting(candidateMeeting)}>Delete</Button>
-         </div>
+         />
       );
    });
 
    return (
       <div className={"ui card centered grey"} style={{overflow: "hidden", width: "30rem"}}>
          <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
-            Candidate Meetings
+            Vote
          </div>
 
          <div className={"ui list"} style={{ overflow: "", marginBottom: '0'}}>
