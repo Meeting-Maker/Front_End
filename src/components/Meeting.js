@@ -90,7 +90,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       //todo: increase browser support by changing searchParams function
       const meetingIDFromParam = new URLSearchParams(window.location.search).get('meetingID');
 
-      if(!meetingIDFromParam){
+      if (!meetingIDFromParam) {
          window.history.pushState(
             {},
             '',
@@ -100,7 +100,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          const navEvent = new PopStateEvent('popstate');
          window.dispatchEvent(navEvent);
          return;
-      }else if(meetingIDFromParam.length !== 6){
+      } else if (meetingIDFromParam.length !== 6) {
          window.history.pushState(
             {},
             '',
@@ -126,6 +126,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
 
    const onCreateGuestUser = async (name) => {
       addGuest({name: name, meetingID: meetingID}).then(response => {
+         console.log('SAJDHFKLSADHFLKJHADSKFLJH ', response);
          onUpdateGuest({
             id: response.data.userID,
             name: name
