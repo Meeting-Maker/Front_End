@@ -59,12 +59,12 @@ const CandidateMeeting = ({candidateMeeting}) => {
             <div className={"content"} style={{fontSize: "1.2em", padding: "0.5em 1em 0.5em 1em"}}>
                <div style={{float: "left"}}>
                   <Icon path={mdiCalendarRange} size={0.8}/>
-                  {date}
+                  {' '}{date}
                </div>
                <br/>
                <div style={{float: "left"}}>
                   <Icon path={mdiClockTimeFourOutline} size={0.8}/>
-                  {time}
+                  {' '}{time}
                </div>
                <br/>
                <div style={{float: "left"}}>
