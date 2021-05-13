@@ -3,21 +3,20 @@ import Button from './Button';
 import Card from './Card';
 import FormValidation, {validateForm} from "./FormValidation";
 
-const CreateMeetingDetails = ({currentGuest, setCurrentGuest, meetingID, setMeetingDetails}) => {
-   const [userName, setUserName] = useState('');
-   const [meetingName, setMeetingName] = useState('');
-   const [meetingDescription, setMeetingDescription] = useState('');
-   const [dueDate, setDueDate] = useState('');
-   const [dueTime, setDueTime] = useState('');
-   const [pollType, setPollType] = useState(0);
+const CreateMeetingDetails = ({currentGuest, onUpdateGuest, newMeetingID, setMeetingDetails}) => {
+    const [userName, setUserName] = useState('');
+    const [meetingName, setMeetingName] = useState('');
+    const [meetingDescription, setMeetingDescription] = useState('');
+    const [dueDate, setDueDate] = useState('');
+    const [dueTime, setDueTime] = useState('');
+    const [pollType, setPollType] = useState(0);
 
    //states for form validation
    const [submitFlag, setSubmitFlag] = useState(false);
    const [valid, setValid] = useState(false);
    const [submitted, setSubmitted] = useState(false);
 
-
-   useEffect(
+     useEffect(
       () => {
          async function loadUserName() {
             if (currentGuest.name) {
@@ -29,64 +28,64 @@ const CreateMeetingDetails = ({currentGuest, setCurrentGuest, meetingID, setMeet
       }, [currentGuest]
    );
 
-   const config = [
-      {
-         field: {
-            value: userName,
-            name: 'Your Name',
-            minLength: 2,
-         }
-      },
-      {
-         field: {
-            value: meetingName,
-            name: 'Meeting Name',
-            minLength: 4,
-         }
-      },
-      {
-         field: {
-            value: meetingDescription,
-            name: 'Meeting Description',
-         }
-      },
-      {
-         field: {
-            value: dueDate + 'T' + dueTime,
-            name: 'Response Needed By',
-            minLength: 0,
-            requiredFuture: true,
-         }
-      },
-   ];
+    const config = [
+        {
+            field: {
+                value: userName,
+                name: 'Your Name',
+                minLength: 2,
+            }
+        },
+        {
+            field: {
+                value: meetingName,
+                name: 'Meeting Name',
+                minLength: 4,
+            }
+        },
+        {
+            field: {
+                value: meetingDescription,
+                name: 'Meeting Description',
+            }
+        },
+        {
+            field: {
+                value: dueDate + 'T' + dueTime,
+                name: 'Response Needed By',
+                minLength: 0,
+                requiredFuture: true,
+            }
+        },
+    ];
 
-   const onCreateMeetingDetails = async (event) => {
-      event.preventDefault();
-      setSubmitFlag(!submitFlag);
-      setSubmitted(true);
+    const onCreateMeetingDetails = async (event) => {
+        event.preventDefault();
+        setSubmitFlag(!submitFlag);
+        setSubmitted(true);
 
-      await validateForm(config).then(response => {
-         if (response.length === 0) {
-            setCurrentGuest({
-               id: currentGuest.id,
-               name: userName
-            });
+        await validateForm(config).then(response => {
+            if(response.length === 0){
+                onUpdateGuest({
+                    id: currentGuest.id,
+                    name: userName
+                });
 
-            const meetingDetail = {
-               name: userName,
-               meetingID: meetingID,
-               title: meetingName,
-               description: meetingDescription,
-               dueDate: dueDate + 'T' + dueTime + ':00',
-               pollType: pollType
-            };
-            console.log(meetingDetail);
-            setMeetingDetails(meetingDetail);
-         } else {
-            setValid(false);
-         }
-      });
+                const meetingDetail = {
+                    name: userName,
+                    meetingID: newMeetingID,
+                    title: meetingName,
+                    description: meetingDescription,
+                    dueDate: dueDate + 'T' + dueTime + ':00',
+                    pollType: pollType
+                };
 
+                console.log(meetingDetail);
+                setMeetingDetails(meetingDetail);
+            }else{
+                setValid(false);
+            }
+        });
    };
 
    return (

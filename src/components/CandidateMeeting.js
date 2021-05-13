@@ -1,70 +1,96 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Icon from "@mdi/react";
-import {mdiDelete, mdiClockTimeFourOutline, mdiTimerSand, mdiCalendarRange} from "@mdi/js";
+import {mdiDelete, mdiClockTimeFourOutline, mdiTimerSand, mdiCalendarRange, mdiPoll} from "@mdi/js";
 import '../css/CandidateMeeting.css';
 
-const CandidateMeeting = ({key, candidateMeetingID, candidateMeetingStart, candidateMeetingLength}) => {
+import {getStandardSuffix, getDayString, getMonthString, breakStandardDate} from "../services/Date";
 
-   const months = ["January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"];
+const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCandidateMeeting}) => {
+   const [date, setDate] = useState('');
+   const [time, setTime] = useState('');
+   const [length, setLength] = useState(null);
 
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Satday"];
-
-   let [date, time] = candidateMeetingStart.split('T');
-   let [year, month, day] = date.split('-');
-   let [hour, minute] = time.split(':');
-
-   let noon = "AM";
-   if (hour > 12) {
-      hour -= 12;
-      noon = "PM";
-   }
-
-   const selectedDate = new Date(year, month - 1, day, 0, 0, 0, 0);
-
-   console.log(days[selectedDate.getDay()]);
-
-   const onCandidateMeetingClick = (candidateMeeting) => {
-      //do something
-      console.log('candidate meeting clicked: ', candidateMeeting);
-   };
-
-   const onDeleteCandidateMeeting = (meetingID) => {
-      //delete candidate from db
-      console.log("deleted candidate: " + meetingID);
-   }
+   useEffect(
+      () => {
+         console.log('date: ', date);
+         console.log('time: ', time);
+         console.log('length: ', length);
+      }, [date, time, length]
+   );
 
 
-   return (
+   useEffect(
+      () => {
+         console.log('cm: ', candidateMeeting);
+         if(!('length' in candidateMeeting)){
+            return;
+         }
 
-      <div className="candidate-meeting" onClick={() => onCandidateMeetingClick(candidateMeetingID)}>
-         <a className={"ui card centered"} style={{marginBottom: "1em", width: "90%"}}>
-            <div className={"content"} style={{fontSize: "1.2em", padding: "0.5em 1em 0.5em 1em"}}>
-               <div>
-                  <Icon path={mdiCalendarRange} size={0.8}/>
-                  {' ' +  days[selectedDate.getDay()] + ' ' + months[selectedDate.getMonth() - 1]}
-                  {' - ' + selectedDate.getDate()}
-                  {', ' + selectedDate.getFullYear()}
-               </div>
-               <div>
-                  <Icon path={mdiClockTimeFourOutline} size={0.8}/>
-                  {' ' +  hour + ':' + minute + '' + noon + ' '}
-               </div>
+         setLength(candidateMeeting.length);
+         if('start' in candidateMeeting && 'meetingID' in candidateMeeting){ //is from db
+            setDate(candidateMeeting.start.split('T')[0]);
+            setTime(candidateMeeting.start.split('T')[1].substring(0, 5));
+         }else if('date' in candidateMeeting && 'time' in candidateMeeting){ //is from user entry
+            setDate(candidateMeeting.date);
+            setTime(candidateMeeting.time);
+         }
+      }, [candidateMeeting]
+   );
 
-               <div style={{float: "left"}}>
-                  <Icon path={mdiTimerSand} size={0.8}/>
-                  {' '}Duration: {candidateMeetingLength + 'm'}
-               </div>
-               <Icon onClick={() => onDeleteCandidateMeeting(candidateMeetingID)}
+   const iconRender = () => {
+      if(candidateMeeting.candidateID !== ''){
+         return (
+            <div>
+               <Icon onClick={() => onDeleteCandidateMeeting(date + 'T' + time + '-' + candidateMeeting.length)}
                      className={"right floated"}
                      path={mdiDelete}
                      size={1}/>
+               <Icon onClick={() => console.log('stat')}
+                     className={"right floated"}
+                     path={mdiPoll}
+                     size={1}/>
+            </div>
+         );
+      }
+
+      return (
+         <Icon onClick={() => onDeleteCandidateMeeting(date + 'T' + time + '-' + candidateMeeting.length)}
+               className={"right floated"}
+               path={mdiDelete}
+               size={1}/>
+      );
+   }
+
+   if(!date || !time || !length){
+      return (
+         <div>candidate meeting</div>
+      );
+   }
+   return (
+      <div
+         className="candidate-meeting"
+         onClick={() => onCandidateMeetingClick(date + 'T' + time + '-' + candidateMeeting.length)}>
+         <a className={"ui card centered"} style={{marginBottom: "1em", width: "90%"}}>
+            <div className={"content"} style={{fontSize: "1.2em", padding: "0.5em 1em 0.5em 1em"}}>
+               <div style={{float: "left"}}>
+                  <Icon path={mdiCalendarRange} size={0.8}/>
+                  {' '}{date}
+               </div>
+               <br/>
+               <div style={{float: "left"}}>
+                  <Icon path={mdiClockTimeFourOutline} size={0.8}/>
+                  {' '}{time}
+               </div>
+               <br/>
+               <div style={{float: "left"}}>
+                  <Icon path={mdiTimerSand} size={0.8}/>
+                  {' '}Duration: {length + 'm'}
+               </div>
+               {iconRender()}
             </div>
          </a>
       </div>
-
    );
-
 };
 
 export default CandidateMeeting;

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Button from './Button';
 import Card from './Card';
 import '../css/CreateCandidateMeetings.css';
+
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
 //todo: fix concat to append new option to candidateList
@@ -18,7 +19,6 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
       if (
          date === ''
          || time === ''
-         || length < 15
       ) {
          setError(true);
          return;
@@ -65,7 +65,7 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
          field: {
             value: length,
             name: 'Candidate Meeting Length',
-            requiredPositive: true,
+            greaterThanOrEqual: 5,
          }
       }
    ]
