@@ -18,7 +18,6 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
       if (
          date === ''
          || time === ''
-         || length < 15
       ) {
          setError(true);
          return;
