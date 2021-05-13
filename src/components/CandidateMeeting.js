@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Icon from "@mdi/react";
-import {mdiDelete, mdiClockTimeFourOutline, mdiTimerSand, mdiCalendarRange} from "@mdi/js";
+import {mdiDelete, mdiClockTimeFourOutline, mdiTimerSand, mdiCalendarRange, mdiPoll} from "@mdi/js";
 import '../css/CandidateMeeting.css';
 import {getStandardSuffix, getDayString, getMonthString, breakStandardDate} from "../services/Date";
 
-const CandidateMeeting = ({candidateMeeting}) => {
+const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCandidateMeeting}) => {
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
    const [length, setLength] = useState(null);
@@ -35,22 +35,11 @@ const CandidateMeeting = ({candidateMeeting}) => {
       }, [candidateMeeting]
    );
 
-   const onCandidateMeetingClick = (candidateMeeting) => {
-      //do something
-      console.log('candidate meeting clicked: ', candidateMeeting);
-   };
-
-   const onDeleteCandidateMeeting = (meetingID) => {
-      //delete candidate from db
-      console.log("deleted candidate: " + meetingID);
-   }
-
    if(!date || !time || !length){
       return (
         <div>candidate meeting</div>
       );
    }
-
    return (
       <div
          className="candidate-meeting"
@@ -71,6 +60,10 @@ const CandidateMeeting = ({candidateMeeting}) => {
                   <Icon path={mdiTimerSand} size={0.8}/>
                   {' '}Duration: {length + 'm'}
                </div>
+               <Icon onClick={() => console.log('stat')}
+                     className={"right floated"}
+                     path={mdiPoll}
+                     size={1}/>
                <Icon onClick={() => onDeleteCandidateMeeting(date + 'T' + time + '-' + candidateMeeting.length)}
                      className={"right floated"}
                      path={mdiDelete}

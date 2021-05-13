@@ -167,6 +167,12 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       console.error('HIGHLIGHT USER: ', user);
    };
 
+   const onDeleteCandidateMeeting = (candidateMeeting) => {
+      let tempCandidateMeetings = candidateMeetings;
+      for(let i = 0; i < tempCandidateMeetings.length; i++){
+      }
+   };
+
    //if user does not have a guestID or name, todo: or if their guest id is not in the current meeting's userList
    if (!currentGuest.id || !currentGuest.name) {
       return (
