@@ -1,58 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Button from './Button';
 import CandidateMeeting from "./CandidateMeeting";
 
-const CandidateMeetingList = ({candidateMeetings, onUpdateCandidateMeeting}) => {
+const CandidateMeetingList = ({candidateMeetings, onDeleteCandidateMeeting}) => {
       //todo: convert to unique id from database
+
+      useEffect(
+         () => {
+
+         }, [candidateMeetings]
+      );
 
       const onCandidateMeetingClick = (candidateMeeting) => {
          //do something
          console.log('candidate meeting clicked: ', candidateMeeting);
       };
-
-      //redirects delete type to onDeleteLocalCandidate() or onDeleteRemoteCandidate()
-      //based on composition of candidateMeeting object
-      //i.e. if candidateMeeting exists in database or not
-      const onDeleteCandidateMeeting = (candidateMeeting) => {
-         if (
-            ('date' in candidateMeeting) &&
-            ('time' in candidateMeeting) &&
-            ('length' in candidateMeeting)
-         ) {
-            onDeleteLocalCandidate(candidateMeeting);
-         } else if (
-            ('meetingID' in candidateMeeting) &&
-            ('start' in candidateMeeting) &&
-            ('length' in candidateMeeting)
-         ) {
-            onDeleteRemoteCandidate(candidateMeeting);
-         }else{
-            console.error('Cannot delete candidate meeting: ', candidateMeeting);
-         }
-      }
-
-      //used to delete candidateMeetings based on user input information from state variable
-      //used on /createMeeting
-      const onDeleteLocalCandidate = (candidateMeeting) => {
-         let tempCandidateMeetings = candidateMeetings;
-         for(let i = 0; i < tempCandidateMeetings.length; i++){
-            if(
-               candidateMeeting.date === tempCandidateMeetings[i].date &&
-               candidateMeeting.time === tempCandidateMeetings[i].time &&
-               candidateMeeting.length === tempCandidateMeetings[i].length
-            ){
-
-            }
-         }
-      };
-
-      //used to delete candidateMeetings based on meetingID from state variable and database
-      //used on /meeting
-      const onDeleteRemoteCandidate = (candidateMeeting) => {
-         //delete candidate from db
-         console.log("deleted candidate: " + candidateMeeting);
-      };
-
 
       if (candidateMeetings.length === 0) {
          return (

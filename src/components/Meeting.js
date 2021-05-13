@@ -3,7 +3,7 @@ import CommentList from "./CommentList";
 import {getComments, createComments} from "../services/Comment"
 import {addGuest, getMeetingDetails, meetingExists} from "../services/Meeting";
 import {getUsers} from "../services/Meeting";
-import {getCandidateMeetings} from "../services/CandidateMeeting";
+import {getCandidateMeetings, deleteCandidateMeeting} from "../services/CandidateMeeting";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Button from "./Button"
 import UserList from "./UserList";
@@ -29,7 +29,6 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          console.log('userList', userList);
          console.log('candidateMeetings', candidateMeetings);
          console.log('comments', comments);
-
       }, [meetingID, meetingDetails, userList, candidateMeetings, comments, currentGuest]
    );
 
@@ -162,6 +161,12 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       );
    }
 
+   const onDeleteCandidateMeeting = (candidateMeeting) => {
+      deleteCandidateMeeting(candidateMeeting.candidateID).then(response => {
+         updateCandidateMeetings();
+      });
+   };
+
    const onGuestJoin = (guest) => {
       onUpdateGuest(guest);
    };
@@ -210,7 +215,10 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          </div>
 
          <div className="column">
-            <CandidateMeetingList candidateMeetings={candidateMeetings}/>
+            <CandidateMeetingList
+               candidateMeetings={candidateMeetings}
+               onDeleteCandidateMeeting={onDeleteCandidateMeeting}
+            />
          </div>
 
          <div className="column">

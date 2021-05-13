@@ -70,8 +70,6 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
       }
    ]
 
-
-
    //called when the 'Create Meeting' button is clicked
    //verifies that at least 2 candidates exist
    const onFormSubmit = (event) => {
@@ -252,7 +250,7 @@ function candidateListHasOption(list, JSON) {
 }
 
 function optionsAreEqual(option1, option2) {
-   return option1.date === option2.date && option1.time === option2.time && option1.length === option2.length
+   return option1.start === option2.start && option1.length === option2.length;
 }
 
 export default CreateCandidateMeetings;
