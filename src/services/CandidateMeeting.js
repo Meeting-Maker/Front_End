@@ -26,6 +26,8 @@ export async function editCandidateMeeting(candidateMeetingDetails) {
 
 export async function deleteCandidateMeeting(candidateID) {
     await api.delete('/deleteCandidateMeeting', {
-        params: candidateID
+        params: {
+            candidateID: candidateID
+        }
     })
 }

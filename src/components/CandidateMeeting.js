@@ -41,7 +41,7 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
       if(candidateMeeting.candidateID !== ''){
          return (
             <div>
-               <Icon onClick={() => onDeleteCandidateMeeting(date + 'T' + time + '-' + candidateMeeting.length)}
+               <Icon onClick={() => onDeleteCandidateMeeting(candidateMeeting)}
                      className={"right floated"}
                      path={mdiDelete}
                      size={1}/>
@@ -54,7 +54,7 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
       }
 
       return (
-         <Icon onClick={() => onDeleteCandidateMeeting(date + 'T' + time + '-' + candidateMeeting.length)}
+         <Icon onClick={() => onDeleteCandidateMeeting(candidateMeeting)}
                className={"right floated"}
                path={mdiDelete}
                size={1}/>
