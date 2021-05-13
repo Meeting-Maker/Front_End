@@ -1,5 +1,4 @@
 import React from 'react';
-import FeatureDescriptions from './FeatureDescriptions';
 import Link from '../router/Link';
 import Button from './Button';
 import '../css/LandingPage.css';

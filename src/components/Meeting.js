@@ -96,7 +96,6 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
 
    const onCreateGuestUser = async (name) => {
       addGuest({name: name, meetingID: meetingID}).then(response => {
-         console.log('SAJDHFKLSADHFLKJHADSKFLJH ', response);
          onUpdateGuest({
             id: response.data.userID,
             name: name
@@ -146,8 +145,10 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
 
    function updateCandidateMeetings(){
       setCandidateMeetings([]);
-      getCandidateMeetings(meetingID).then(response => {
+      getCandidateMeetings(meetingID)
+         .then(response => {
             const candidateMeetings = response.data.candidateMeetings
+
             candidateMeetings.forEach((candidateMeeting) => {
                setCandidateMeetings(old => [...old, {
                   date: candidateMeeting.start.substring(0, 10),
