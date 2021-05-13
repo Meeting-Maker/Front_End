@@ -210,7 +210,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          </div>
 
          <div className="column">
-            <CandidateMeetingList candidateMeetings={candidateMeetings}/>
+            <CandidateMeetingList candidateMeetings={candidateMeetings} title="Vote"/>
          </div>
 
          <div className="column">
