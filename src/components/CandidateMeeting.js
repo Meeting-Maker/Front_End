@@ -37,8 +37,12 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
       }, [candidateMeeting]
    );
 
+   /**
+    *
+    * @returns {JSX.Element}
+    */
    const iconRender = () => {
-      if(candidateMeeting.candidateID !== ''){
+      if(candidateMeeting.hasOwnProperty('candidateID')){
          return (
             <div>
                <Icon onClick={() => onDeleteCandidateMeeting(candidateMeeting)}
@@ -61,11 +65,6 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
       );
    }
 
-   if(!date || !time || !length){
-      return (
-         <div>candidate meeting</div>
-      );
-   }
    return (
       <div
          className="candidate-meeting"
