@@ -152,7 +152,9 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
                setCandidateMeetings(old => [...old, {
                   date: candidateMeeting.start.substring(0, 10),
                   time: candidateMeeting.start.substring(11, 16),
-                  length: candidateMeeting.length
+                  length: candidateMeeting.length,
+                  candidateID: candidateMeeting.candidateID,
+                  meetingID: candidateMeeting.meetingID
                }])
             })
          }
@@ -165,12 +167,6 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
 
    const onHighlightUser = (user) => {
       console.error('HIGHLIGHT USER: ', user);
-   };
-
-   const onDeleteCandidateMeeting = (candidateMeeting) => {
-      let tempCandidateMeetings = candidateMeetings;
-      for(let i = 0; i < tempCandidateMeetings.length; i++){
-      }
    };
 
    //if user does not have a guestID or name, todo: or if their guest id is not in the current meeting's userList
