@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Link from '../router/Link';
 import Button from './Button';
-import '../css/Header.css';
 
 const Header = () => {
 //backgroundColor: "#45A29E",

@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/Footer.css';
 import Icon from '@mdi/react';
 import { mdiGithub } from '@mdi/js';
-import Link from '../router/Link';
+
 
 const Footer = () => {
 

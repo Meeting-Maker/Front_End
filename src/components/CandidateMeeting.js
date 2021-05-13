@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Icon from "@mdi/react";
 import {mdiDelete, mdiClockTimeFourOutline, mdiTimerSand, mdiCalendarRange, mdiPoll} from "@mdi/js";
 import '../css/CandidateMeeting.css';
+
 import {getStandardSuffix, getDayString, getMonthString, breakStandardDate} from "../services/Date";
 
 const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCandidateMeeting}) => {
@@ -16,6 +17,7 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
          console.log('length: ', length);
       }, [date, time, length]
    );
+
 
    useEffect(
       () => {

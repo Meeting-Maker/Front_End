@@ -1,7 +1,5 @@
 import React, {useEffect} from "react";
 import '../css/UserList.css'
-import Icon from '@mdi/react';
-import {mdiAccount} from '@mdi/js';
 import Card from './Card';
 
 const UserList = ({userList, onSelectUser}) => {

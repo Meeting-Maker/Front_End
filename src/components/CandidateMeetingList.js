@@ -10,6 +10,7 @@ const CandidateMeetingList = ({candidateMeetings}) => {
       console.log('candidate meeting clicked: ', candidateMeeting);
    };
 
+
    const onDeleteCandidateMeeting = (meetingID) => {
       //delete candidate from db
       console.log("deleted candidate: " + meetingID);
@@ -22,6 +23,7 @@ const CandidateMeetingList = ({candidateMeetings}) => {
          </div>
       );
    }
+
 
    //todo: render with nice date formats
    const renderedList = candidateMeetings.map((candidateMeeting) => {
@@ -38,6 +40,7 @@ const CandidateMeetingList = ({candidateMeetings}) => {
 
    return (
       <div className={"ui card centered grey"} style={{overflow: "hidden", width: "30rem"}}>
+
          <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
             Vote
          </div>
@@ -45,8 +48,9 @@ const CandidateMeetingList = ({candidateMeetings}) => {
          <div className={"ui list"} style={{ overflow: "", marginBottom: '0'}}>
             {renderedList}
          </div>
+
       </div>
    );
-};
+}
 
 export default CandidateMeetingList;
