@@ -17,11 +17,12 @@ const CandidateMeetingList = ({candidateMeetings}) => {
 
    if (candidateMeetings.length === 0) {
       return (
-         <div className="ui container">
+         <div className="ui centered container">
             No Candidate Meetings Exist
          </div>
       );
    }
+
    //todo: render with nice date formats
    const renderedList = candidateMeetings.map((candidateMeeting) => {
       return (
