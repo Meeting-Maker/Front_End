@@ -58,23 +58,26 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    //todo: convert CreateMeeting button in CreateCandidateMeetings component to Link,
    //remove window.history.pushState here
    const onCreateMeeting = async () => {
-      onUpdateGuest({
-         id: currentGuest.id,
-         name: meetingDetails.name
-      });
-      onUpdateMeetingID(newMeetingID);
-
       console.log('meetingdetails before: ', meetingDetails);
-      await createGuestMeeting(meetingDetails).then(async () => {
-         await createCandidateMeetings(candidateMeetings).then(() => {
-            window.history.pushState(
-               {},
-               '',
-               '/meeting?meetingID=' + newMeetingID
-            );
-            const navEvent = new PopStateEvent('popstate');
-            window.dispatchEvent(navEvent)
+      await createGuestMeeting(meetingDetails).then(response => {
+         console.log(response);
+         onUpdateGuest({
+            id: response.userID,
+            name: meetingDetails.name
          });
+         onUpdateMeetingID(newMeetingID);
+         const candidates = async () => {
+            await createCandidateMeetings(candidateMeetings).then(() => {
+               window.history.pushState(
+                  {},
+                  '',
+                  '/meeting?meetingID=' + newMeetingID
+               );
+               const navEvent = new PopStateEvent('popstate');
+               window.dispatchEvent(navEvent)
+            });
+         }
+         candidates();
       });
    };
 
