@@ -81,7 +81,6 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
       });
 
    };
-
    //called when the 'Create Meeting' button is clicked
    //verifies that at least 2 candidates exist
    const onFormSubmit = (event) => {
@@ -228,5 +227,48 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
       </Card>
    );
 };
+
+function isValidCandidate(candidateMeeting) {
+   //if no date has been entered
+   if (candidateMeeting.date === '') {
+      console.error('please enter a date');
+      return false;
+   }
+
+   //if no time has been entered
+   if (candidateMeeting.time === '') {
+      console.error('please enter a time');
+      return false;
+   }
+
+   //check for length
+   if (candidateMeeting.length === '') {
+      console.error('please enter a length');
+      return false;
+   }
+
+   //check for length > 0
+   if (candidateMeeting.length < 5) {
+      console.error('candidate cant have length 0');
+      return false;
+   }
+
+   //ensure event starts in future
+   //is valid
+   return true;
+}
+
+function candidateListHasOption(list, JSON) {
+   for (var i = 0; i < list.length; i++) {
+      if (optionsAreEqual(list[i], JSON)) {
+         return true;
+      }
+   }
+   return false;
+}
+
+function optionsAreEqual(option1, option2) {
+   return option1.start === option2.start && option1.length === option2.length;
+}
 
 export default CreateCandidateMeetings;

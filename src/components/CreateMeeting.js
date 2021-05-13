@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import CreateMeetingDetails from "./CreateMeetingDetails";
 import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";
-import {createCandidateMeeting, createCandidateMeetings} from "../services/CandidateMeeting";
+import {createCandidateMeetings} from "../services/CandidateMeeting";
 import {customAlphabet} from "nanoid";
 import {createGuestMeeting} from "../services/Meeting";
-const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
 
+const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    const [candidateMeetings, setCandidateMeetings] = useState([]);
    const [newMeetingID, setNewMeetingID] = useState('');
    const [meetingDetails, setMeetingDetails] = useState({
@@ -20,7 +20,13 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
 
    useEffect(
       () => {
-         if(!newMeetingID){
+         console.error('UPDATE: ', candidateMeetings);
+      }, [candidateMeetings]
+   );
+
+   useEffect(
+      () => {
+         if (!newMeetingID) {
             const id = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)();
             console.log('MEETING ID GENERATED: ' + id);
             setNewMeetingID(id);
@@ -36,26 +42,42 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       setCandidateMeetings(old => [...old, candidateMeeting]);
    };
 
+   const onDeleteCandidateMeeting = (candidateMeeting) => {
+      const tempCandidateMeetings = candidateMeetings.filter(cm => !isEqualCandidateMeeting(cm, candidateMeeting));
+      setCandidateMeetings(tempCandidateMeetings);
+   };
+
+   const isEqualCandidateMeeting = (cm1, cm2) => {
+      return (
+         cm1.meetingID === cm2.meetingID &&
+         cm1.start === cm2.start &&
+         cm1.length === cm2.length
+      );
+   };
+
    //todo: convert CreateMeeting button in CreateCandidateMeetings component to Link,
    //remove window.history.pushState here
    const onCreateMeeting = async () => {
-      onUpdateGuest({
-         id: currentGuest.id,
-         name: meetingDetails.name
-      });
-      onUpdateMeetingID(newMeetingID);
-
       console.log('meetingdetails before: ', meetingDetails);
-      await createGuestMeeting(meetingDetails).then(async () => {
-         await createCandidateMeetings(candidateMeetings).then(() => {
-            window.history.pushState(
-               {},
-               '',
-               '/meeting?meetingID=' + newMeetingID
-            );
-            const navEvent = new PopStateEvent('popstate');
-            window.dispatchEvent(navEvent)
+      await createGuestMeeting(meetingDetails).then(response => {
+         console.log(response);
+         onUpdateGuest({
+            id: response.userID,
+            name: meetingDetails.name
          });
+         onUpdateMeetingID(newMeetingID);
+         const candidates = async () => {
+            await createCandidateMeetings(candidateMeetings).then(() => {
+               window.history.pushState(
+                  {},
+                  '',
+                  '/meeting?meetingID=' + newMeetingID
+               );
+               const navEvent = new PopStateEvent('popstate');
+               window.dispatchEvent(navEvent)
+            });
+         }
+         candidates();
       });
    };
 
@@ -81,7 +103,12 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             onCreateCandidateMeeting={(candidateMeeting) => onCreateCandidateMeeting(candidateMeeting)}
             onCreateMeeting={onCreateMeeting}
          />
-         <CandidateMeetingList candidateMeetings={candidateMeetings} title={"Candidate Meetings"} formMessage={"At least 2 Candidate Meetings are required."}/>
+         <CandidateMeetingList
+            title={"Candidate Meetings"} 
+            formMessage={"At least 2 Candidate Meetings are required."}
+            candidateMeetings={candidateMeetings}
+            onDeleteCandidateMeeting={onDeleteCandidateMeeting}
+         />
       </div>
    );
 };
