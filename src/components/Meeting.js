@@ -10,8 +10,11 @@ import UserList from "./UserList";
 import CandidateMeetingList from "./CandidateMeetingList";
 import CreateGuest from "./CreateGuest";
 import MeetingDetails from "./MeetingDetails";
+import {createVote, deleteVote} from "../services/Vote";
 
 const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
+   const [selectedUser, setSelectedUser] = useState(null);
+   const [selectedCandidate, setSelectedCandidate] = useState(null);
    const [meetingID, setMeetingID] = useState('');
    const [meetingDetails, setMeetingDetails] = useState();
    const [userList, setUserList] = useState([]);
@@ -20,21 +23,10 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    const commentForm = useRef(); // references to the comment form
    const {height} = useWindowDimensions();
 
-   //used for data updates
-   useEffect(
-      () => {
-         console.log('-------------PRINTING CHANGES---------------');
-         console.log('meetingID: ', meetingID);
-         console.log('meetingDetails', meetingDetails);
-         console.log('userList', userList);
-         console.log('candidateMeetings', candidateMeetings);
-         console.log('comments', comments);
-      }, [meetingID, meetingDetails, userList, candidateMeetings, comments, currentGuest]
-   );
-
    useEffect(
       () => {
          validateMeetingIDParam();
+         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []
    );
 
@@ -45,6 +37,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          updateComments();
          updateUserList();
          updateCandidateMeetings();
+         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [meetingID]
    );
 
@@ -123,17 +116,14 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    }
 
    function updateUserList() {
-      setUserList([]);
       getUsers({
          meetingID: meetingID
       }).then(response => {
-         const users = response.data.users;
-         users.forEach(user => setUserList(old => [...old, user]));
+         setUserList(response.data.users);
       });
    }
 
    function updateComments() {
-      setComments([]);
       getComments({
          meetingID: meetingID
       }).then(response => {
@@ -142,8 +132,25 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       });
    }
 
+   const onCandidateMeetingClick = async (candidateMeeting) => {
+      if (candidateMeeting.voters.filter(voter => voter.userID === currentGuest.id).length > 0) {
+         await deleteVote({
+            userID: currentGuest.id,
+            candidateID: candidateMeeting.candidateID
+         }).then(() => {
+            updateCandidateMeetings();
+         });
+      }else{
+         await createVote({
+            userID: currentGuest.id,
+            candidateID: candidateMeeting.candidateID
+         }).then(() => {
+            updateCandidateMeetings();
+         });
+      }
+   };
+
    function updateCandidateMeetings() {
-      setCandidateMeetings([]);
       getCandidateMeetings(meetingID)
          .then(response => {
                setCandidateMeetings(response.data.candidateMeetings);
@@ -156,14 +163,22 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    };
 
    const onHighlightUser = (user) => {
-      console.log('HIGHLIGHT USER: ', user);
+      if(!selectedUser){
+         setSelectedUser(user.id);
+      }else{
+         setSelectedUser(null);
+      }
    };
 
    //if user does not have a guestID or name, todo: or if their guest id is not in the current meeting's userList
    if (!currentGuest.id || !currentGuest.name) {
       return (
          <div>
-            <UserList userList={userList} onSelectUser={onGuestJoin}/>
+            <UserList
+               userList={userList}
+               selectedUser={selectedUser}
+               onSelectUser={onGuestJoin}
+            />
             <CreateGuest onCreateGuestUser={onCreateGuestUser}/>
          </div>
       );
@@ -195,13 +210,19 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       <div className="center aligned ui three column very relaxed stackable grid">
          <div className="column">
             <MeetingDetails meetingDetails={meetingDetails}/>
-            <UserList userList={userList} onSelectUser={onHighlightUser}/>
+            <UserList
+               userList={userList}
+               selectedUser={selectedUser}
+               onSelectUser={onHighlightUser}
+            />
          </div>
 
          <div className="column">
             <CandidateMeetingList
-                title="Vote"
+               currentGuest={currentGuest}
+               title="Vote"
                candidateMeetings={candidateMeetings}
+               onCandidateMeetingClick={onCandidateMeetingClick}
                updateCandidateMeetings={updateCandidateMeetings}
             />
          </div>

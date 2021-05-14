@@ -17,6 +17,16 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       }, [candidateMeetings, page]
    );
 
+   useEffect(
+      () => {
+         if (!newMeetingID) {
+            const id = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)();
+            setNewMeetingID(id);
+         }
+      },
+      [newMeetingID]
+   );
+
    function updateCandidateMeetings() {
       setCandidateMeetings([]);
       getCandidateMeetings(newMeetingID)
@@ -25,22 +35,6 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             }
          );
    }
-
-   useEffect(
-      () => {
-         if (!newMeetingID) {
-            const id = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)();
-            console.log('MEETING ID GENERATED: ' + id);
-            setNewMeetingID(id);
-         }
-      },
-      []
-   );
-
-   //todo: update to db
-   const onDeleteCandidateMeeting = (candidateMeeting) => {
-
-   };
 
    //todo: convert CreateMeeting button in CreateCandidateMeetings component to Link,
    //remove window.history.pushState here
@@ -79,10 +73,12 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             onCreateMeeting={onCreateMeeting}
          />
          <CandidateMeetingList
+            currentGuest={currentGuest}
             title={"Candidate Meetings"} 
             formMessage={"At least 2 Candidate Meetings are required."}
             candidateMeetings={candidateMeetings}
             updateCandidateMeetings={updateCandidateMeetings}
+            onCandidateMeetingClick={() => {}}
          />
       </div>
    );
