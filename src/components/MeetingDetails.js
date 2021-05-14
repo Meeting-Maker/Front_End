@@ -17,7 +17,7 @@ const MeetingDetails = ({meetingDetails}) => {
                <div className="ui active inverted dimmer">
                   <div className="ui text loader">Loading</div>
                </div>
-               <p></p>
+               <p/>
             </div>
          </Card>
       );
@@ -39,9 +39,9 @@ const MeetingDetails = ({meetingDetails}) => {
                {' #'}{meetingDetails.meetingID}
             </span>
             <span className="right floated">
-               <a onClick={onEditClick} style={{textAlign: "left"}}>
+               <div onClick={onEditClick} style={{textAlign: "left"}}>
                   <Icon path={mdiCogOutline} size={1.5}/>
-               </a>
+               </div>
             </span>
          </div>
          {

@@ -1,6 +1,6 @@
 import Icon from '@mdi/react';
 import {mdiAccount, mdiDelete} from '@mdi/js';
-import React, {useState} from "react";
+import React from "react";
 import {formatDate} from "../services/Comment";
 import {deleteComment} from "../services/Comment";
 
@@ -15,7 +15,6 @@ export default ({comment, updateComments, currentGuest}) => {
             updateComments();
          });
       } catch (error) {
-         console.log(error);
       }
    }
 

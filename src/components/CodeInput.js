@@ -8,7 +8,6 @@ import FormValidation, {validateForm} from './FormValidation';
 
 const CodeInput = ({onCodeSubmit, meetingIDFromParam}) => {
     const [joinCode, setJoinCode] = useState('');
-    //todo: remove one of these useStates for form validation
     const [submitFlag, setSubmitFlag] = useState(false);
     const [valid, setValid] = useState(false);
     const [submitted, setSubmitted] = useState(false);
@@ -26,6 +25,7 @@ const CodeInput = ({onCodeSubmit, meetingIDFromParam}) => {
                setSubmitted(true);
                setSubmitFlag(!submitFlag);
            }
+           // eslint-disable-next-line react-hooks/exhaustive-deps
        }, [meetingIDFromParam]
     );
 

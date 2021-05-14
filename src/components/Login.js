@@ -10,7 +10,6 @@ const Login = () => {
 
   const onFormSubmit = (event) => {
     event.preventDefault();
-    console.log(email + ' ' + password)
     // TODO: connect with backend
   };
 

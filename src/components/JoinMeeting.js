@@ -10,6 +10,7 @@ const JoinMeeting = ({onUpdateMeetingID}) => {
    useEffect(
       () => {
          validateMeetingIDFromParam();
+         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []
    );
 
@@ -34,7 +35,6 @@ const JoinMeeting = ({onUpdateMeetingID}) => {
          if(!exists){
             console.error('NO MEETING EXISTS FOR CODE ' + meetingID);
          }else{
-            console.log('Valid Code Entered: ' + meetingID);
             onUpdateMeetingID(meetingID);
 
             window.history.pushState(

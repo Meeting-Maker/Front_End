@@ -1,7 +1,6 @@
 import api from './api';
 
 export async function getCandidateMeetings(meetingID) {
-    console.log('getting candidates: ' + meetingID);
     return await api.get('/getCandidateMeetings', {
         params: {
             meetingID: meetingID
@@ -10,7 +9,6 @@ export async function getCandidateMeetings(meetingID) {
 }
 
 export async function createCandidateMeeting(candidateMeetingDetails) {
-    console.log('posting candidate: ', candidateMeetingDetails);
     return await api.post('/createCandidateMeeting', candidateMeetingDetails);
 }
 

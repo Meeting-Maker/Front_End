@@ -1,9 +1,8 @@
 import React, {useEffect} from 'react';
-import Button from './Button';
 import CandidateMeeting from "./CandidateMeeting";
 import {deleteCandidateMeeting} from "../services/CandidateMeeting";
 
-const CandidateMeetingList = ({candidateMeetings, updateCandidateMeetings, title, formMessage}) => {
+const CandidateMeetingList = ({currentGuest, candidateMeetings, updateCandidateMeetings, onCandidateMeetingClick, title, formMessage}) => {
       //todo: convert to unique id from database
 
       useEffect(
@@ -15,11 +14,6 @@ const CandidateMeetingList = ({candidateMeetings, updateCandidateMeetings, title
          deleteCandidateMeeting(candidateID).then(response => {
             updateCandidateMeetings();
          });
-      };
-
-      const onCandidateMeetingClick = (candidateID) => {
-         //do something
-         console.log('candidate meeting with ID clicked: ', candidateID);
       };
 
       if (candidateMeetings.length === 0) {
@@ -39,7 +33,7 @@ const CandidateMeetingList = ({candidateMeetings, updateCandidateMeetings, title
             //sets unique key by concatenating info from candidateMeeting
             <CandidateMeeting
                candidateMeeting={candidateMeeting}
-               key={candidateMeeting.start + '-' + candidateMeeting.length}
+               key={candidateMeeting.candidateID}
                onDeleteCandidateMeeting={onDeleteCandidateMeeting}
                onCandidateMeetingClick={onCandidateMeetingClick}
             />

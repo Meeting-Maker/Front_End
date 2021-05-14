@@ -13,7 +13,6 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
       }, [date, time, length]
    );
 
-
    useEffect(
       () => {
          if(!('length' in candidateMeeting)){
@@ -31,6 +30,15 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
       }, [candidateMeeting]
    );
 
+   const onStatClick = (event) => {
+      event.stopPropagation();
+   };
+
+   const onDeleteClick = (event) => {
+      event.stopPropagation();
+      onDeleteCandidateMeeting(candidateMeeting.candidateID);
+   };
+
    if(!date || !time || !length){
       return (
          <div>candidate meeting</div>
@@ -40,8 +48,8 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
    return (
       <div
          className="candidate-meeting"
-         onClick={() => onCandidateMeetingClick(candidateMeeting.candidateID)}>
-         <a className={"ui card centered"} style={{marginBottom: "1em", width: "90%"}}>
+         onClick={() => onCandidateMeetingClick(candidateMeeting)}>
+         <div className={"ui card centered"} style={{marginBottom: "1em", width: "90%"}}>
             <div className={"content"} style={{fontSize: "1.2em", padding: "0.5em 1em 0.5em 1em"}}>
                <div style={{float: "left"}}>
                   <Icon path={mdiCalendarRange} size={0.8}/>
@@ -58,18 +66,23 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
                   {' '}Duration: {length + 'm'}
                </div>
                <div>
-                  {candidateMeeting.voters.length}
-                  <Icon onClick={() => onDeleteCandidateMeeting(candidateMeeting.candidateID)}
+                  {
+                     ('voters' in candidateMeeting) ?
+                        candidateMeeting.voters.length :
+                        null
+                  }
+
+                  <Icon onClick={(e) => onDeleteClick(e)}
                         className={"right floated"}
                         path={mdiDelete}
                         size={1}/>
-                  <Icon onClick={() => console.log('stat')}
+                  <Icon onClick={(e) => onStatClick(e)}
                         className={"right floated"}
                         path={mdiPoll}
                         size={1}/>
                </div>
             </div>
-         </a>
+         </div>
       </div>
    );
 };

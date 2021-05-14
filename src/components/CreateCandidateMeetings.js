@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Button from './Button';
 import Card from './Card';
 import '../css/CreateCandidateMeetings.css';
-import {createCandidateMeeting, getCandidateMeetings} from "../services/CandidateMeeting";
+import {createCandidateMeeting} from "../services/CandidateMeeting";
 
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
@@ -47,29 +47,29 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateM
       }
    };
 
-   const config = [
-      {
-         field: {
-            value: date,
-            name: 'Candidate Meeting Date',
-            requiredFuture: true,
-         }
-      },
-      {
-         field: {
-            value: time,
-            name: 'Candidate Meeting Time',
-            requiredFuture: true,
-         }
-      },
-      {
-         field: {
-            value: length,
-            name: 'Candidate Meeting Length',
-            greaterThanOrEqual: 5,
-         }
-      }
-   ]
+   // const config = [
+   //    {
+   //       field: {
+   //          value: date,
+   //          name: 'Candidate Meeting Date',
+   //          requiredFuture: true,
+   //       }
+   //    },
+   //    {
+   //       field: {
+   //          value: time,
+   //          name: 'Candidate Meeting Time',
+   //          requiredFuture: true,
+   //       }
+   //    },
+   //    {
+   //       field: {
+   //          value: length,
+   //          name: 'Candidate Meeting Length',
+   //          greaterThanOrEqual: 5,
+   //       }
+   //    }
+   // ]
 
    const onCreateCandidateMeeting = (candidateMeeting) => {
       createCandidateMeeting(candidateMeeting).then((response) => {
@@ -148,13 +148,13 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateM
 
                   <span className={"ui icon input"}>
                      <span className={"ui ignored icon font buttons"}>
-                        <a id="minus" className={"decrease ui button"}
+                        <div id="minus" className={"decrease ui button"}
                            style={{padding: "14px 11px 0 11px",
                               borderTopRightRadius: "0",
                               borderBottomRightRadius: "0"}}
                            onClick={() => onChangeLength('minus')}>
                            <i id="minus" className={"minus icon"}/>
-                        </a>
+                        </div>
                      </span>
 
                      <input
@@ -167,13 +167,13 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateM
                      />
 
                      <span className={"ui ignored icon font buttons"}>
-                        <a id="plus" className={"increase ui button"}
+                        <div id="plus" className={"increase ui button"}
                            style={{padding: "14px 11px 0 11px",
                               borderTopLeftRadius: "0",
                               borderBottomLeftRadius: "0"}}
                            onClick={() => onChangeLength('plus')}>
                            <i id="plus" className={"plus icon"}/>
-                        </a>
+                        </div>
                      </span>
                   </span>
 

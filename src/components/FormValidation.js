@@ -10,6 +10,7 @@ const FormValidation = ({config, submitFlag}) => {
             });
         }
         validate();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [submitFlag])
 
     return (
