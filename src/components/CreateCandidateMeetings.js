@@ -2,15 +2,15 @@ import React, {useState} from 'react';
 import Button from './Button';
 import Card from './Card';
 import '../css/CreateCandidateMeetings.css';
+import {createCandidateMeeting, getCandidateMeetings} from "../services/CandidateMeeting";
 import FormValidation, {validateForm} from "./FormValidation";
 import CandidateMeeting from "./CandidateMeeting";
-
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
 //todo: fix concat to append new option to candidateList
 //todo: onCreateMeeting does not prevent default / causes error. return list to parent component with onFormSubmit
 
-const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeting, onCreateCandidateMeeting}) => {
+const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateMeetings}) => {
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
    const [length, setLength] = useState(0);
@@ -50,44 +50,23 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
 
    ]
 
-   //called when the 'Add Option' button is clicked
-   const onAddOption = async () => {
-
-      setSubmitFlag(!submitFlag);
-      setSubmitted(true);
-
-
-      await validateForm(config).then(response => {
-         if (response.length === 0) {
-
-            const option = {
-               start: date + 'T' + time + ':00',
-               end: date + 'T' + time + ':00',
-               length: length,
-               meetingID: newMeetingID
-            };
-
-            //reset length - intentionally leave same date and time
-            setLength(0);
-
-            //if meeting with same details already exists
-            if (!candidateListHasDuplicate(candidateMeetings, option)) {
-               onCreateCandidateMeeting(option);
-            }
-
-         } else {
-            setValid(false);
-         }
+   const onCreateCandidateMeeting = (candidateMeeting) => {
+      createCandidateMeeting(candidateMeeting).then((response) => {
+         setCandidateMeetings(old => [...old, response.data]);
       });
-
    };
-   //called when the 'Create Meeting' button is clicked
-   //verifies that at least 2 candidates exist
-   const onFormSubmit = (event) => {
-      event.preventDefault();
-      if (candidateMeetings.length >= 2) {
-         //todo: use service file to create time values compatible with db
-         onCreateMeeting();
+
+   const onFormSubmit = () => {
+      if (candidateMeetings.length < 2) {
+         console.error('You need at least two candidates to create a meeting.');
+      } else {
+         window.history.pushState(
+            {},
+            '',
+            '/meeting?meetingID=' + newMeetingID
+         );
+         const navEvent = new PopStateEvent('popstate');
+         window.dispatchEvent(navEvent)
       }
    };
 
@@ -131,7 +110,7 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
             </div>
          </div>
          <div className="content">
-            <form className="ui large form" onSubmit={(e) => onFormSubmit(e)}>
+            <form className="ui large form">
                <div className="field">
                   <label className="left aligned">Meeting Date & Time</label>
                   <div className="two fields">
@@ -207,7 +186,7 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
                   {' '}
                   <Button
                      className="custom-button dark thin"
-                     onClick={(e) => onFormSubmit(e)}
+                     onClick={() => onFormSubmit()}
                      type="submit"
                   >
                      Create Meeting

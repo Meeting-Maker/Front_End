@@ -3,7 +3,7 @@ import CommentList from "./CommentList";
 import {getComments, createComments} from "../services/Comment"
 import {addGuest, getMeetingDetails, meetingExists} from "../services/Meeting";
 import {getUsers} from "../services/Meeting";
-import {getCandidateMeetings, deleteCandidateMeeting} from "../services/CandidateMeeting";
+import {getCandidateMeetings} from "../services/CandidateMeeting";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import Button from "./Button"
 import UserList from "./UserList";
@@ -116,7 +116,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       });
    }
 
-   function updateMeetingDetails(){
+   function updateMeetingDetails() {
       getMeetingDetails(meetingID).then(response => {
          setMeetingDetails(response.data.meetingDetails);
       });
@@ -142,37 +142,23 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       });
    }
 
-   function updateCandidateMeetings(){
+   function updateCandidateMeetings() {
       setCandidateMeetings([]);
       getCandidateMeetings(meetingID)
          .then(response => {
-            const candidateMeetings = response.data.candidateMeetings
-
-            candidateMeetings.forEach((candidateMeeting) => {
-               setCandidateMeetings(old => [...old, {
-                  date: candidateMeeting.start.substring(0, 10),
-                  time: candidateMeeting.start.substring(11, 16),
-                  length: candidateMeeting.length,
-                  candidateID: candidateMeeting.candidateID,
-                  meetingID: candidateMeeting.meetingID
-               }])
-            })
-         }
-      );
+               setCandidateMeetings(response.data.candidateMeetings);
+            }
+         );
    }
 
-   const onDeleteCandidateMeeting = (candidateMeeting) => {
-      deleteCandidateMeeting(candidateMeeting.candidateID).then(response => {
-         updateCandidateMeetings();
-      });
-   };
+
 
    const onGuestJoin = (guest) => {
       onUpdateGuest(guest);
    };
 
    const onHighlightUser = (user) => {
-      console.error('HIGHLIGHT USER: ', user);
+      console.log('HIGHLIGHT USER: ', user);
    };
 
    //if user does not have a guestID or name, todo: or if their guest id is not in the current meeting's userList
@@ -218,7 +204,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             <CandidateMeetingList
                 title="Vote"
                candidateMeetings={candidateMeetings}
-               onDeleteCandidateMeeting={onDeleteCandidateMeeting}
+               updateCandidateMeetings={updateCandidateMeetings}
             />
          </div>
 

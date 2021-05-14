@@ -9,7 +9,6 @@ const FormValidation = ({config, submitFlag}) => {
                 setErrors(response);
             });
         }
-        console.log("submitted");
         validate();
     }, [submitFlag])
 

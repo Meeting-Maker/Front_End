@@ -22,8 +22,6 @@ const JoinMeeting = ({onUpdateMeetingID}) => {
    const validateMeetingIDFromParam = async () => {
       const tempMeetingID = new URLSearchParams(window.location.search).get('meetingID');
 
-      console.error('ASDFASDFASD: ', tempMeetingID);
-
       if(tempMeetingID) {
          setMeetingIDFromParam(tempMeetingID);
          onJoinMeeting(tempMeetingID);
@@ -32,7 +30,6 @@ const JoinMeeting = ({onUpdateMeetingID}) => {
 
    const onJoinMeeting = async (meetingID) => {
       await meetingExists(meetingID).then(response => {
-         console.error('TTTTTT: ', response);
          const exists = response.data.meetingExists;
          if(!exists){
             console.error('NO MEETING EXISTS FOR CODE ' + meetingID);

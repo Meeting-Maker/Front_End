@@ -11,7 +11,7 @@ export async function getCandidateMeetings(meetingID) {
 
 export async function createCandidateMeeting(candidateMeetingDetails) {
     console.log('posting candidate: ', candidateMeetingDetails);
-    await api.post('/createCandidateMeeting', candidateMeetingDetails);
+    return await api.post('/createCandidateMeeting', candidateMeetingDetails);
 }
 
 export async function createCandidateMeetings(candidateMeetingList) {

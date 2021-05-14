@@ -4,8 +4,6 @@ import Card from './Card';
 
 const UserList = ({userList, onSelectUser}) => {
 
-   console.log('USERLIST: ', userList);
-
    useEffect(
       () => {
 
