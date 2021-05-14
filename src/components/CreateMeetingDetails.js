@@ -87,7 +87,7 @@ const CreateMeetingDetails = ({currentGuest, onUpdateGuest, newMeetingID, onCrea
    };
 
    return (
-      <Card width="50rem" padding="10rem 0 0 0">
+      <Card width="50rem" padding="5rem 0 0 0">
 
          <div className="content">
             <div className="header">
@@ -166,7 +166,8 @@ const CreateMeetingDetails = ({currentGuest, onUpdateGuest, newMeetingID, onCrea
                   ?
                   <FormValidation
                      config={config}
-                     submitFlag={submitFlag}>
+                     submitFlag={submitFlag}
+                  >
                   </FormValidation>
                   : null
             }

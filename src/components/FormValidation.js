@@ -53,7 +53,6 @@ export async function validateForm(config) {
         }
 
         if (field.hasOwnProperty('requiredFuture')) {
-
             let now = new Date();
             now.setHours(now.getHours(), now.getMinutes(), 0, 0);
 
@@ -72,12 +71,26 @@ export async function validateForm(config) {
             }
         }
 
-        if(field.hasOwnProperty('requiredPositive')){
-            if (value <= 0){
+        if(field.hasOwnProperty('greaterThanOrEqual')){
+            if (value < field.greaterThanOrEqual){
                 tempErrorsArray.push({
-                   message: 'Please enter a ' + field.name,
-                   key: field.name + '-requiredPositive'
+                   message: 'Please enter a ' + field.name + ' that is larger than ' + field.greaterThanOrEqual,
+                   key: field.name + '-greaterThanOrEqual'
                 });
+            }
+        }
+
+        if(field.hasOwnProperty('compareDuplicate')){
+            if(field.compareDuplicate.length > 0) {
+                for (let i = 0; i < field.compareDuplicate.length; i++) {
+                    if (field.compareDuplicate[i].start === field.value.start + ':00'
+                       && field.compareDuplicate[i].length === field.value.length) {
+                        tempErrorsArray.push({
+                            message: 'That Candidate Meeting already exists.',
+                            key: field.name + '-greaterThanOrEqual'
+                        });
+                    }
+                }
             }
         }
     }

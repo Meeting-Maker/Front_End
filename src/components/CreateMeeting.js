@@ -79,6 +79,8 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             onCreateMeeting={onCreateMeeting}
          />
          <CandidateMeetingList
+            title={"Candidate Meetings"} 
+            formMessage={"At least 2 Candidate Meetings are required."}
             candidateMeetings={candidateMeetings}
             updateCandidateMeetings={updateCandidateMeetings}
          />

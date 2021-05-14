@@ -3,7 +3,8 @@ import Button from './Button';
 import Card from './Card';
 import '../css/CreateCandidateMeetings.css';
 import {createCandidateMeeting, getCandidateMeetings} from "../services/CandidateMeeting";
-
+import FormValidation, {validateForm} from "./FormValidation";
+import CandidateMeeting from "./CandidateMeeting";
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
 //todo: fix concat to append new option to candidateList
@@ -13,62 +14,40 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateM
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
    const [length, setLength] = useState(0);
-   const [error, setError] = useState(false);
 
-   //called when the 'Add Option' button is clicked
-   const onAddOption = () => {
-      if (
-         date === ''
-         || time === ''
-      ) {
-         setError(true);
-         return;
-      } else {
-         setError(false);
-      }
-
-      const option = {
-         start: date + 'T' + time + ':00',
-         end: date + 'T' + time + ':00',
-         length: length,
-         meetingID: newMeetingID
-      };
-
-      if (!isValidCandidate(option)) return false;
-
-      //reset length - intentionally leave same date and time
-      setLength(0);
-
-      //if meeting with same details already exists
-      if (candidateListHasOption(candidateMeetings, option)) {
-         console.error('candidate already exists');
-      } else {
-         onCreateCandidateMeeting(option);
-      }
-   };
+   //states for form validation
+   const [submitFlag, setSubmitFlag] = useState(false);
+   const [valid, setValid] = useState(false);
+   const [submitted, setSubmitted] = useState(false);
 
    const config = [
       {
          field: {
-            value: date,
-            name: 'Candidate Meeting Date',
-            requiredFuture: true,
-         }
-      },
-      {
-         field: {
-            value: time,
-            name: 'Candidate Meeting Time',
+            value: date + 'T' + time,
+            name: 'Meeting Date & Time',
+            minLength: 0,
             requiredFuture: true,
          }
       },
       {
          field: {
             value: length,
-            name: 'Candidate Meeting Length',
+            name: 'Length',
+            minLength: 0,
             greaterThanOrEqual: 5,
          }
-      }
+      },
+      {
+         field: {
+            value: {
+               start: date + 'T' + time,
+               length: length,
+            },
+            name: 'Candidate Meeting',
+            compareDuplicate: candidateMeetings
+         }
+      },
+
    ]
 
    const onCreateCandidateMeeting = (candidateMeeting) => {
@@ -89,11 +68,11 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateM
          const navEvent = new PopStateEvent('popstate');
          window.dispatchEvent(navEvent)
       }
-   }
+   };
 
    const onChangeLength = (input) => {
       let val;
-      switch(input){
+      switch (input) {
          case 'plus':
             val = length + 5;
             break;
@@ -105,14 +84,26 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateM
             break;
       }
 
-      if(val % 5 !== 0){
-         val = (Math.floor(val /5) + 1) * 5;
+      if (val % 5 !== 0) {
+         val = (Math.floor(val / 5) + 1) * 5;
       }
       setLength(val);
+   };
+
+   const candidateListHasDuplicate = (list, JSON) => {
+      for (let i = 0; i < list.length; i++) {
+         if (
+            list[i].start === JSON.start &&
+            list[i].length === JSON.length)
+         {
+            return true;
+         }
+      }
+      return false;
    }
 
    return (
-      <Card width="30rem" padding="2rem 0 0 0">
+      <Card width="32rem" padding="2rem 0 0 0">
          <div className="content">
             <div className="header">
                Create Your Meeting
@@ -121,25 +112,27 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateM
          <div className="content">
             <form className="ui large form">
                <div className="field">
-                  <label className="left aligned">Meeting Date</label>
-                  <input
-                     type="date"
-                     placeholder="Meeting Date"
-                     value={date}
-                     onChange={(e) => setDate(e.target.value)}
-                     required
-                  />
-               </div>
-
-               <div className="field">
-                  <label className="left aligned">Time</label>
-                  <input
-                     type="time"
-                     placeholder="Meeting Time"
-                     value={time}
-                     onChange={(e) => setTime(e.target.value)}
-                     required
-                  />
+                  <label className="left aligned">Meeting Date & Time</label>
+                  <div className="two fields">
+                     <div className="field">
+                        <input
+                           type="date"
+                           placeholder="Meeting Date"
+                           value={date}
+                           onChange={(e) => setDate(e.target.value)}
+                           required
+                        />
+                     </div>
+                     <div className="field">
+                        <input
+                           type="time"
+                           placeholder="Meeting Time"
+                           value={time}
+                           onChange={(e) => setTime(e.target.value)}
+                           required
+                        />
+                     </div>
+                  </div>
                </div>
 
                <div className="field ui container" style={{width: "100%", padding: "0"}}>
@@ -148,9 +141,11 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateM
                   <span className={"ui icon input"}>
                      <span className={"ui ignored icon font buttons"}>
                         <a id="minus" className={"decrease ui button"}
-                           style={{padding: "14px 11px 0 11px",
+                           style={{
+                              padding: "14px 11px 0 11px",
                               borderTopRightRadius: "0",
-                              borderBottomRightRadius: "0"}}
+                              borderBottomRightRadius: "0"
+                           }}
                            onClick={() => onChangeLength('minus')}>
                            <i id="minus" className={"minus icon"}/>
                         </a>
@@ -167,9 +162,11 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateM
 
                      <span className={"ui ignored icon font buttons"}>
                         <a id="plus" className={"increase ui button"}
-                           style={{padding: "14px 11px 0 11px",
+                           style={{
+                              padding: "14px 11px 0 11px",
                               borderTopLeftRadius: "0",
-                              borderBottomLeftRadius: "0"}}
+                              borderBottomLeftRadius: "0"
+                           }}
                            onClick={() => onChangeLength('plus')}>
                            <i id="plus" className={"plus icon"}/>
                         </a>
@@ -197,21 +194,12 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateM
                </div>
             </form>
             {
-               error && (date === ''
-                  || time === ''
-                  || length < 5)
+               !valid && submitted
                   ?
-                  <div
-                     className="ui error message"
-                     style={{textAlign: "center", padding: "0.25rem 0.25rem", marginTop: "0.5rem"}}
-                  >
-                     {date
-                        ? null
-                        : <p>Please enter a meeting date.</p>}
-                     {time
-                        ? null
-                        : <p>Please enter a meeting time.</p>}
-                  </div>
+                  <FormValidation
+                     config={config}
+                     submitFlag={submitFlag}>
+                  </FormValidation>
                   : null
             }
          </div>

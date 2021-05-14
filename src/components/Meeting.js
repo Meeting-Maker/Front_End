@@ -202,6 +202,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
 
          <div className="column">
             <CandidateMeetingList
+                title="Vote"
                candidateMeetings={candidateMeetings}
                updateCandidateMeetings={updateCandidateMeetings}
             />
