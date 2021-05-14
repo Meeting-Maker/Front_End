@@ -1,19 +1,25 @@
 import React, {useEffect} from 'react';
 import Button from './Button';
 import CandidateMeeting from "./CandidateMeeting";
+import {deleteCandidateMeeting} from "../services/CandidateMeeting";
 
-const CandidateMeetingList = ({candidateMeetings, onDeleteCandidateMeeting}) => {
+const CandidateMeetingList = ({candidateMeetings, updateCandidateMeetings}) => {
       //todo: convert to unique id from database
 
       useEffect(
          () => {
-
          }, [candidateMeetings]
       );
 
-      const onCandidateMeetingClick = (candidateMeeting) => {
+      const onDeleteCandidateMeeting = (candidateID) => {
+         deleteCandidateMeeting(candidateID).then(response => {
+            updateCandidateMeetings();
+         });
+      };
+
+      const onCandidateMeetingClick = (candidateID) => {
          //do something
-         console.log('candidate meeting clicked: ', candidateMeeting);
+         console.log('candidate meeting with ID clicked: ', candidateID);
       };
 
       if (candidateMeetings.length === 0) {

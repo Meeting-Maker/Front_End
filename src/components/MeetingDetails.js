@@ -7,7 +7,6 @@ const MeetingDetails = ({meetingDetails}) => {
 
    useEffect(
       () => {
-         console.log('from MeeTING DETAILS!!!!! --- !! : ', meetingDetails);
       }, [meetingDetails]
    );
 

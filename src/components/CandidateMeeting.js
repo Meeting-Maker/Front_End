@@ -3,8 +3,6 @@ import Icon from "@mdi/react";
 import {mdiDelete, mdiClockTimeFourOutline, mdiTimerSand, mdiCalendarRange, mdiPoll} from "@mdi/js";
 import '../css/CandidateMeeting.css';
 
-import {getStandardSuffix, getDayString, getMonthString, breakStandardDate} from "../services/Date";
-
 const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCandidateMeeting}) => {
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
@@ -12,16 +10,12 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
 
    useEffect(
       () => {
-         console.log('date: ', date);
-         console.log('time: ', time);
-         console.log('length: ', length);
       }, [date, time, length]
    );
 
 
    useEffect(
       () => {
-         console.log('cm: ', candidateMeeting);
          if(!('length' in candidateMeeting)){
             return;
          }
@@ -37,39 +31,16 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
       }, [candidateMeeting]
    );
 
-   const iconRender = () => {
-      if(candidateMeeting.candidateID !== ''){
-         return (
-            <div>
-               <Icon onClick={() => onDeleteCandidateMeeting(candidateMeeting)}
-                     className={"right floated"}
-                     path={mdiDelete}
-                     size={1}/>
-               <Icon onClick={() => console.log('stat')}
-                     className={"right floated"}
-                     path={mdiPoll}
-                     size={1}/>
-            </div>
-         );
-      }
-
-      return (
-         <Icon onClick={() => onDeleteCandidateMeeting(candidateMeeting)}
-               className={"right floated"}
-               path={mdiDelete}
-               size={1}/>
-      );
-   }
-
    if(!date || !time || !length){
       return (
          <div>candidate meeting</div>
       );
    }
+
    return (
       <div
          className="candidate-meeting"
-         onClick={() => onCandidateMeetingClick(date + 'T' + time + '-' + candidateMeeting.length)}>
+         onClick={() => onCandidateMeetingClick(candidateMeeting.candidateID)}>
          <a className={"ui card centered"} style={{marginBottom: "1em", width: "90%"}}>
             <div className={"content"} style={{fontSize: "1.2em", padding: "0.5em 1em 0.5em 1em"}}>
                <div style={{float: "left"}}>
@@ -86,7 +57,16 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
                   <Icon path={mdiTimerSand} size={0.8}/>
                   {' '}Duration: {length + 'm'}
                </div>
-               {iconRender()}
+               <div>
+                  <Icon onClick={() => onDeleteCandidateMeeting(candidateMeeting.candidateID)}
+                        className={"right floated"}
+                        path={mdiDelete}
+                        size={1}/>
+                  <Icon onClick={() => console.log('stat')}
+                        className={"right floated"}
+                        path={mdiPoll}
+                        size={1}/>
+               </div>
             </div>
          </a>
       </div>

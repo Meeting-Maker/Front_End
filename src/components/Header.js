@@ -8,7 +8,6 @@ const Header = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    console.log('logged in: ' + loggedIn);
   }, [loggedIn]);
 
   // TODO: modify login functionality

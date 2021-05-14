@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import Button from './Button';
 import Card from './Card';
 import '../css/CreateCandidateMeetings.css';
+import {createCandidateMeeting, getCandidateMeetings} from "../services/CandidateMeeting";
 
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
 //todo: fix concat to append new option to candidateList
 //todo: onCreateMeeting does not prevent default / causes error. return list to parent component with onFormSubmit
 
-const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeting, onCreateCandidateMeeting}) => {
+const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateMeetings}) => {
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
    const [length, setLength] = useState(0);
@@ -70,15 +71,23 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
       }
    ]
 
-   //called when the 'Create Meeting' button is clicked
-   //verifies that at least 2 candidates exist
-   const onFormSubmit = (event) => {
-      event.preventDefault();
+   const onCreateCandidateMeeting = (candidateMeeting) => {
+      createCandidateMeeting(candidateMeeting).then((response) => {
+         setCandidateMeetings(old => [...old, response.data]);
+      });
+   };
+
+   const onFormSubmit = () => {
       if (candidateMeetings.length < 2) {
          console.error('You need at least two candidates to create a meeting.');
       } else {
-         //todo: use service file to create time values compatible with db
-         onCreateMeeting();
+         window.history.pushState(
+            {},
+            '',
+            '/meeting?meetingID=' + newMeetingID
+         );
+         const navEvent = new PopStateEvent('popstate');
+         window.dispatchEvent(navEvent)
       }
    }
 
@@ -110,7 +119,7 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
             </div>
          </div>
          <div className="content">
-            <form className="ui large form" onSubmit={(e) => onFormSubmit(e)}>
+            <form className="ui large form">
                <div className="field">
                   <label className="left aligned">Meeting Date</label>
                   <input
@@ -180,7 +189,7 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, onCreateMeeti
                   {' '}
                   <Button
                      className="custom-button dark thin"
-                     onClick={(e) => onFormSubmit(e)}
+                     onClick={() => onFormSubmit()}
                      type="submit"
                   >
                      Create Meeting
