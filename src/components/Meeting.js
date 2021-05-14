@@ -151,8 +151,6 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          );
    }
 
-
-
    const onGuestJoin = (guest) => {
       onUpdateGuest(guest);
    };
@@ -213,6 +211,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
                <CommentList
                   updateComments={updateComments}
                   comments={comments}
+                  currentGuest={currentGuest}
                   height={height}/>
                {/* comment input */}
                <form ref={commentForm}

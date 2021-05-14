@@ -3,7 +3,7 @@ import Button from './Button';
 import CandidateMeeting from "./CandidateMeeting";
 import {deleteCandidateMeeting} from "../services/CandidateMeeting";
 
-const CandidateMeetingList = ({candidateMeetings, updateCandidateMeeting, title, formMessage}) => {
+const CandidateMeetingList = ({candidateMeetings, updateCandidateMeetings, title, formMessage}) => {
       //todo: convert to unique id from database
 
       useEffect(
