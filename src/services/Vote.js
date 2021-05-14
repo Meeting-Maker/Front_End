@@ -2,7 +2,9 @@ import api from "./api";
 
 export async function getVotes(candidateID) {
     return await api.get('/getVotes', {
-        params: candidateID
+        params: {
+            candidateID: candidateID
+        }
     });
 }
 

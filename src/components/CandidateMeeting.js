@@ -58,6 +58,7 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
                   {' '}Duration: {length + 'm'}
                </div>
                <div>
+                  {candidateMeeting.voters.length}
                   <Icon onClick={() => onDeleteCandidateMeeting(candidateMeeting.candidateID)}
                         className={"right floated"}
                         path={mdiDelete}

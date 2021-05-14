@@ -5,26 +5,18 @@ import {formatDate} from "../services/Comment";
 import {deleteComment} from "../services/Comment";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default ({commentUserID, updateComments, commentID, name, content, date}) => {
+export default ({comment, updateComments, currentGuest}) => {
 
-   const [id] = useState(commentID);
-
-   function deletecomment() {
+   const onDeleteComment = () => {
       try {
          deleteComment({
-            commentID: id
+            commentID: comment.commentID
          }).then(() => {
             updateComments();
          });
       } catch (error) {
          console.log(error);
       }
-   }
-
-   // TODO: update the hardcoded value
-   function showDelete() {
-      if (commentUserID === 18)
-         return <Icon onClick={deletecomment} className={"right floated"} path={mdiDelete} size={1}/>
    }
 
    return (
@@ -39,18 +31,22 @@ export default ({commentUserID, updateComments, commentID, name, content, date})
                   </div>
                   <div className={"content"}>
                      <a href={"/"} className={"author"} style={{float: "left"}}>
-                        {name}
+                        {comment.name}
                         <div className={"metadata"}>
-                           <span className={"date"}> {formatDate(date)} </span>
+                           <span className={"date"}> {formatDate(comment.createdAt)} </span>
                         </div>
                      </a>
                      <br/>
                      <div className={"text"} style={{float: "left"}}>
-                        {content}
+                        {comment.content}
                      </div>
                   </div>
                </div>
-               {showDelete()}
+               {
+                  currentGuest.id === comment.userID ?
+                     <Icon onClick={onDeleteComment} className={"right floated"} path={mdiDelete} size={1}/>
+                     : null
+               }
             </div>
          </div>
       </div>
