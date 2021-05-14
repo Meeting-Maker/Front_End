@@ -52,9 +52,11 @@ const CandidateMeeting = ({currentGuest, selectedUser, candidateMeeting, onCandi
       );
    }
 
+   console.log('cm: ', candidateMeeting);
    console.log('here: ', selectedUser, currentGuest);
-   const selectedUserVoted = (selectedUser && candidateMeeting.voters.filter(voter => voter.userID === selectedUser).length > 0);
-   const currentGuestVoted = (candidateMeeting.voters.filter(voter => voter.userID === currentGuest.id).length > 0);
+
+   const selectedUserVoted = ('voters' in candidateMeeting && selectedUser && candidateMeeting.voters.filter(voter => voter.userID === selectedUser).length > 0);
+   const currentGuestVoted = ('voters' in candidateMeeting && candidateMeeting.voters.filter(voter => voter.userID === currentGuest.id).length > 0);
    const selectedStyle = selectedUserVoted ? "2px solid #45A29E" : "none";
 
    const renderedVotes = ('voters' in candidateMeeting) ?
