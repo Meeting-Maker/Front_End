@@ -1,9 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import Icon from "@mdi/react";
-import {mdiDelete, mdiClockTimeFourOutline, mdiTimerSand, mdiCalendarRange, mdiPoll} from "@mdi/js";
+import {
+   mdiDelete,
+   mdiClockTimeFourOutline,
+   mdiTimerSand,
+   mdiCalendarRange,
+   mdiPoll,
+   mdiCheckCircleOutline
+} from "@mdi/js";
 import '../css/CandidateMeeting.css';
 
-const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCandidateMeeting}) => {
+const CandidateMeeting = ({currentGuest, selectedUser, candidateMeeting, onCandidateMeetingClick, onDeleteCandidateMeeting}) => {
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
    const [length, setLength] = useState(null);
@@ -15,15 +22,15 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
 
    useEffect(
       () => {
-         if(!('length' in candidateMeeting)){
+         if (!('length' in candidateMeeting)) {
             return;
          }
 
          setLength(candidateMeeting.length);
-         if('start' in candidateMeeting && 'meetingID' in candidateMeeting){ //is from db
+         if ('start' in candidateMeeting && 'meetingID' in candidateMeeting) { //is from db
             setDate(candidateMeeting.start.split('T')[0]);
             setTime(candidateMeeting.start.split('T')[1].substring(0, 5));
-         }else if('date' in candidateMeeting && 'time' in candidateMeeting){ //is from user entry
+         } else if ('date' in candidateMeeting && 'time' in candidateMeeting) { //is from user entry
             setDate(candidateMeeting.date);
             setTime(candidateMeeting.time);
          }
@@ -39,17 +46,52 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
       onDeleteCandidateMeeting(candidateMeeting.candidateID);
    };
 
-   if(!date || !time || !length){
+   if (!date || !time || !length) {
       return (
          <div>candidate meeting</div>
       );
    }
 
+   console.log('here: ', selectedUser, currentGuest);
+   const selectedUserVoted = (selectedUser && candidateMeeting.voters.filter(voter => voter.userID === selectedUser).length > 0);
+   const currentGuestVoted = (candidateMeeting.voters.filter(voter => voter.userID === currentGuest.id).length > 0);
+   const selectedStyle = selectedUserVoted ? "2px solid #45A29E" : "none";
+
+   const renderedVotes = ('voters' in candidateMeeting) ?
+      <div>
+         {
+            (currentGuestVoted) ?
+               <Icon
+                  className={"right floated"}
+                  path={mdiCheckCircleOutline}
+                  size={1}
+               />
+               :
+               null
+         }
+         <p>
+            {
+               ('voters' in candidateMeeting) ?
+                  candidateMeeting.voters.length :
+                  null
+            }
+         </p>
+         <Icon onClick={(e) => onStatClick(e)}
+               path={mdiPoll}
+               size={1}/>
+      </div>
+      :
+      null;
+
+
+
    return (
       <div
          className="candidate-meeting"
          onClick={() => onCandidateMeetingClick(candidateMeeting)}>
-         <div className={"ui card centered"} style={{marginBottom: "1em", width: "90%"}}>
+         <div
+            className={"ui card centered"}
+            style={{marginBottom: "1em", width: "90%", border: selectedStyle}}>
             <div className={"content"} style={{fontSize: "1.2em", padding: "0.5em 1em 0.5em 1em"}}>
                <div style={{float: "left"}}>
                   <Icon path={mdiCalendarRange} size={0.8}/>
@@ -65,21 +107,12 @@ const CandidateMeeting = ({candidateMeeting, onCandidateMeetingClick, onDeleteCa
                   <Icon path={mdiTimerSand} size={0.8}/>
                   {' '}Duration: {length + 'm'}
                </div>
-               <div>
-                  {
-                     ('voters' in candidateMeeting) ?
-                        candidateMeeting.voters.length :
-                        null
-                  }
-
+               <div className={"right floated"}>
+                  {renderedVotes}
                   <Icon onClick={(e) => onDeleteClick(e)}
-                        className={"right floated"}
                         path={mdiDelete}
                         size={1}/>
-                  <Icon onClick={(e) => onStatClick(e)}
-                        className={"right floated"}
-                        path={mdiPoll}
-                        size={1}/>
+
                </div>
             </div>
          </div>

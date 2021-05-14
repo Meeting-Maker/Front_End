@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import CandidateMeeting from "./CandidateMeeting";
 import {deleteCandidateMeeting} from "../services/CandidateMeeting";
 
-const CandidateMeetingList = ({currentGuest, candidateMeetings, updateCandidateMeetings, onCandidateMeetingClick, title, formMessage}) => {
+const CandidateMeetingList = ({currentGuest, selectedUser, candidateMeetings, updateCandidateMeetings, onCandidateMeetingClick, title, formMessage}) => {
       //todo: convert to unique id from database
 
       useEffect(
@@ -32,6 +32,8 @@ const CandidateMeetingList = ({currentGuest, candidateMeetings, updateCandidateM
          return (
             //sets unique key by concatenating info from candidateMeeting
             <CandidateMeeting
+               currentGuest={currentGuest}
+               selectedUser={selectedUser}
                candidateMeeting={candidateMeeting}
                key={candidateMeeting.candidateID}
                onDeleteCandidateMeeting={onDeleteCandidateMeeting}
@@ -41,7 +43,10 @@ const CandidateMeetingList = ({currentGuest, candidateMeetings, updateCandidateM
       });
 
       return (
-         <div className={"ui card centered grey"} style={{overflow: "hidden", width: "30rem"}}>
+         <div
+            className={"ui card centered grey"}
+            style={{overflow: "hidden", width: "30rem"}}
+         >
             <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
                {title}
             </div>

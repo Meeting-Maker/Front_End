@@ -1,8 +1,12 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import '../css/UserList.css'
 import Card from './Card';
+import {Button} from "react-bootstrap";
+
 
 const UserList = ({userList, selectedUser, onSelectUser}) => {
+
+   const [active, setActive] = useState(false);
 
    useEffect(
       () => {
@@ -19,7 +23,7 @@ const UserList = ({userList, selectedUser, onSelectUser}) => {
    }
 
    const renderedList = userList.map((user) => {
-      const selectedStyle = (selectedUser === user.id) ? "4px solid blue" : "none";
+      const selectedStyle = (selectedUser === user.id) ? "2px solid #45A29E" : "none";
       return (
          <div className="user-card"
               key={user.id}

@@ -220,6 +220,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          <div className="column">
             <CandidateMeetingList
                currentGuest={currentGuest}
+               selectedUser={selectedUser}
                title="Vote"
                candidateMeetings={candidateMeetings}
                onCandidateMeetingClick={onCandidateMeetingClick}
