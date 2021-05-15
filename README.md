@@ -58,14 +58,14 @@ MeetingMaker is being developed to simplify the process of scheduling a meeting.
 
 - #### Delete Guest (as owner)
 
-  - Delete guests and their votes from the meeting
+  - Delete guests and their votes from the meetings
 
 - #### System Messaging
 
   - Important actions are logged as a comment with a description. 
-    - Ex. "Stephen removed Brandon from the meeting"
-    - Ex. "Ming deleted their comment"
-    - Ex. "Stephen removed a vote option with 2 votes (Brandon, Ming)"
+    - "Stephen removed Brandon from the meeting"
+    - "Ming deleted their comment"
+    - "Stephen removed a vote option with 2 votes (Brandon, Ming)"
   - Can be used for suggestions, vote explanations, or any other important information for future visitors
 
 - #### UI/UX
@@ -77,6 +77,12 @@ MeetingMaker is being developed to simplify the process of scheduling a meeting.
   - Make it more evident which meetings each guest voted for
   - Introduce pop-ups explaining functionality, especially explaining how to share your meeting
   - Make the page feel more alive by using :hover: styling
+
+- #### Security
+
+  - Sanitize inputs and URL parameters for protection against SQLI, XSS, parameter pollution
+  - Disallow use in iFrame for protection against clickjacking
+  - Remove ReDoS vulnerabilities by updating or replacing dependencies
 
 ### **Bugs:**
 
