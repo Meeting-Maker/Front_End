@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import CandidateMeeting from "./CandidateMeeting";
 import {deleteCandidateMeeting} from "../services/CandidateMeeting";
 
-const CandidateMeetingList = ({currentGuest, selectedUser, candidateMeetings, updateCandidateMeetings, onCandidateMeetingClick, title, formMessage}) => {
+const CandidateMeetingList = ({currentGuest, selectedUser, candidateMeetings, updateCandidateMeetings, onCandidateMeetingClick, title, formMessage, renderVotes}) => {
       //todo: convert to unique id from database
 
       useEffect(
@@ -38,6 +38,7 @@ const CandidateMeetingList = ({currentGuest, selectedUser, candidateMeetings, up
                key={candidateMeeting.candidateID}
                onDeleteCandidateMeeting={onDeleteCandidateMeeting}
                onCandidateMeetingClick={onCandidateMeetingClick}
+               renderVotes={renderVotes}
             />
          );
       });

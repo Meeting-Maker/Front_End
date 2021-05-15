@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import '../css/UserList.css'
 import Card from './Card';
-import {Button} from "react-bootstrap";
+import CreateGuest from "./CreateGuest";
 
 
 const UserList = ({userList, selectedUser, onSelectUser}) => {
@@ -23,19 +23,18 @@ const UserList = ({userList, selectedUser, onSelectUser}) => {
    }
 
    const renderedList = userList.map((user) => {
-      const selectedStyle = (selectedUser === user.id) ? "2px solid #45A29E" : "none";
+      const selectedStyle = (selectedUser === user.id) ? "teal" : "";
       return (
          <div className="user-card"
               key={user.id}
               onClick={() => onSelectUser({id: user.id, name: user.name})}
-               style={{padding: "0.25rem 0 0.25rem 0"}}>
+              style={{padding: "0.5rem 0 0.5rem 0"}}>
             <div
                className="ui container"
                style={{width: "25rem"}}
             >
                <div
-                  className="ui grey fluid card"
-                  style={{border: selectedStyle}}
+                  className={`ui ${selectedStyle} fluid card`}
                >
                   <div className="content">
                      <div className={"ui header floated left"}>
@@ -49,11 +48,20 @@ const UserList = ({userList, selectedUser, onSelectUser}) => {
    });
 
    return (
-      <div style={{paddingTop: "5rem"}}>
-         <Card width={"27rem"} padding={"1rem"}>
+      <div>
+         <div
+            className={"ui card centered grey"}
+            style={{overflow: "hidden", width: "30rem", paddingBottom: "0.5rem", marginTop: "1rem"}}
+         >
+            <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
+               Users
+            </div>
             {renderedList}
-         </Card>
+
+         </div>
+         {/*<CreateGuest/>*/}
       </div>
+
 
    );
 };

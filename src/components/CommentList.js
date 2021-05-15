@@ -5,7 +5,7 @@ import React from "react";
 const CommentList = ({comments, updateComments, currentGuest}) => {
     const renderList = comments.map((comment) => {
         return (
-            <div key={comment.commentID} className={"item"} style={{paddingTop: "0.5em"}}>
+            <div key={comment.commentID} className={"item"} style={{padding: "0.5em 0"}}>
                 <div className={"content"}>
                         <Comment
                            comment={comment}
@@ -18,7 +18,7 @@ const CommentList = ({comments, updateComments, currentGuest}) => {
     });
 
     return (
-        <div className={"ui list"} style={{ overflow: "auto", marginBottom: '0'}}>
+        <div className={"ui list"} style={{ overflowY: "scroll", marginBottom: "0"}}>
             {renderList}
         </div>
     );
