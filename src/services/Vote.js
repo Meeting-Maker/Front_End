@@ -9,6 +9,7 @@ export async function getVotes(candidateID) {
 }
 
 export async function createVote(voteDetails) {
+    console.log('vd: ', voteDetails);
     await api.post('/createVote', voteDetails);
 }
 

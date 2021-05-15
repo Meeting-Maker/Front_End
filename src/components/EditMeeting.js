@@ -1,0 +1,115 @@
+import React, {useState, useEffect} from "react";
+import {createGuestMeeting, editMeetingDetails, meetingExists} from "../services/Meeting";
+import CreateMeetingDetails from "./CreateMeetingDetails";
+import CreateCandidateMeetings from "./CreateCandidateMeetings";
+import CandidateMeetingList from "./CandidateMeetingList";
+import {getCandidateMeetings} from "../services/CandidateMeeting";
+import {redirect} from "../services/Redirect";
+
+// edit types are:
+// 0 - details
+// 1 - candidate
+const EditMeeting = (currentGuest) => {
+   const [edit, setEdit] = useState(null);
+   const [meetingID, setMeetingID] = useState();
+   const [candidateMeetings, setCandidateMeetings] = useState([]);
+   const [meetingDetails, setMeetingDetails] = useState(null);
+
+   useEffect(
+      () => {
+
+         processParams()
+      }, []
+   );
+
+   function updateCandidateMeetings() {
+      setCandidateMeetings([]);
+      getCandidateMeetings(meetingID)
+         .then(response => {
+               setCandidateMeetings(response.data.candidateMeetings);
+            }
+         );
+   }
+
+   const processParams = async () => {
+      //todo: increase browser support by changing searchParams function
+      const editFromParams = (parseInt(new URLSearchParams(window.location.search).get('edit')));
+      const meetingIDFromParams = new URLSearchParams(window.location.search).get('meetingID');
+
+      setEdit(editFromParams);
+
+      if (!meetingIDFromParams) {
+         redirect('/');
+
+         const navEvent = new PopStateEvent('popstate');
+         window.dispatchEvent(navEvent);
+         return;
+      } else if (meetingIDFromParams.length !== 6 || !(editFromParams === 0 || editFromParams === 1)) {
+         redirect('/join', [{key: 'meetingID', value: meetingIDFromParams}]);
+         return;
+      }
+
+      await meetingExists(meetingIDFromParams).then(
+         response => {
+            if (response.data.meetingExists) {
+               setMeetingID(meetingIDFromParams);
+            } else {
+               redirect('/join', [{key: 'meetingID', value: meetingIDFromParams}]);
+            }
+         }
+      );
+   };
+
+   //todo: convert CreateMeeting button in CreateCandidateMeetings component to Link,
+   //remove window.history.pushState here
+   const onSubmitEdit = async (change) => {
+      console.error('md: ', meetingID);
+      console.error('change: ', change);
+      if(edit === 0){
+         await editMeetingDetails({
+            meetingID: meetingID,
+            title: change.title,
+            description: change.description,
+            dueDate: change.dueDate
+         }).then(
+            () => {
+               redirect('/join', [{key: 'meetingID', value: meetingID}]);
+            }
+         );
+      }else if(edit === 1){
+
+      }
+   };
+
+   if(edit === 0 && meetingID){
+      return (
+         <CreateMeetingDetails
+            currentGuest={currentGuest}
+            onUpdateGuest={() => {}}
+            meetingID={meetingID}
+            onCreateMeeting={onSubmitEdit}
+         />
+      );
+   }else if(edit === 1 && meetingID) {
+      return (
+         <div>
+            <CreateCandidateMeetings
+               meetingID={meetingID}
+               candidateMeetings={candidateMeetings}
+               setCandidateMeetings={setCandidateMeetings}
+               onCreateMeeting={onSubmitEdit}
+            />
+            <CandidateMeetingList
+               currentGuest={currentGuest}
+               title={"Candidate Meetings"}
+               formMessage={"At least 2 Candidate Meetings are required."}
+               candidateMeetings={candidateMeetings}
+               updateCandidateMeetings={updateCandidateMeetings}
+               onCandidateMeetingClick={() => {}}
+            />
+         </div>
+      );
+   }else return null;
+}
+
+export default EditMeeting;

@@ -3,13 +3,14 @@ import Button from './Button';
 import Card from './Card';
 import '../css/CreateCandidateMeetings.css';
 import {createCandidateMeeting} from "../services/CandidateMeeting";
+import {redirect} from "../services/Redirect";
 
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
 //todo: fix concat to append new option to candidateList
 //todo: onCreateMeeting does not prevent default / causes error. return list to parent component with onFormSubmit
 
-const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateMeetings}) => {
+const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeetings}) => {
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
    const [length, setLength] = useState(0);
@@ -31,7 +32,7 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateM
          start: date + 'T' + time + ':00',
          end: date + 'T' + time + ':00',
          length: length,
-         meetingID: newMeetingID
+         meetingID: meetingID
       };
 
       if (!isValidCandidate(option)) return false;
@@ -82,13 +83,9 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateM
       if (candidateMeetings.length < 2) {
          console.error('You need at least two candidates to create a meeting.');
       } else {
-         window.history.pushState(
-            {},
-            '',
-            '/meeting?meetingID=' + newMeetingID
-         );
-         const navEvent = new PopStateEvent('popstate');
-         window.dispatchEvent(navEvent)
+         redirect('/meeting', [
+            {key: 'meetingID', value: meetingID}
+         ]);
       }
    }
 
