@@ -5,13 +5,14 @@ import '../css/CreateCandidateMeetings.css';
 import FormValidation, {validateForm} from "./FormValidation";
 import CandidateMeeting from "./CandidateMeeting";
 import {createCandidateMeeting} from "../services/CandidateMeeting";
+import {redirect} from "../services/Redirect";
 
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
 //todo: fix concat to append new option to candidateList
 //todo: onCreateMeeting does not prevent default / causes error. return list to parent component with onFormSubmit
 
-const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateMeetings}) => {
+const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeetings}) => {
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
    const [length, setLength] = useState(0);
@@ -106,15 +107,12 @@ const CreateCandidateMeetings = ({newMeetingID, candidateMeetings, setCandidateM
    //verifies that at least 2 candidates exist
    const onFormSubmit = (event) => {
       event.preventDefault();
-      if (candidateMeetings.length >= 2) {
-         //todo: use service file to create time values compatible with db
-         window.history.pushState(
-            {},
-            '',
-            '/meeting?meetingID=' + newMeetingID
-         );
-         const navEvent = new PopStateEvent('popstate');
-         window.dispatchEvent(navEvent)
+      if (candidateMeetings.length < 2) {
+         console.error('You need at least two candidates to create a meeting.');
+      } else {
+         redirect('/meeting', [
+            {key: 'meetingID', value: meetingID}
+         ]);
       }
    };
 

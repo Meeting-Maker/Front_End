@@ -11,6 +11,7 @@ import CandidateMeetingList from "./CandidateMeetingList";
 import CreateGuest from "./CreateGuest";
 import MeetingDetails from "./MeetingDetails";
 import {createVote, deleteVote} from "../services/Vote";
+import {redirect} from "../services/Redirect";
 
 const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    const [selectedUser, setSelectedUser] = useState(null);
@@ -53,24 +54,13 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       const meetingIDFromParam = new URLSearchParams(window.location.search).get('meetingID');
 
       if (!meetingIDFromParam) {
-         window.history.pushState(
-            {},
-            '',
-            '/join'
-         );
+         redirect('/join');
 
          const navEvent = new PopStateEvent('popstate');
          window.dispatchEvent(navEvent);
          return;
       } else if (meetingIDFromParam.length !== 6) {
-         window.history.pushState(
-            {},
-            '',
-            '/join?meetingID=' + meetingIDFromParam
-         );
-
-         const navEvent = new PopStateEvent('popstate');
-         window.dispatchEvent(navEvent);
+         redirect('/join', [{key: 'meetingID', value: meetingIDFromParam}]);
          return;
       }
 

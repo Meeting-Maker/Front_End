@@ -3,7 +3,7 @@ import Button from './Button';
 import Card from './Card';
 import FormValidation, {validateForm} from "./FormValidation";
 
-const CreateMeetingDetails = ({currentGuest, onUpdateGuest, newMeetingID, onCreateMeeting}) => {
+const CreateMeetingDetails = ({currentGuest, onUpdateGuest, meetingID, onCreateMeeting, captureUserName}) => {
    const [userName, setUserName] = useState('');
    const [meetingName, setMeetingName] = useState('');
    const [meetingDescription, setMeetingDescription] = useState('');
@@ -23,18 +23,11 @@ const CreateMeetingDetails = ({currentGuest, onUpdateGuest, newMeetingID, onCrea
             }
          }
 
-         loadUserName();
+         if(captureUserName) loadUserName();
       }, [currentGuest]
    );
 
-   const config = [
-      {
-         field: {
-            value: userName,
-            name: 'Your Name',
-            minLength: 2,
-         }
-      },
+   let config = [
       {
          field: {
             value: meetingName,
@@ -58,6 +51,14 @@ const CreateMeetingDetails = ({currentGuest, onUpdateGuest, newMeetingID, onCrea
       },
    ];
 
+   if(captureUserName) config.push({
+      field: {
+         value: userName,
+         name: 'Your Name',
+         minLength: 2,
+      }
+   });
+
    const onCreateMeetingDetails = async (event) => {
       event.preventDefault();
       setSubmitFlag(!submitFlag);
@@ -72,7 +73,7 @@ const CreateMeetingDetails = ({currentGuest, onUpdateGuest, newMeetingID, onCrea
 
             const meetingDetails = {
                name: userName,
-               meetingID: newMeetingID,
+               meetingID: meetingID,
                title: meetingName,
                description: meetingDescription,
                dueDate: dueDate + 'T' + dueTime + ':00',
@@ -97,16 +98,20 @@ const CreateMeetingDetails = ({currentGuest, onUpdateGuest, newMeetingID, onCrea
 
          <div className="content">
             <form className="ui large form">
-               <div className="field">
-                  <label className="left aligned">Your Name</label>
-                  <input
-                     type="text"
-                     placeholder="Your Name"
-                     name="meetingCreatorName"
-                     value={userName}
-                     onChange={(e) => setUserName(e.target.value)}
-                  />
-               </div>
+               {
+                  captureUserName ?
+                     <div className="field">
+                        <label className="left aligned">Your Name</label>
+                        <input
+                           type="text"
+                           placeholder="Your Name"
+                           name="meetingCreatorName"
+                           value={userName}
+                           onChange={(e) => setUserName(e.target.value)}
+                        />
+                     </div> :
+                     null
+               }
                <div className="field">
                   <label className="left aligned">Meeting Name</label>
                   <input

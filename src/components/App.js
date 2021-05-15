@@ -7,6 +7,7 @@ import Footer from './Footer';
 import CreateMeeting from './CreateMeeting';
 import JoinMeeting from './JoinMeeting';
 import Meeting from './Meeting';
+import EditMeeting from "./EditMeeting";
 
 const App = () => {
    const [currentGuest, setCurrentGuest] = useState({id: null, name: ''});
@@ -41,6 +42,11 @@ const App = () => {
                currentGuest={currentGuest}
                onUpdateGuest={onUpdateGuest}
                onUpdateMeetingID={onUpdateMeetingID}
+            />
+         </Route>
+         <Route path='/edit'>
+            <EditMeeting
+               currentGuest={currentGuest}
             />
          </Route>
          <Route path='/join'>

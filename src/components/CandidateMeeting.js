@@ -55,11 +55,36 @@ const CandidateMeeting = ({
 
 
    console.log('cm: ', candidateMeeting);
-   console.log('here: ', selectedUser, currentGuest);
-
-   const selectedUserVoted = ('voters' in candidateMeeting && selectedUser && candidateMeeting.voters.filter(voter => voter.userID === selectedUser).length > 0);
-   const currentGuestVoted = ('voters' in candidateMeeting && candidateMeeting.voters.filter(voter => voter.userID === currentGuest.id).length > 0);
+   const hasVoters = 'voters' in candidateMeeting;
+   const selectedUserVoted = (hasVoters && selectedUser && candidateMeeting.voters.filter(voter => voter.userID === selectedUser).length > 0);
+   const currentGuestVoted = (hasVoters && candidateMeeting.voters.filter(voter => voter.userID === currentGuest.id).length > 0);
    const selectedStyle = selectedUserVoted ? "teal" : "";
+
+   const renderedVotes = hasVoters ?
+      <div>
+         {
+            (currentGuestVoted) ?
+               <Icon
+                  className={"right floated"}
+                  path={mdiCheckCircleOutline}
+                  size={1}
+               />
+               :
+               null
+         }
+         <p>
+            {
+               ('voters' in candidateMeeting) ?
+                  candidateMeeting.voters.length :
+                  null
+            }
+         </p>
+         <Icon onClick={(e) => onStatClick(e)}
+               path={mdiPoll}
+               size={1}/>
+      </div>
+      :
+      null;
 
    return (
       <div

@@ -8,7 +8,7 @@ import {createGuestMeeting} from "../services/Meeting";
 
 const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    const [candidateMeetings, setCandidateMeetings] = useState([]);
-   const [newMeetingID, setNewMeetingID] = useState('');
+   const [meetingID, setMeetingID] = useState('');
    const [page, setPage] = useState(false); //used to change pages when user inputs meetingdetails
 
    useEffect(
@@ -19,17 +19,17 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
 
    useEffect(
       () => {
-         if (!newMeetingID) {
+         if (!meetingID) {
             const id = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)();
-            setNewMeetingID(id);
+            setMeetingID(id);
          }
       },
-      [newMeetingID]
+      [meetingID]
    );
 
    function updateCandidateMeetings() {
       setCandidateMeetings([]);
-      getCandidateMeetings(newMeetingID)
+      getCandidateMeetings(meetingID)
          .then(response => {
                setCandidateMeetings(response.data.candidateMeetings);
             }
@@ -44,7 +44,7 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             id: response.data.userID,
             name: meetingDetails.name
          });
-         onUpdateMeetingID(newMeetingID);
+         onUpdateMeetingID(meetingID);
          setPage(true);
       });
    };
@@ -56,8 +56,9 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             <CreateMeetingDetails
                currentGuest={currentGuest}
                onUpdateGuest={onUpdateGuest}
-               newMeetingID={newMeetingID}
+               meetingID={meetingID}
                onCreateMeeting={onCreateMeeting}
+               captureUserName={true}
             />
          </div>
       );
@@ -67,7 +68,7 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    return (
       <div>
          <CreateCandidateMeetings
-            newMeetingID={newMeetingID}
+            meetingID={meetingID}
             candidateMeetings={candidateMeetings}
             setCandidateMeetings={setCandidateMeetings}
             onCreateMeeting={onCreateMeeting}

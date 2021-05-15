@@ -1,6 +1,7 @@
 import {meetingExists} from "../services/Meeting";
 import CodeInput from "./CodeInput";
 import {useEffect, useState} from "react";
+import {redirect} from "../services/Redirect";
 
 //todo: conditionally render userName field, only if user is not logged in
 
@@ -36,15 +37,7 @@ const JoinMeeting = ({onUpdateMeetingID}) => {
             console.error('NO MEETING EXISTS FOR CODE ' + meetingID);
          }else{
             onUpdateMeetingID(meetingID);
-
-            window.history.pushState(
-               {},
-               '',
-               '/meeting?meetingID=' + meetingID
-            );
-
-            const navEvent = new PopStateEvent('popstate');
-            window.dispatchEvent(navEvent)
+            redirect('/meeting', [{key: 'meetingID', value: meetingID}]);
          }
       });
    }
