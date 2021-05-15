@@ -152,6 +152,14 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       onUpdateGuest(guest);
    };
 
+   const onHighlightCandidateMeeting = (candidateMeeting) => {
+      if(!selectedUser){
+         setSelectedCandidate(candidateMeeting);
+      }else{
+         setSelectedCandidate(null);
+      }
+   };
+
    const onHighlightUser = (user) => {
       if(!selectedUser){
          setSelectedUser(user.id);
@@ -166,6 +174,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          <div>
             <UserList
                userList={userList}
+               selectedCandidate={selectedCandidate}
                selectedUser={selectedUser}
                onSelectUser={onGuestJoin}
             />
@@ -191,10 +200,14 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             <div className="ui active dimmer">
                <div className="ui text loader">Loading</div>
             </div>
-            <p></p>
+            <p/>
          </div>
       );
    }
+
+   const onEditClick = () => {
+      redirect('/edit', [{key: 'edit', value: 1},{key: 'meetingID', value: meetingID}])
+   };
 
    return (
       <div className="center aligned ui three column very relaxed stackable grid">
@@ -208,6 +221,9 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          </div>
 
          <div className="column">
+            <Button
+               className="custom-button dark"
+               onClick={onEditClick}>Edit Candidate Meetings</Button>
             <CandidateMeetingList
                currentGuest={currentGuest}
                selectedUser={selectedUser}

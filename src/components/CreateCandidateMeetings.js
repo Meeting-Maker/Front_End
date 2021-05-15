@@ -79,7 +79,7 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
                start: date + 'T' + time + ':00',
                end: date + 'T' + time + ':00',
                length: length,
-               meetingID: newMeetingID
+               meetingID: meetingID
             };
 
             //reset length - intentionally leave same date and time

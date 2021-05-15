@@ -60,32 +60,6 @@ const CandidateMeeting = ({
    const currentGuestVoted = (hasVoters && candidateMeeting.voters.filter(voter => voter.userID === currentGuest.id).length > 0);
    const selectedStyle = selectedUserVoted ? "teal" : "";
 
-   const renderedVotes = hasVoters ?
-      <div>
-         {
-            (currentGuestVoted) ?
-               <Icon
-                  className={"right floated"}
-                  path={mdiCheckCircleOutline}
-                  size={1}
-               />
-               :
-               null
-         }
-         <p>
-            {
-               ('voters' in candidateMeeting) ?
-                  candidateMeeting.voters.length :
-                  null
-            }
-         </p>
-         <Icon onClick={(e) => onStatClick(e)}
-               path={mdiPoll}
-               size={1}/>
-      </div>
-      :
-      null;
-
    return (
       <div
          className="candidate-meeting"
@@ -100,24 +74,24 @@ const CandidateMeeting = ({
                   {' '}{date}
                </div>
                {
-                  renderVotes
-                     ? (currentGuestVoted) ?
+                  renderVotes ?
                      <div className={"right floated icon-hover"}
                           style={{marginRight: "0.3em"}}>
-                        <Icon
-                           path={mdiCheckCircleOutline}
-                           size={1}
-                           style={{marginBottom: "0.2em", marginRight: "0.3em"}}
-                        />
                         {
-                           ('voters' in candidateMeeting) ?
-                              <b className={"right floated"}>{candidateMeeting.voters.length}</b> :
+                           currentGuestVoted ?
+                           <Icon
+                              path={mdiCheckCircleOutline}
+                              size={1}
+                              style={{marginBottom: "0.2em", marginRight: "0.3em"}}
+                           />:
                               null
+                        }
+                        {
+                              <b className={"right floated"}>{candidateMeeting.voters.length}</b>
                         }
                      </div>
                      :
                      null
-                     : null
                }
                <br/>
                <div style={{float: "left"}}>

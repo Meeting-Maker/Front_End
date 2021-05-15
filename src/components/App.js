@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {fetchCurrentGuest, storeCurrentGuest, storeCurrentMeeting} from "../services/LocalStorage";
+import {fetchCurrentGuestSession, storeCurrentGuestSession, storeCurrentMeeting} from "../services/Storage";
 import Route from '../router/Route';
 import Header from './Header';
 import LandingPage from './LandingPage';
@@ -15,7 +15,7 @@ const App = () => {
    //fetch the meetingID and guest from localStorage on first app load
    useEffect(
       () => {
-         setCurrentGuest(fetchCurrentGuest());
+         setCurrentGuest(fetchCurrentGuestSession());
       }
       , []
    );
@@ -23,7 +23,8 @@ const App = () => {
    //update state variable and localStorage,
    //should be passed as prop in place of setState functions
    const onUpdateGuest = (guest) => {
-      storeCurrentGuest(guest);
+      console.error('CURRENT GUEST: ', currentGuest);
+      storeCurrentGuestSession(guest);
       setCurrentGuest(guest);
    }
 

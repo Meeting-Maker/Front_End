@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {createGuestMeeting, editMeetingDetails, meetingExists} from "../services/Meeting";
+import {createGuestMeeting, editMeetingDetails, getMeetingDetails, meetingExists} from "../services/Meeting";
 import CreateMeetingDetails from "./CreateMeetingDetails";
 import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";
@@ -18,12 +18,29 @@ const EditMeeting = (currentGuest) => {
    useEffect(
       () => {
 
+      }, [candidateMeetings]
+   );
+
+   useEffect(
+      () => {
          processParams()
       }, []
    );
 
-   function updateCandidateMeetings() {
-      setCandidateMeetings([]);
+   useEffect(
+      () => {
+         if(!meetingID) return;
+         if(edit === 0){
+            getMeetingDetails(meetingID).then(response => {
+               setMeetingDetails(response.data.meetingDetails);
+            });
+         }else if (edit === 1){
+            updateCandidateMeetings();
+         }
+      }, [edit, meetingID]
+   );
+
+   function updateCandidateMeetings(){
       getCandidateMeetings(meetingID)
          .then(response => {
                setCandidateMeetings(response.data.candidateMeetings);
@@ -84,6 +101,7 @@ const EditMeeting = (currentGuest) => {
    if(edit === 0 && meetingID){
       return (
          <CreateMeetingDetails
+            meetingDetails={meetingDetails}
             currentGuest={currentGuest}
             onUpdateGuest={() => {}}
             meetingID={meetingID}
