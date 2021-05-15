@@ -13,7 +13,7 @@ const CreateGuest = ({onCreateGuestUser}) => {
    }
 
    return (
-      <Card padding="2rem 0 0 0" width="27rem">
+      <Card padding="1rem 0 0 0" width="25rem">
          <div className="content">
             <form className="ui large form" onSubmit={(e) => onFormSubmit(e)}>
                <div>

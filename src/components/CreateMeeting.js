@@ -79,6 +79,7 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             candidateMeetings={candidateMeetings}
             updateCandidateMeetings={updateCandidateMeetings}
             onCandidateMeetingClick={() => {}}
+            renderVotes={false}
          />
       </div>
    );
