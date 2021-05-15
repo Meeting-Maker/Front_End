@@ -4,7 +4,7 @@ import Card from './Card';
 import CreateGuest from "./CreateGuest";
 
 
-const UserList = ({userList, selectedUser, onSelectUser}) => {
+const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser}) => {
 
    const [active, setActive] = useState(false);
 
@@ -21,9 +21,13 @@ const UserList = ({userList, selectedUser, onSelectUser}) => {
          </div>
       );
    }
-
    const renderedList = userList.map((user) => {
-      const selectedStyle = (selectedUser === user.id) ? "teal" : "";
+      let selectedStyle;
+      if(selectedCandidate){
+         selectedStyle = (selectedUser === user.id) || (selectedCandidate.voters.filter(voter => voter.userID === user.id).length > 0) ? "teal" : "";
+      }else{
+         selectedStyle = (selectedUser === user.id) ? "teal" : "";
+      }
       return (
          <div className="user-card"
               key={user.id}
@@ -57,12 +61,9 @@ const UserList = ({userList, selectedUser, onSelectUser}) => {
                Users
             </div>
             {renderedList}
-
          </div>
          {/*<CreateGuest/>*/}
       </div>
-
-
    );
 };
 

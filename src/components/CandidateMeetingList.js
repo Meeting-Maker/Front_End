@@ -1,8 +1,11 @@
 import React, {useEffect} from 'react';
 import CandidateMeeting from "./CandidateMeeting";
 import {deleteCandidateMeeting} from "../services/CandidateMeeting";
+import Icon from "@mdi/react";
+import {mdiCogOutline} from "@mdi/js";
+import {redirect} from "../services/Redirect";
 
-const CandidateMeetingList = ({currentGuest, selectedUser, candidateMeetings, updateCandidateMeetings, onCandidateMeetingClick, title, formMessage, renderVotes}) => {
+const CandidateMeetingList = ({meetingID, currentGuest, selectedUser, candidateMeetings, updateCandidateMeetings, onCandidateMeetingClick, title, formMessage, renderVotes}) => {
       //todo: convert to unique id from database
 
       useEffect(

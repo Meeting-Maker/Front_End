@@ -2,6 +2,7 @@ import Card from './Card';
 import Icon from '@mdi/react';
 import {mdiCogOutline} from '@mdi/js';
 import {useEffect} from "react";
+import {redirect} from "../services/Redirect";
 
 const MeetingDetails = ({meetingDetails}) => {
 
@@ -25,8 +26,8 @@ const MeetingDetails = ({meetingDetails}) => {
 
    const [date, time] = meetingDetails.dueDate.split('T');
 
-   const onEditClick = (event) => {
-      console.log("edit meeting");
+   const onEditClick = () => {
+      redirect('/edit', [{key: 'edit', value: 0},{key: 'meetingID', value: meetingDetails.meetingID}])
    };
 
    return (

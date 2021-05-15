@@ -3,7 +3,7 @@ import Button from './Button';
 import Card from './Card';
 import FormValidation, {validateForm} from "./FormValidation";
 
-const CreateMeetingDetails = ({currentGuest, onUpdateGuest, meetingID, onCreateMeeting, captureUserName}) => {
+const CreateMeetingDetails = ({meetingDetails, currentGuest, onUpdateGuest, meetingID, onCreateMeeting, captureUserName}) => {
    const [userName, setUserName] = useState('');
    const [meetingName, setMeetingName] = useState('');
    const [meetingDescription, setMeetingDescription] = useState('');
@@ -14,6 +14,16 @@ const CreateMeetingDetails = ({currentGuest, onUpdateGuest, meetingID, onCreateM
    const [submitFlag, setSubmitFlag] = useState(false);
    const [valid, setValid] = useState(false);
    const [submitted, setSubmitted] = useState(false);
+
+   useEffect(
+      () => {
+         if(!meetingDetails) return;
+         setMeetingName(meetingDetails.title);
+         setMeetingDescription(meetingDetails.description);
+         setDueDate(meetingDetails.dueDate.substring(0, 10));
+         setDueTime(meetingDetails.dueDate.substring(11, 16));
+      }, []
+   );
 
    useEffect(
       () => {
