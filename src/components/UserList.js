@@ -1,17 +1,13 @@
 import React, {useEffect, useState} from "react";
 import '../css/UserList.css'
-import Card from './Card';
-import CreateGuest from "./CreateGuest";
 
 
 const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser}) => {
 
-   const [active, setActive] = useState(false);
-
    useEffect(
       () => {
-
-      }, [userList, selectedUser]
+         console.log('selected Candidate: ', selectedCandidate);
+      }, [userList, selectedUser, selectedCandidate]
    );
 
    if (userList.length === 0) {

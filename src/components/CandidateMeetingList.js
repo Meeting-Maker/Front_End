@@ -5,7 +5,7 @@ import Icon from "@mdi/react";
 import {mdiCogOutline} from "@mdi/js";
 import {redirect} from "../services/Redirect";
 
-const CandidateMeetingList = ({meetingID, currentGuest, selectedUser, candidateMeetings, updateCandidateMeetings, onCandidateMeetingClick, title, formMessage, renderVotes}) => {
+const CandidateMeetingList = ({currentGuest, selectedUser, candidateMeetings, updateCandidateMeetings, selectedCandidate, onSelectCandidate, onCandidateMeetingClick, title, formMessage, renderVotes}) => {
       //todo: convert to unique id from database
 
       useEffect(
@@ -39,6 +39,8 @@ const CandidateMeetingList = ({meetingID, currentGuest, selectedUser, candidateM
                selectedUser={selectedUser}
                candidateMeeting={candidateMeeting}
                key={candidateMeeting.candidateID}
+               selectedCandidate={selectedCandidate}
+               onSelectCandidate={onSelectCandidate}
                onDeleteCandidateMeeting={onDeleteCandidateMeeting}
                onCandidateMeetingClick={onCandidateMeetingClick}
                renderVotes={renderVotes}

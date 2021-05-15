@@ -28,7 +28,6 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    );
 
    function updateCandidateMeetings() {
-      setCandidateMeetings([]);
       getCandidateMeetings(meetingID)
          .then(response => {
                setCandidateMeetings(response.data.candidateMeetings);
