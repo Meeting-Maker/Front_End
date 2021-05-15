@@ -14,6 +14,8 @@ const CandidateMeeting = ({
                              currentGuest,
                              selectedUser,
                              candidateMeeting,
+                             selectedCandidate,
+                             onSelectCandidate,
                              onCandidateMeetingClick,
                              onDeleteCandidateMeeting,
                              renderVotes
@@ -46,6 +48,7 @@ const CandidateMeeting = ({
 
    const onStatClick = (event) => {
       event.stopPropagation();
+      onSelectCandidate(candidateMeeting);
    };
 
    const onDeleteClick = (event) => {
@@ -58,7 +61,7 @@ const CandidateMeeting = ({
    const hasVoters = 'voters' in candidateMeeting;
    const selectedUserVoted = (hasVoters && selectedUser && candidateMeeting.voters.filter(voter => voter.userID === selectedUser).length > 0);
    const currentGuestVoted = (hasVoters && candidateMeeting.voters.filter(voter => voter.userID === currentGuest.id).length > 0);
-   const selectedStyle = selectedUserVoted ? "teal" : "";
+   const selectedStyle = selectedUserVoted || (selectedCandidate && selectedCandidate.candidateID === candidateMeeting.candidateID) ? "teal" : "";
 
    return (
       <div
@@ -79,15 +82,15 @@ const CandidateMeeting = ({
                           style={{marginRight: "0.3em"}}>
                         {
                            currentGuestVoted ?
-                           <Icon
-                              path={mdiCheckCircleOutline}
-                              size={1}
-                              style={{marginBottom: "0.2em", marginRight: "0.3em"}}
-                           />:
+                              <Icon
+                                 path={mdiCheckCircleOutline}
+                                 size={1}
+                                 style={{marginBottom: "0.2em", marginRight: "0.3em"}}
+                              /> :
                               null
                         }
                         {
-                              <b className={"right floated"}>{candidateMeeting.voters.length}</b>
+                           <b className={"right floated"}>{candidateMeeting.voters.length}</b>
                         }
                      </div>
                      :

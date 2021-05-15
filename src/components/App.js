@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {fetchCurrentGuestSession, storeCurrentGuestSession, storeCurrentMeeting} from "../services/Storage";
+import {fetchCurrentGuestSession, storeCurrentGuestSession, storeCurrentGuestLocal  , storeCurrentMeeting} from "../services/Storage";
 import Route from '../router/Route';
 import Header from './Header';
 import LandingPage from './LandingPage';
@@ -25,6 +25,7 @@ const App = () => {
    const onUpdateGuest = (guest) => {
       console.error('CURRENT GUEST: ', currentGuest);
       storeCurrentGuestSession(guest);
+      storeCurrentGuestLocal(guest);
       setCurrentGuest(guest);
    }
 

@@ -153,8 +153,9 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    };
 
    const onHighlightCandidateMeeting = (candidateMeeting) => {
-      if(!selectedUser){
+      if(!selectedCandidate){
          setSelectedCandidate(candidateMeeting);
+         setSelectedUser(null);
       }else{
          setSelectedCandidate(null);
       }
@@ -163,6 +164,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    const onHighlightUser = (user) => {
       if(!selectedUser){
          setSelectedUser(user.id);
+         setSelectedCandidate(null);
       }else{
          setSelectedUser(null);
       }
@@ -217,6 +219,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
                userList={userList}
                selectedUser={selectedUser}
                onSelectUser={onHighlightUser}
+               selectedCandidate={selectedCandidate}
             />
          </div>
 
@@ -229,6 +232,8 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
                selectedUser={selectedUser}
                title="Vote"
                candidateMeetings={candidateMeetings}
+               selectedCandidate={selectedCandidate}
+               onSelectCandidate={onHighlightCandidateMeeting}
                onCandidateMeetingClick={onCandidateMeetingClick}
                updateCandidateMeetings={updateCandidateMeetings}
                renderVotes={true}
