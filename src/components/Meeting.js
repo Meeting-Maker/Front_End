@@ -225,11 +225,15 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
                candidateMeetings={candidateMeetings}
                onCandidateMeetingClick={onCandidateMeetingClick}
                updateCandidateMeetings={updateCandidateMeetings}
+               renderVotes={true}
             />
          </div>
 
          <div className="column">
-            <div className={"card"} style={{overflow: "hidden", height: `${height - 155}px`}}>
+            <div className={"card"} style={{overflow: "hidden", height: `${height - 105}px`}}>
+               <div className={"ui  header"} style={{marginBottom: "0", marginTop: "1em"}}>
+                  Comments
+               </div>
                <CommentList
                   updateComments={updateComments}
                   comments={comments}
@@ -237,15 +241,18 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
                   height={height}/>
                {/* comment input */}
                <form ref={commentForm}
-                     className="ui centered reply form" onSubmit={e => submitComment(e)}>
+                     className="ui centered reply form" onSubmit={e => submitComment(e)}
+                     style={{position: "sticky"}}
+               >
+                  <hr/>
                   <div className="centered field">
                             <textarea name="content"
                                       placeholder="What are your thoughts?"
-                                      style={{width: "90%", height: "50px"}}/>
+                                      style={{width: "90%", height: "3rem"}}/>
                   </div>
-                  <div style={{textAlign: "center"}}>
+                  <div style={{textAlign: "center", paddingBottom: "0.5em"}}>
                      <Button type="submit"
-                             className="custom-button dark thick span"
+                             className="custom-button dark thin span"
                              style={{width: "90%"}}>
                         Comment
                      </Button>

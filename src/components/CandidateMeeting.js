@@ -10,7 +10,14 @@ import {
 } from "@mdi/js";
 import '../css/CandidateMeeting.css';
 
-const CandidateMeeting = ({currentGuest, selectedUser, candidateMeeting, onCandidateMeetingClick, onDeleteCandidateMeeting}) => {
+const CandidateMeeting = ({
+                             currentGuest,
+                             selectedUser,
+                             candidateMeeting,
+                             onCandidateMeetingClick,
+                             onDeleteCandidateMeeting,
+                             renderVotes
+                          }) => {
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
    const [length, setLength] = useState(null);
@@ -46,76 +53,73 @@ const CandidateMeeting = ({currentGuest, selectedUser, candidateMeeting, onCandi
       onDeleteCandidateMeeting(candidateMeeting.candidateID);
    };
 
-   if (!date || !time || !length) {
-      return (
-         <div>candidate meeting</div>
-      );
-   }
 
    console.log('cm: ', candidateMeeting);
    console.log('here: ', selectedUser, currentGuest);
 
    const selectedUserVoted = ('voters' in candidateMeeting && selectedUser && candidateMeeting.voters.filter(voter => voter.userID === selectedUser).length > 0);
    const currentGuestVoted = ('voters' in candidateMeeting && candidateMeeting.voters.filter(voter => voter.userID === currentGuest.id).length > 0);
-   const selectedStyle = selectedUserVoted ? "2px solid #45A29E" : "none";
-
-   const renderedVotes = ('voters' in candidateMeeting) ?
-      <div>
-         {
-            (currentGuestVoted) ?
-               <Icon
-                  className={"right floated"}
-                  path={mdiCheckCircleOutline}
-                  size={1}
-               />
-               :
-               null
-         }
-         <p>
-            {
-               ('voters' in candidateMeeting) ?
-                  candidateMeeting.voters.length :
-                  null
-            }
-         </p>
-         <Icon onClick={(e) => onStatClick(e)}
-               path={mdiPoll}
-               size={1}/>
-      </div>
-      :
-      null;
-
-
+   const selectedStyle = selectedUserVoted ? "teal" : "";
 
    return (
       <div
          className="candidate-meeting"
          onClick={() => onCandidateMeetingClick(candidateMeeting)}>
          <div
-            className={"ui card centered"}
-            style={{marginBottom: "1em", width: "90%", border: selectedStyle}}>
+            className={`ui ${selectedStyle} card centered card-hover`}
+            style={{marginBottom: "1em", width: "90%"}}>
             <div className={"content"} style={{fontSize: "1.2em", padding: "0.5em 1em 0.5em 1em"}}>
+
                <div style={{float: "left"}}>
                   <Icon path={mdiCalendarRange} size={0.8}/>
                   {' '}{date}
                </div>
+               {
+                  renderVotes
+                     ? (currentGuestVoted) ?
+                     <div className={"right floated icon-hover"}
+                          style={{marginRight: "0.3em"}}>
+                        <Icon
+                           path={mdiCheckCircleOutline}
+                           size={1}
+                           style={{marginBottom: "0.2em", marginRight: "0.3em"}}
+                        />
+                        {
+                           ('voters' in candidateMeeting) ?
+                              <b className={"right floated"}>{candidateMeeting.voters.length}</b> :
+                              null
+                        }
+                     </div>
+                     :
+                     null
+                     : null
+               }
                <br/>
                <div style={{float: "left"}}>
                   <Icon path={mdiClockTimeFourOutline} size={0.8}/>
                   {' '}{time}
                </div>
                <br/>
+
                <div style={{float: "left"}}>
                   <Icon path={mdiTimerSand} size={0.8}/>
                   {' '}Duration: {length + 'm'}
                </div>
-               <div className={"right floated"}>
-                  {renderedVotes}
+               <div className={"right floated icon-hover"}>
+                  {
+                     renderVotes
+                        ? <Icon onClick={(e) => onStatClick(e)}
+                                path={mdiPoll}
+                                size={1}/>
+                        :
+                        null
+                  }{' '}
                   <Icon onClick={(e) => onDeleteClick(e)}
                         path={mdiDelete}
                         size={1}/>
 
                </div>
+
             </div>
          </div>
       </div>

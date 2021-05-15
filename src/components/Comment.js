@@ -19,7 +19,7 @@ export default ({comment, updateComments, currentGuest}) => {
    }
 
    return (
-      <div className={"ui container comments"}>
+      <div className={"ui container comments"} style={{padding: "0"}}>
          <div className={"ui card centered"} style={{width: "90%"}}>
             <div className={"content"}>
                <div className={"comment"}>

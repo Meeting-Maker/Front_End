@@ -6,3 +6,11 @@
 .candidate-meeting a{
     color: black;
 }
+
+.icon-hover svg:hover{
+    cursor: pointer;
+}
+
+.card-hover:hover{
+    cursor: pointer;
+}

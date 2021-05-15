@@ -30,7 +30,7 @@ const MeetingDetails = ({meetingDetails}) => {
    };
 
    return (
-      <Card padding="5rem 0 0 0 " width="35rem">
+      <Card padding="1rem 0 0 0 " width="35rem">
          <div className="content" style={{fontSize: "2em", padding: "0.75rem"}}>
             <span style={{fontWeight: "500"}}>
                {meetingDetails.title}
