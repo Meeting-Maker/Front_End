@@ -16,29 +16,7 @@ Database schema: [DBDesigner](https://dbdesigner.page.link/qtrAR5PFpRhqWBDJ8)
 
 MeetingMaker is being developed to simplify the process of scheduling a meeting. Whether the meeting is for two or more, you can easily find the time that works best for everyone. Simply share the link to your meeting and have the attendees input their preferences. View the feature list by release below:
 
-## <u>Release 0.1.0</u>  (May 16th, 2020) (Sprints 1-3)
-
-### **Features:**
-
-- #### Create Meeting by Poll
-
-  - Generate a list of options for attendees to vote on
-  - Add a meeting title, description (optional), and response due date
-  - Return to the meeting to view the votes at any time
-
-- #### Respond as Guest
-
-  - Add yourself to the meeting as a guest with a custom name, click on a meeting time to cast your vote
-  - When returning to the meeting, simply select your name from the list of guests
-
-- #### Comment 
-
-  - Create and delete comments for other attendees to see
-  - Can be used for suggestions, vote explanations, or any other important information for future visitors
-
-- #### Edit Meeting
-
-  - As owner, edit your meeting details and vote options
+## <u>[Release 0.1.0](https://github.com/Meeting-Maker/Front_End/releases)</u>  (May 16th, 2020) (Sprints 1-3)
 
 ### **Future:**
 
