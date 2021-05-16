@@ -31,7 +31,7 @@ MeetingMaker is being developed to simplify the process of scheduling a meeting.
   - Add yourself to the meeting as a guest with a custom name, click on a meeting time to cast your vote
   - When returning to the meeting, simply select your name from the list of guests
 
-- ## Comment 
+- #### Comment 
 
   - Create and delete comments for other attendees to see
   - Can be used for suggestions, vote explanations, or any other important information for future visitors
