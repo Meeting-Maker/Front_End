@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import '../css/UserList.css'
+import CreateGuest from "./CreateGuest";
 
 
 const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser}) => {
@@ -17,6 +18,7 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser}) => 
          </div>
       );
    }
+
    const renderedList = userList.map((user) => {
       let selectedStyle;
       if(selectedCandidate){
@@ -58,7 +60,7 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser}) => 
             </div>
             {renderedList}
          </div>
-         {/*<CreateGuest/>*/}
+         <CreateGuest/>
       </div>
    );
 };

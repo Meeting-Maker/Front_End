@@ -236,7 +236,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
                onSelectCandidate={onHighlightCandidateMeeting}
                onCandidateMeetingClick={onCandidateMeetingClick}
                updateCandidateMeetings={updateCandidateMeetings}
-               renderVotes={true}
+               votingPage={true}
             />
          </div>
 
