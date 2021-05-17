@@ -156,7 +156,9 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
             </div>
          </div>
          <div className="content">
-            <form className="ui large form" onSubmit={(e) => onFormSubmit(e)}>
+            <form id="createCandidateMeetingsForm"
+                  className="ui large form"
+                  onSubmit={(e) => onFormSubmit(e)}>
                <div className="field">
                   <label className="left aligned">Meeting Date & Time</label>
                   <div className="two fields">
@@ -224,18 +226,17 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
                <div style={{textAlign: "center"}}>
                   <Button
                      className="custom-button dark thin"
+                     // onClick={}
+                     type="button"
+                  >
+                     Cancel
+                  </Button>{' '}
+                  <Button
+                     className="custom-button dark thin"
                      onClick={() => onAddOption()}
                      type="button"
                   >
                      Add Option
-                  </Button>
-                  {' '}
-                  <Button
-                     className="custom-button dark thin"
-                     onClick={(e) => onFormSubmit(e)}
-                     type="submit"
-                  >
-                     Create Meeting
                   </Button>
                </div>
             </form>

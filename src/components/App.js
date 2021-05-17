@@ -36,33 +36,35 @@ const App = () => {
    }
 
    return (
-      <div>
+      <div style={{paddingBottom: "4rem", height: "100%"}}>
          <Header/>
-         <Route path='/'> <LandingPage currentGuest={currentGuest}/> </Route>
-         <Route path='/create'>
-            <CreateMeeting
-               currentGuest={currentGuest}
-               onUpdateGuest={onUpdateGuest}
-               onUpdateMeetingID={onUpdateMeetingID}
-            />
-         </Route>
-         <Route path='/edit'>
-            <EditMeeting
-               currentGuest={currentGuest}
-            />
-         </Route>
-         <Route path='/join'>
-            <JoinMeeting
-               onUpdateMeetingID={onUpdateMeetingID}
-            />
-         </Route>
-         <Route path='/meeting'>
-            <Meeting
-               currentGuest={currentGuest}
-               onUpdateGuest={onUpdateGuest}
-               onUpdateMeetingID={onUpdateMeetingID}
-            />
-         </Route>
+         <div style={{paddingBottom: "4rem"}}>
+            <Route path='/'> <LandingPage currentGuest={currentGuest}/> </Route>
+            <Route path='/create'>
+               <CreateMeeting
+                  currentGuest={currentGuest}
+                  onUpdateGuest={onUpdateGuest}
+                  onUpdateMeetingID={onUpdateMeetingID}
+               />
+            </Route>
+            <Route path='/edit'>
+               <EditMeeting
+                  currentGuest={currentGuest}
+               />
+            </Route>
+            <Route path='/join'>
+               <JoinMeeting
+                  onUpdateMeetingID={onUpdateMeetingID}
+               />
+            </Route>
+            <Route path='/meeting'>
+               <Meeting
+                  currentGuest={currentGuest}
+                  onUpdateGuest={onUpdateGuest}
+                  onUpdateMeetingID={onUpdateMeetingID}
+               />
+            </Route>
+         </div>
          <Footer/>
       </div>
    );

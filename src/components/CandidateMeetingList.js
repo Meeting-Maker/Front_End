@@ -1,12 +1,27 @@
 import React, {useEffect} from 'react';
 import CandidateMeeting from "./CandidateMeeting";
 import {deleteCandidateMeeting} from "../services/CandidateMeeting";
+import Button from "./Button";
 import Icon from "@mdi/react";
 import {mdiCogOutline} from "@mdi/js";
 import {redirect} from "../services/Redirect";
 
-const CandidateMeetingList = ({currentGuest, selectedUser, candidateMeetings, updateCandidateMeetings, selectedCandidate, onSelectCandidate, onCandidateMeetingClick, title, formMessage, renderVotes}) => {
+const CandidateMeetingList = ({
+                                 currentGuest,
+                                 selectedUser,
+                                 candidateMeetings,
+                                 updateCandidateMeetings,
+                                 selectedCandidate,
+                                 onSelectCandidate,
+                                 onCandidateMeetingClick,
+                                 title,
+                                 formMessage,
+                                 votingPage,
+                              }) => {
       //todo: convert to unique id from database
+
+      console.log("len: ", candidateMeetings.length);
+      console.log("votingPage? ", votingPage);
 
       useEffect(
          () => {
@@ -43,14 +58,14 @@ const CandidateMeetingList = ({currentGuest, selectedUser, candidateMeetings, up
                onSelectCandidate={onSelectCandidate}
                onDeleteCandidateMeeting={onDeleteCandidateMeeting}
                onCandidateMeetingClick={onCandidateMeetingClick}
-               renderVotes={renderVotes}
+               votingPage={votingPage}
             />
          );
       });
 
       return (
          <div
-            className={"ui card centered grey"}
+            className={"ui card centered"}
             style={{overflow: "hidden", width: "30rem"}}
          >
             <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
@@ -60,6 +75,14 @@ const CandidateMeetingList = ({currentGuest, selectedUser, candidateMeetings, up
             <div className={"ui list"} style={{overflow: "", marginBottom: '0'}}>
                {renderedList}
             </div>
+            {(!votingPage && candidateMeetings.length >= 2)
+               ? <Button className={"custom-button dark thin span"}
+                         form={'createCandidateMeetingsForm'}>
+                  CreateMeeting
+               </Button>
+               : null
+            }
+
          </div>
       );
    }

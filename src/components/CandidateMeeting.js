@@ -18,7 +18,7 @@ const CandidateMeeting = ({
                              onSelectCandidate,
                              onCandidateMeetingClick,
                              onDeleteCandidateMeeting,
-                             renderVotes
+                             votingPage
                           }) => {
    const [date, setDate] = useState('');
    const [time, setTime] = useState('');
@@ -77,7 +77,7 @@ const CandidateMeeting = ({
                   {' '}{date}
                </div>
                {
-                  renderVotes ?
+                  votingPage ?
                      <div className={"right floated icon-hover"}
                           style={{marginRight: "0.3em"}}>
                         {
@@ -109,7 +109,7 @@ const CandidateMeeting = ({
                </div>
                <div className={"right floated icon-hover"}>
                   {
-                     renderVotes
+                     votingPage
                         ? <Icon onClick={(e) => onStatClick(e)}
                                 path={mdiPoll}
                                 size={1}/>
