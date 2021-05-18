@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import CandidateMeeting from "./CandidateMeeting";
 import {deleteCandidateMeeting} from "../services/CandidateMeeting";
 import Button from "./Button";
@@ -17,11 +17,9 @@ const CandidateMeetingList = ({
                                  title,
                                  formMessage,
                                  votingPage,
+                                 meetingID
                               }) => {
       //todo: convert to unique id from database
-
-      console.log("len: ", candidateMeetings.length);
-      console.log("votingPage? ", votingPage);
 
       useEffect(
          () => {
@@ -45,6 +43,14 @@ const CandidateMeetingList = ({
          );
       }
 
+      const onEditClick = () => {
+         redirect('/edit', [{key: 'edit', value: 1}, {key: 'meetingID', value: meetingID}])
+      };
+
+      const isEditPage = () => {
+         return window.location.href.includes('edit=1');
+      };
+
 //todo: render with nice date formats
       const renderedList = candidateMeetings.map((candidateMeeting) => {
          return (
@@ -63,6 +69,7 @@ const CandidateMeetingList = ({
          );
       });
 
+
       return (
          <div
             className={"ui card centered"}
@@ -78,9 +85,22 @@ const CandidateMeetingList = ({
             {(!votingPage && candidateMeetings.length >= 2)
                ? <Button className={"custom-button dark thin span"}
                          form={'createCandidateMeetingsForm'}>
-                  CreateMeeting
+                  {isEditPage()
+                     ? <span>Update Candidate Meetings</span>
+                     : <span>Create Meeting</span>
+                  }
+
                </Button>
                : null
+            }
+            {
+               votingPage
+                  ? <Button
+                     className="custom-button dark"
+                     onClick={onEditClick}>
+                     Edit Candidate Meetings
+                  </Button>
+                  : null
             }
 
          </div>

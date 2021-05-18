@@ -33,7 +33,7 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser}) => 
               style={{padding: "0.5rem 0 0.5rem 0"}}>
             <div
                className="ui container"
-               style={{width: "25rem"}}
+               style={{width: "32rem"}}
             >
                <div
                   className={`ui ${selectedStyle} fluid card`}
@@ -53,14 +53,13 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser}) => 
       <div>
          <div
             className={"ui card centered grey"}
-            style={{overflow: "hidden", width: "30rem", paddingBottom: "0.5rem", marginTop: "1rem"}}
+            style={{overflow: "hidden", width: "33rem", paddingBottom: "0.5rem", marginTop: "1rem"}}
          >
             <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
                Users
             </div>
             {renderedList}
          </div>
-         <CreateGuest/>
       </div>
    );
 };

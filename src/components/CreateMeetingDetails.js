@@ -169,12 +169,22 @@ const CreateMeetingDetails = ({meetingDetails, currentGuest, onUpdateGuest, meet
                </div>
 
                <hr/>
-               <Button
-                  className="custom-button dark span"
-                  onClick={(e) => onCreateMeetingDetails(e)}
-               >
-                  Create Poll
-               </Button>
+               <div style={{textAlign: "center"}}>
+                  <Button
+                     className="custom-button dark"
+                     onClick={(e) => onCreateMeetingDetails(e)}
+                  >
+                     Create Poll
+                  </Button>
+                  &nbsp;
+                  <Button
+                     className="custom-button dark"
+                     // onClick={}
+                  >
+                     Cancel
+                  </Button>
+               </div>
+
             </form>
             {
                !valid && submitted
