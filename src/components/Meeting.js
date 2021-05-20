@@ -207,9 +207,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       );
    }
 
-   const onEditClick = () => {
-      redirect('/edit', [{key: 'edit', value: 1},{key: 'meetingID', value: meetingID}])
-   };
+
 
    return (
       <div className="center aligned ui three column very relaxed stackable grid">
@@ -224,9 +222,6 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          </div>
 
          <div className="column">
-            <Button
-               className="custom-button dark"
-               onClick={onEditClick}>Edit Candidate Meetings</Button>
             <CandidateMeetingList
                currentGuest={currentGuest}
                selectedUser={selectedUser}
@@ -237,6 +232,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
                onCandidateMeetingClick={onCandidateMeetingClick}
                updateCandidateMeetings={updateCandidateMeetings}
                votingPage={true}
+               meetingID={meetingDetails.meetingID}
             />
          </div>
 

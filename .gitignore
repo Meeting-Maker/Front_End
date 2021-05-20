@@ -24,3 +24,8 @@ yarn-error.log*
 
 # jet brain
 /idea
+.idea/workspace.xml
+.idea/Front_End.iml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/vcs.xml
+.idea/modules.xml

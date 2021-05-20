@@ -152,7 +152,7 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
       <Card width="32rem" padding="2rem 0 0 0">
          <div className="content">
             <div className="header">
-               Create Your Meeting
+               Create Candidate Meetings
             </div>
          </div>
          <div className="content">
@@ -168,7 +168,6 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
                            placeholder="Meeting Date"
                            value={date}
                            onChange={(e) => setDate(e.target.value)}
-                           required
                         />
                      </div>
                      <div className="field">
@@ -177,7 +176,6 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
                            placeholder="Meeting Time"
                            value={time}
                            onChange={(e) => setTime(e.target.value)}
-                           required
                         />
                      </div>
                   </div>
