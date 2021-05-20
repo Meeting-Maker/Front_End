@@ -12,6 +12,7 @@ import CreateGuest from "./CreateGuest";
 import MeetingDetails from "./MeetingDetails";
 import {createVote, deleteVote} from "../services/Vote";
 import {redirect} from "../services/Redirect";
+import CreateComment from "./CreateComment";
 
 const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    const [selectedUser, setSelectedUser] = useState(null);
@@ -21,7 +22,6 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    const [userList, setUserList] = useState([]);
    const [candidateMeetings, setCandidateMeetings] = useState([]);
    const [comments, setComments] = useState([]);
-   const commentForm = useRef(); // references to the comment form
    const {height} = useWindowDimensions();
 
    useEffect(
@@ -86,16 +86,14 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       });
    };
 
-   function submitComment(event) {
-      event.preventDefault();
+   const createComment = (content) => {
       createComments({
          meetingID: meetingID,
          name: currentGuest.name,
          userID: currentGuest.id,
-         content: event.target[0].value
+         content: content
       }).then(response => {
          setComments(old => [...old, response.data]);
-         commentForm.current.reset();
       });
    }
 
@@ -246,25 +244,8 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
                   comments={comments}
                   currentGuest={currentGuest}
                   height={height}/>
-               {/* comment input */}
-               <form ref={commentForm}
-                     className="ui centered reply form" onSubmit={e => submitComment(e)}
-                     style={{position: "sticky"}}
-               >
-                  <hr/>
-                  <div className="centered field">
-                            <textarea name="content"
-                                      placeholder="What are your thoughts?"
-                                      style={{width: "90%", height: "3rem"}}/>
-                  </div>
-                  <div style={{textAlign: "center", paddingBottom: "0.5em"}}>
-                     <Button type="submit"
-                             className="custom-button dark thin span"
-                             style={{width: "90%"}}>
-                        Comment
-                     </Button>
-                  </div>
-               </form>
+               <CreateComment
+                  createComment={createComment}/>
             </div>
          </div>
       </div>
