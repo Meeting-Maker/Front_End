@@ -1,11 +1,10 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect} from "react";
 import CommentList from "./CommentList";
 import {getComments, createComments} from "../services/Comment"
 import {addGuest, getMeetingDetails, meetingExists} from "../services/Meeting";
 import {getUsers} from "../services/Meeting";
 import {getCandidateMeetings} from "../services/CandidateMeeting";
 import useWindowDimensions from "../hooks/useWindowDimensions";
-import Button from "./Button"
 import UserList from "./UserList";
 import CandidateMeetingList from "./CandidateMeetingList";
 import CreateGuest from "./CreateGuest";
@@ -204,8 +203,6 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          </div>
       );
    }
-
-
 
    return (
       <div className="center aligned ui three column very relaxed stackable grid">
