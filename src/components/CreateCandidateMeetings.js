@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import Button from './Button';
 import Card from './Card';
 import '../css/CreateCandidateMeetings.css';
-import FormValidation, {validateForm} from "./FormValidation";
 import CandidateMeeting from "./CandidateMeeting";
 import {createCandidateMeeting} from "../services/CandidateMeeting";
 import {redirect} from "../services/Redirect";
+import {isFutureDate, isValidLength} from "../services/FormValidation";
+import ErrorList from "./ErrorList";
 
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
@@ -19,81 +20,54 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
 
    //states for form validation
    const [submitFlag, setSubmitFlag] = useState(false);
-   const [valid, setValid] = useState(false);
-   const [submitted, setSubmitted] = useState(false);
+   const [formErrors, setFormErrors] = useState([]);
 
-   const config = [
-      {
-         field: {
-            value: date + 'T' + time,
-            name: 'Meeting Date & Time',
-            minLength: 0,
-            requiredFuture: true,
+   const validateCandidateMeeting = () => {
+      let tempErrors = [];
+
+      if (!isValidLength({
+         value: date,
+         minLength: 10
+      }) || !isValidLength({
+         value: time,
+         minLength: 5
+      })
+      ) {
+         tempErrors.push('Please enter a valid meeting date and time.');
+      } else if (!isFutureDate(
+         {
+            dateTtime: date + 'T' + time + ':00'
          }
-      },
-      {
-         field: {
-            value: time,
-            name: 'Meeting Time',
-            minLength: 0,
-         }
-      },
-      {
-         field: {
-            value: date,
-            name: 'Meeting Date',
-            minLength: 0,
-         }
-      },
-      {
-         field: {
-            value: length,
-            name: 'Length',
-            minLength: 0,
-            greaterThanOrEqual: 5,
-         }
-      },
-      {
-         field: {
-            value: {
-               start: date + 'T' + time,
-               length: length,
-            },
-            name: 'Candidate Meeting',
-            compareDuplicate: candidateMeetings
-         }
-      },
-   ]
+      )) tempErrors.push('Meeting date has already passed.');
+
+      console.log('returning: ', tempErrors);
+      return tempErrors;
+   };
 
    //called when the 'Add Option' button is clicked
    const onAddOption = async () => {
 
       setSubmitFlag(!submitFlag);
-      setSubmitted(true);
+      const tempErrors = validateCandidateMeeting();
 
+      if (tempErrors.length === 0) {
+         const option = {
+            start: date + 'T' + time + ':00',
+            end: date + 'T' + time + ':00',
+            length: length,
+            meetingID: meetingID
+         };
 
-      await validateForm(config).then(response => {
-         if (response.length === 0) {
+         //reset length - intentionally leave same date and time
+         setLength(0);
 
-            const option = {
-               start: date + 'T' + time + ':00',
-               end: date + 'T' + time + ':00',
-               length: length,
-               meetingID: meetingID
-            };
-
-            //reset length - intentionally leave same date and time
-            setLength(0);
-
-            //if meeting with same details already exists
-            if (!candidateListHasDuplicate(candidateMeetings, option)) {
-               onCreateCandidateMeeting(option);
-            }
-
-         } else {
-            setValid(false);
+         //if meeting with same details already exists
+         if (!candidateListHasDuplicate(candidateMeetings, option)) {
+            onCreateCandidateMeeting(option);
          }
-      });
+      } else {
+         setFormErrors(tempErrors)
+      }
 
    };
 
@@ -140,8 +114,7 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
       for (let i = 0; i < list.length; i++) {
          if (
             list[i].start === JSON.start &&
-            list[i].length === JSON.length)
-         {
+            list[i].length === JSON.length) {
             return true;
          }
       }
@@ -238,15 +211,8 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
                   </Button>
                </div>
             </form>
-            {
-               !valid && submitted
-                  ?
-                  <FormValidation
-                     config={config}
-                     submitFlag={submitFlag}>
-                  </FormValidation>
-                  : null
-            }
+            <ErrorList
+               errors={formErrors}/>
          </div>
       </Card>
    );

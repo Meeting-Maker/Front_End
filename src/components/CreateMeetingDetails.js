@@ -1,9 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import Button from './Button';
 import Card from './Card';
-import FormValidation, {validateForm} from "./FormValidation";
+import {isFutureDate, isValidLength} from "../services/FormValidation";
+import ErrorList from "./ErrorList";
 
-const CreateMeetingDetails = ({meetingDetails, currentGuest, onUpdateGuest, meetingID, onCreateMeeting, captureUserName}) => {
+const CreateMeetingDetails = ({
+                                 meetingDetails,
+                                 currentGuest,
+                                 onUpdateGuest,
+                                 meetingID,
+                                 onCreateMeeting,
+                                 captureUserName
+                              }) => {
    const [userName, setUserName] = useState('');
    const [meetingName, setMeetingName] = useState('');
    const [meetingDescription, setMeetingDescription] = useState('');
@@ -12,12 +20,11 @@ const CreateMeetingDetails = ({meetingDetails, currentGuest, onUpdateGuest, meet
 
    //states for form validation
    const [submitFlag, setSubmitFlag] = useState(false);
-   const [valid, setValid] = useState(false);
-   const [submitted, setSubmitted] = useState(false);
+   const [formErrors, setFormErrors] = useState([]);
 
    useEffect(
       () => {
-         if(!meetingDetails) return;
+         if (!meetingDetails) return;
          setMeetingName(meetingDetails.title);
          setMeetingDescription(meetingDetails.description);
          setDueDate(meetingDetails.dueDate.substring(0, 10));
@@ -33,68 +40,69 @@ const CreateMeetingDetails = ({meetingDetails, currentGuest, onUpdateGuest, meet
             }
          }
 
-         if(captureUserName) loadUserName();
+         if (captureUserName) loadUserName();
       }, [currentGuest]
    );
 
-   let config = [
-      {
-         field: {
-            value: meetingName,
-            name: 'Meeting Name',
-            minLength: 4,
-         }
-      },
-      {
-         field: {
-            value: meetingDescription,
-            name: 'Meeting Description',
-         }
-      },
-      {
-         field: {
-            value: dueDate + 'T' + dueTime,
-            name: 'Response Needed By',
-            minLength: 0,
-            requiredFuture: true,
-         }
-      },
-   ];
+   const validateMeetingDetails = () => {
+      let tempErrors = [];
 
-   if(captureUserName) config.push({
-      field: {
-         value: userName,
-         name: 'Your Name',
-         minLength: 2,
-      }
-   });
+      if (captureUserName && !isValidLength({
+            value: userName,
+            minLength: 2
+         }
+      )) tempErrors.push('Your Name must be at least 2 characters long.');
+
+      if (!isValidLength(
+         {
+            value: meetingName,
+            minLength: 4
+         }
+      )) tempErrors.push('Meeting Name must be at least 2 characters long.');
+
+      if(!isValidLength({
+            value: dueDate,
+            minLength: 10
+      }) || !isValidLength({
+            value: dueTime,
+            minLength: 5
+         })
+      ) {
+         tempErrors.push('Please enter a valid response date and time.');
+      }else if (!isFutureDate(
+         {
+            dateTtime: dueDate + 'T' + dueTime + ':00'
+         }
+      )) tempErrors.push('Response date has already passed.');
+
+      console.log('returning: ', tempErrors);
+      return tempErrors;
+   };
 
    const onCreateMeetingDetails = async (event) => {
       event.preventDefault();
       setSubmitFlag(!submitFlag);
-      setSubmitted(true);
 
-      await validateForm(config).then(response => {
-         if (response.length === 0) {
-            onUpdateGuest({
-               id: currentGuest.id,
-               name: userName
-            });
+      const tempErrors = validateMeetingDetails();
+      if (tempErrors.length === 0) {
+         onUpdateGuest({
+            id: currentGuest.id,
+            name: userName
+         });
 
-            const meetingDetails = {
-               name: userName,
-               meetingID: meetingID,
-               title: meetingName,
-               description: meetingDescription,
-               dueDate: dueDate + 'T' + dueTime + ':00',
-               pollType: 0
-            };
+         const meetingDetails = {
+            name: userName,
+            meetingID: meetingID,
+            title: meetingName,
+            description: meetingDescription,
+            dueDate: dueDate + 'T' + dueTime + ':00',
+            pollType: 0
+         };
 
-            onCreateMeeting(meetingDetails);
-         } else {
-            setValid(false);
-         }
-      });
+         onCreateMeeting(meetingDetails);
+      } else {
+         setFormErrors(tempErrors);
+      }
    };
 
    return (
@@ -185,17 +193,9 @@ const CreateMeetingDetails = ({meetingDetails, currentGuest, onUpdateGuest, meet
                   </Button>
                </div>
 
-            </form>
-            {
-               !valid && submitted
-                  ?
-                  <FormValidation
-                     config={config}
-                     submitFlag={submitFlag}
-                  >
-                  </FormValidation>
-                  : null
-            }
+            </form> ``
+            <ErrorList
+               errors={formErrors}/>
          </div>
       </Card>
    );
