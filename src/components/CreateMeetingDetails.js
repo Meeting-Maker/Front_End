@@ -193,7 +193,7 @@ const CreateMeetingDetails = ({
                   </Button>
                </div>
 
-            </form> ``
+            </form>
             <ErrorList
                errors={formErrors}/>
          </div>

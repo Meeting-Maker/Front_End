@@ -56,8 +56,6 @@ const CandidateMeeting = ({
       onDeleteCandidateMeeting(candidateMeeting.candidateID);
    };
 
-
-   console.log('cm: ', candidateMeeting);
    const hasVoters = 'voters' in candidateMeeting;
    const selectedUserVoted = (hasVoters && selectedUser && candidateMeeting.voters.filter(voter => voter.userID === selectedUser).length > 0);
    const currentGuestVoted = (hasVoters && candidateMeeting.voters.filter(voter => voter.userID === currentGuest.id).length > 0);

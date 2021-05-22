@@ -2,9 +2,8 @@ import React, {useEffect, useState} from 'react';
 import CandidateMeeting from "./CandidateMeeting";
 import {deleteCandidateMeeting} from "../services/CandidateMeeting";
 import Button from "./Button";
-import Icon from "@mdi/react";
-import {mdiCogOutline} from "@mdi/js";
 import {redirect} from "../services/Redirect";
+import Dropdown from './Dropdown';
 
 const CandidateMeetingList = ({
                                  currentGuest,
@@ -21,13 +20,42 @@ const CandidateMeetingList = ({
                               }) => {
       //todo: convert to unique id from database
 
+      //dropdown variables
+      const dropdownOptions = [
+         {
+            label: 'Dates',
+            value: 'dateAscending',
+            order: 'ascending'
+         },
+         {
+            label: 'Dates',
+            value: 'dateDescending',
+            order: 'descending'
+         },
+         {
+            label: 'Votes',
+            value: 'votesAscending',
+            order: 'ascending'
+         },
+         {
+            label: 'Votes',
+            value: 'votesDescending',
+            order: 'descending'
+         },
+      ];
+      const [dropdownSelection, setDropdownSelection] = useState(dropdownOptions[0]);
+
+      useEffect(() => {
+      }, [dropdownSelection])
+
       useEffect(
          () => {
-         }, [candidateMeetings]
+            if (votingPage) sort(candidateMeetings, dropdownSelection.value);
+         }, [candidateMeetings, dropdownSelection, setDropdownSelection]
       );
 
       const onDeleteCandidateMeeting = (candidateID) => {
-         deleteCandidateMeeting(candidateID).then(response => {
+         deleteCandidateMeeting(candidateID).then(() => {
             updateCandidateMeetings();
          });
       };
@@ -44,17 +72,19 @@ const CandidateMeetingList = ({
       }
 
       const onEditClick = () => {
-         redirect('/edit', [{key: 'edit', value: 1}, {key: 'meetingID', value: meetingID}])
+         redirect('/edit', [{key: 'edit', value: 1}, {key: 'meetingID', value: meetingID}]);
       };
 
       const isEditPage = () => {
-         return window.location.href.includes('edit=1');
+         return window.location.href.includes('edit?edit=1');
       };
 
 //todo: render with nice date formats
       const renderedList = candidateMeetings.map((candidateMeeting) => {
+
          return (
             //sets unique key by concatenating info from candidateMeeting
+
             <CandidateMeeting
                currentGuest={currentGuest}
                selectedUser={selectedUser}
@@ -77,7 +107,24 @@ const CandidateMeetingList = ({
          >
             <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
                {title}
+
             </div>
+            <div style={{padding: "0.5rem 1.313rem 0 0"}}>
+               {votingPage
+                  ?
+                  <span style={{float: 'right'}}>
+                     <Dropdown
+                        dropdownOptions={dropdownOptions}
+                        dropdownSelection={dropdownSelection}
+                        setDropdownSelection={setDropdownSelection}
+                        width={"10%"}
+                     />
+                  </span>
+                  : null}
+            </div>
+
+
+
             <div style={{textAlign: "center"}}>{formMessage}</div>
             <div className={"ui list"} style={{overflow: "", marginBottom: '0'}}>
                {renderedList}
@@ -89,7 +136,6 @@ const CandidateMeetingList = ({
                      ? <span>Update Candidate Meetings</span>
                      : <span>Create Meeting</span>
                   }
-
                </Button>
                : null
             }
@@ -107,5 +153,34 @@ const CandidateMeetingList = ({
       );
    }
 ;
+
+const sort = (candidateMeetings, option) => {
+
+   console.log("Before Sort: ", candidateMeetings, "OPTION: ", option);
+
+   switch (option) {
+      case "dateAscending":
+         candidateMeetings.sort(function (a, b) {
+            return new Date(b.start) - new Date(a.start);
+         })
+         break;
+      case "dateDescending":
+         candidateMeetings.sort(function (a, b) {
+            return new Date(a.start) - new Date(b.start);
+         })
+         break;
+      case "votesAscending":
+         candidateMeetings.sort(function (a, b) {
+            return b.voters.length - a.voters.length;
+         })
+         break;
+      case "votesDescending":
+         candidateMeetings.sort(function (a, b) {
+            return a.voters.length - b.voters.length;
+         })
+         break;
+   }
+   console.log("After Sort: ", candidateMeetings);
+};
 
 export default CandidateMeetingList;
