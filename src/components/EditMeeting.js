@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {createGuestMeeting, editMeetingDetails, getMeetingDetails, meetingExists} from "../services/Meeting";
+import {editMeetingDetails, getMeetingDetails, meetingExists} from "../services/Meeting";
 import CreateMeetingDetails from "./CreateMeetingDetails";
 import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";

@@ -3,6 +3,7 @@ import React from "react";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 const CommentList = ({comments, updateComments, currentGuest}) => {
+   console.log(comments)
     const renderList = comments.map((comment) => {
         return (
             <div key={comment.commentID} className={"item"} style={{padding: "0.5em 0"}}>

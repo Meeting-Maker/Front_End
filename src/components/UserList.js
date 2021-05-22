@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import '../css/UserList.css'
-import CreateGuest from "./CreateGuest";
 
 
 const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser}) => {

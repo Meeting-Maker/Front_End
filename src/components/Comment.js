@@ -15,12 +15,13 @@ export default ({comment, updateComments, currentGuest}) => {
             updateComments();
          });
       } catch (error) {
+         // display the error to user
       }
    }
 
-   return (
-      <div className={"ui container comments"} style={{padding: "0"}}>
-         <div className={"ui card centered"} style={{width: "90%"}}>
+   function renderComment() {
+      if (comment.userID !== 1)
+         return (
             <div className={"content"}>
                <div className={"comment"}>
                   <div className={"avatar"}>
@@ -36,7 +37,8 @@ export default ({comment, updateComments, currentGuest}) => {
                         </div>
                      </a>
                      <br/>
-                     <div className={"text"} style={{float: "left"}}>
+                     <div className={"text"}
+                          style={{float: "left"}}>
                         {comment.content}
                      </div>
                   </div>
@@ -47,6 +49,24 @@ export default ({comment, updateComments, currentGuest}) => {
                      : null
                }
             </div>
+         )
+      else
+         return (
+            <div className={"content"} style={{padding: '0.5em'}}>
+               <div className={"content"}>
+                  <div className={"text"}
+                       style={{float: "center"}}>
+                     {comment.content}
+                  </div>
+               </div>
+            </div>
+         )
+   }
+
+   return (
+      <div className={"ui container comments"} style={{padding: "0"}}>
+         <div className={"ui card centered"} style={{width: "90%"}}>
+            {renderComment()}
          </div>
       </div>
    )

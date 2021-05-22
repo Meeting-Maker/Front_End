@@ -4,6 +4,7 @@ import {deleteCandidateMeeting} from "../services/CandidateMeeting";
 import Button from "./Button";
 import {redirect} from "../services/Redirect";
 import Dropdown from './Dropdown';
+import {createComments} from "../services/Comment";
 
 const CandidateMeetingList = ({
                                  currentGuest,
@@ -16,7 +17,8 @@ const CandidateMeetingList = ({
                                  title,
                                  formMessage,
                                  votingPage,
-                                 meetingID
+                                 meetingID,
+                                 setComments
                               }) => {
       //todo: convert to unique id from database
 
@@ -54,10 +56,23 @@ const CandidateMeetingList = ({
          }, [candidateMeetings, dropdownSelection, setDropdownSelection]
       );
 
-      const onDeleteCandidateMeeting = (candidateID) => {
-         deleteCandidateMeeting(candidateID).then(() => {
-            updateCandidateMeetings();
+      const displayDeleteMessage = () => {
+         createComments({
+            meetingID: meetingID,
+            name: 'System',
+            userID: 1,
+            content: `A candidateMeeting has been deleted by a user ${currentGuest.name}`
+         }).then(response => {
+            setComments(old => [...old, response.data]);
          });
+      }
+
+      const onDeleteCandidateMeeting = (candidateID) => {
+         deleteCandidateMeeting(candidateID)
+            .then((response) => {
+               updateCandidateMeetings();
+               displayDeleteMessage();
+            });
       };
 
       if (candidateMeetings.length === 0) {
@@ -122,7 +137,6 @@ const CandidateMeetingList = ({
                   </span>
                   : null}
             </div>
-
 
 
             <div style={{textAlign: "center"}}>{formMessage}</div>
