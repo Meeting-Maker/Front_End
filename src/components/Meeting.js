@@ -33,14 +33,25 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
 
    useEffect(
       () => {
+      }, [meetingDetails, comments, userList, candidateMeetings]
+   );
+
+   useEffect(
+      () => {
          if (!meetingID || meetingID.length !== 6) return;
-         updateMeetingDetails();
-         updateComments();
-         updateUserList();
-         updateCandidateMeetings();
+         refresh();
          // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [meetingID]
    );
+
+   const refresh = () => {
+      console.error('REFRESHING');
+      updateMeetingDetails();
+      updateComments();
+      updateUserList();
+      updateCandidateMeetings();
+      setTimeout(refresh, 4000);
+   }
 
    //todo: update /join to take value from param
    /**

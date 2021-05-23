@@ -2,7 +2,6 @@ import React from 'react';
 import Icon from '@mdi/react';
 import { mdiLinkVariant } from '@mdi/js';
 import {fetchCurrentMeeting} from "../services/Storage";
-import Card from './Card';
 
 const InviteGuests = () => {
    const onIconClick = () => {
