@@ -108,15 +108,19 @@ const CandidateMeeting = ({
                <div className={"right floated icon-hover"}>
                   {
                      votingPage
-                        ? <Icon onClick={(e) => onStatClick(e)}
-                                path={mdiPoll}
-                                size={1}/>
+                        ? <Icon
+                           className="float-hover"
+                           onClick={(e) => onStatClick(e)}
+                           path={mdiPoll}
+                           size={1}/>
                         :
                         null
                   }{' '}
-                  <Icon onClick={(e) => onDeleteClick(e)}
-                        path={mdiDelete}
-                        size={1}/>
+                  <Icon
+                     className="float-hover"
+                     onClick={(e) => onDeleteClick(e)}
+                     path={mdiDelete}
+                     size={1}/>
 
                </div>
 

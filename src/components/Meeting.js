@@ -12,6 +12,7 @@ import MeetingDetails from "./MeetingDetails";
 import {createVote, deleteVote} from "../services/Vote";
 import {redirect} from "../services/Redirect";
 import CreateComment from "./CreateComment";
+import InviteGuests from "./InviteGuests";
 
 const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    const [selectedUser, setSelectedUser] = useState(null);
@@ -214,6 +215,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
                onSelectUser={onHighlightUser}
                selectedCandidate={selectedCandidate}
             />
+            <InviteGuests/>
          </div>
 
          <div className="column">

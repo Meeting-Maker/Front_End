@@ -3,6 +3,7 @@ import Button from './Button';
 import Card from './Card';
 import {isFutureDate, isValidLength} from "../services/FormValidation";
 import ErrorList from "./ErrorList";
+import {redirect} from "../services/Redirect";
 
 const CreateMeetingDetails = ({
                                  meetingDetails,
@@ -180,16 +181,17 @@ const CreateMeetingDetails = ({
                <div style={{textAlign: "center"}}>
                   <Button
                      className="custom-button dark"
-                     onClick={(e) => onCreateMeetingDetails(e)}
+                     type="button"
+                     onClick={() => redirect('/')}
                   >
-                     Create Poll
+                     Cancel
                   </Button>
                   &nbsp;
                   <Button
                      className="custom-button dark"
-                     // onClick={}
+                     onClick={(e) => onCreateMeetingDetails(e)}
                   >
-                     Cancel
+                     Create Poll
                   </Button>
                </div>
 
