@@ -3,6 +3,7 @@ import CodeInput from "./CodeInput";
 import {useEffect, useState} from "react";
 import {redirect} from "../services/Redirect";
 
+
 //todo: conditionally render userName field, only if user is not logged in
 
 const JoinMeeting = ({onUpdateMeetingID}) => {
@@ -11,6 +12,7 @@ const JoinMeeting = ({onUpdateMeetingID}) => {
    useEffect(
       () => {
          validateMeetingIDFromParam();
+         console.log('date: ', new Date());
          // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []
    );

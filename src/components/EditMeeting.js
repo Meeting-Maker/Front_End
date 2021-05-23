@@ -119,8 +119,8 @@ const EditMeeting = (currentGuest) => {
             />
             <CandidateMeetingList
                currentGuest={currentGuest}
-               title={"Candidate Meetings"}
-               formMessage={"At least 2 Candidate Meetings are required."}
+               title={"Your Options"}
+               formMessage={"At least 2 are needed!"}
                candidateMeetings={candidateMeetings}
                updateCandidateMeetings={updateCandidateMeetings}
                onCandidateMeetingClick={() => {}}

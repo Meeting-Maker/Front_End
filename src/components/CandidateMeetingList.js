@@ -25,12 +25,12 @@ const CandidateMeetingList = ({
       //dropdown variables
       const dropdownOptions = [
          {
-            label: 'Dates',
+            label: 'Date',
             value: 'dateAscending',
             order: 'ascending'
          },
          {
-            label: 'Dates',
+            label: 'Date',
             value: 'dateDescending',
             order: 'descending'
          },
@@ -74,17 +74,6 @@ const CandidateMeetingList = ({
                displayDeleteMessage();
             });
       };
-
-      if (candidateMeetings.length === 0) {
-         return (
-            <div className={"ui card centered grey"} style={{overflow: "hidden", width: "30rem"}}>
-               <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
-                  No Candidate Meetings Exist
-               </div>
-               <div style={{textAlign: "center"}}>{formMessage}</div>
-            </div>
-         );
-      }
 
       const onEditClick = () => {
          redirect('/edit', [{key: 'edit', value: 1}, {key: 'meetingID', value: meetingID}]);
@@ -147,7 +136,7 @@ const CandidateMeetingList = ({
                ? <Button className={"custom-button dark thin span"}
                          form={'createCandidateMeetingsForm'}>
                   {isEditPage()
-                     ? <span>Update Candidate Meetings</span>
+                     ? <span>Update Options</span>
                      : <span>Create Meeting</span>
                   }
                </Button>
@@ -158,11 +147,10 @@ const CandidateMeetingList = ({
                   ? <Button
                      className="custom-button dark"
                      onClick={onEditClick}>
-                     Edit Candidate Meetings
+                     {candidateMeetings.length === 0 ? "Add Options" : "Edit Options"}
                   </Button>
                   : null
             }
-
          </div>
       );
    }

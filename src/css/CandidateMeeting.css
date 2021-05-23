@@ -14,3 +14,11 @@
 .card-hover:hover{
     cursor: pointer;
 }
+
+.float-hover{
+    animation: down-bump 0.4s ease;
+}
+
+.float-hover:hover{
+    animation: up-bump 0.4s ease;
+}

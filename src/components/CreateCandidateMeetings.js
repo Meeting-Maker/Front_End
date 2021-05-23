@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import Button from './Button';
 import Card from './Card';
 import '../css/CreateCandidateMeetings.css';
-import CandidateMeeting from "./CandidateMeeting";
 import {createCandidateMeeting} from "../services/CandidateMeeting";
 import {redirect} from "../services/Redirect";
 import {isFutureDate, isValidLength} from "../services/FormValidation";
@@ -46,7 +45,6 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
 
    //called when the 'Add Option' button is clicked
    const onAddOption = async () => {
-
       setSubmitFlag(!submitFlag);
       const tempErrors = validateCandidateMeeting();
 
@@ -124,8 +122,8 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
    return (
       <Card width="32rem" padding="2rem 0 0 0">
          <div className="content">
-            <div className="header">
-               Create Candidate Meetings
+            <div className="header" style={{textAlign: "center"}}>
+               Create Vote Options
             </div>
          </div>
          <div className="content">
@@ -197,7 +195,7 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
                <div style={{textAlign: "center"}}>
                   <Button
                      className="custom-button dark thin"
-                     // onClick={}
+                     onClick={() => redirect('/')}
                      type="button"
                   >
                      Cancel
