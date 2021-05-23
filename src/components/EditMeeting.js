@@ -35,7 +35,7 @@ const EditMeeting = (currentGuest) => {
                setMeetingDetails(response.data.meetingDetails);
             });
          }else if (edit === 1){
-            updateCandidateMeetings();
+            refresh();
          }
       }, [edit, meetingID]
    );
@@ -47,6 +47,11 @@ const EditMeeting = (currentGuest) => {
             }
          );
    }
+
+   const refresh = () => {
+     updateCandidateMeetings();
+     setTimeout(refresh, 5000);
+   };
 
    const processParams = async () => {
       //todo: increase browser support by changing searchParams function
