@@ -32,7 +32,7 @@ const Header = () => {
               <Button className="custom-button light">
                 <div className="ui simple inverted dropdown ">
                   <div className="text"> Account </div>
-                  <i className="dropdown icon"></i>
+                  <i className="dropdown icon"/>
                   <div className="menu">
                       <Link href='/profile' className="item no-hover">
                         Profile

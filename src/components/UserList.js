@@ -26,7 +26,7 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser}) => 
          selectedStyle = (selectedUser === user.id) ? "teal" : "";
       }
       return (
-         <div className="user-card"
+         <div
               key={user.id}
               onClick={() => onSelectUser({id: user.id, name: user.name})}
               style={{padding: "0.5rem 0 0.5rem 0"}}>
@@ -35,7 +35,7 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser}) => 
                style={{width: "32rem"}}
             >
                <div
-                  className={`ui ${selectedStyle} fluid card`}
+                  className={`ui ${selectedStyle} fluid card user-card`}
                >
                   <div className="content">
                      <div className={"ui header floated left"}>

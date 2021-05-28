@@ -1,3 +1,8 @@
 .user-card a:hover{
     text-decoration: none;
 }
+
+.user-card:hover {
+    cursor: pointer;
+    top: -3px;
+}

@@ -66,7 +66,7 @@ const CandidateMeeting = ({
          className="candidate-meeting"
          onClick={() => onCandidateMeetingClick(candidateMeeting)}>
          <div
-            className={`ui ${selectedStyle} card centered card-hover`}
+            className={`ui card ${selectedStyle}  centered card-hover candidate-meeting-card`}
             style={{marginBottom: "1em", width: "90%"}}>
             <div className={"content"} style={{fontSize: "1.2em", padding: "0.5em 1em 0.5em 1em"}}>
 

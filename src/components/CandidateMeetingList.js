@@ -47,13 +47,11 @@ const CandidateMeetingList = ({
       ];
       const [dropdownSelection, setDropdownSelection] = useState(dropdownOptions[0]);
 
-      useEffect(() => {
-      }, [dropdownSelection])
 
       useEffect(
          () => {
-            if (votingPage) sort(candidateMeetings, dropdownSelection.value);
-         }, [candidateMeetings, dropdownSelection, setDropdownSelection]
+
+         }, [candidateMeetings, dropdownSelection]
       );
 
       const displayDeleteMessage = () => {
@@ -84,6 +82,8 @@ const CandidateMeetingList = ({
       };
 
 //todo: render with nice date formats
+      if (votingPage) sort(candidateMeetings, dropdownSelection.value);
+
       const renderedList = candidateMeetings.map((candidateMeeting) => {
 
          return (
@@ -103,20 +103,19 @@ const CandidateMeetingList = ({
          );
       });
 
-
       return (
          <div
             className={"ui card centered"}
             style={{overflow: "hidden", width: "30rem"}}
          >
-            <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
-               {title}
-
-            </div>
-            <div style={{padding: "0.5rem 1.313rem 0 0"}}>
-               {votingPage
-                  ?
-                  <span style={{float: 'right'}}>
+            <div className={"ui medium header"}
+                 style={{margin: "0.5em 0 0 0",
+                    padding: "0.5rem 1.313rem 0 1.313rem",
+                    textAlign: "center"}}>
+               <span style={{display: "inline-block", width: "100%", padding: "0 0 0 8rem" }}> {title}
+                  {votingPage
+                     ?
+                     <span style={{float: 'right', fontSize: ".8em"}}>
                      <Dropdown
                         dropdownOptions={dropdownOptions}
                         dropdownSelection={dropdownSelection}
@@ -124,9 +123,9 @@ const CandidateMeetingList = ({
                         width={"10%"}
                      />
                   </span>
-                  : null}
+                     : null}
+               </span>
             </div>
-
 
             <div style={{textAlign: "center"}}>{formMessage}</div>
             <div className={"ui list"} style={{overflow: "", marginBottom: '0'}}>
@@ -153,13 +152,9 @@ const CandidateMeetingList = ({
             }
          </div>
       );
-   }
-;
+   };
 
 const sort = (candidateMeetings, option) => {
-
-   console.log("Before Sort: ", candidateMeetings, "OPTION: ", option);
-
    switch (option) {
       case "dateAscending":
          candidateMeetings.sort(function (a, b) {
@@ -182,7 +177,6 @@ const sort = (candidateMeetings, option) => {
          })
          break;
    }
-   console.log("After Sort: ", candidateMeetings);
 };
 
 export default CandidateMeetingList;
