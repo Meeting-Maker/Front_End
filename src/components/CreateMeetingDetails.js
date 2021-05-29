@@ -59,7 +59,7 @@ const CreateMeetingDetails = ({
             value: meetingName,
             minLength: 4
          }
-      )) tempErrors.push('Meeting Name must be at least 2 characters long.');
+      )) tempErrors.push('Meeting Name must be at least 4 characters long.');
 
       if(!isValidLength({
             value: dueDate,

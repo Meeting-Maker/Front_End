@@ -1,24 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import CreateMeetingDetails from "./CreateMeetingDetails";
-import CreateCandidateMeetings from "./CreateCandidateMeetings";
-import CandidateMeetingList from "./CandidateMeetingList";
-import {getCandidateMeetings} from "../services/CandidateMeeting";
-import {customAlphabet} from "nanoid";
 import {createGuestMeeting} from "../services/Meeting";
 import {redirect} from "../services/Redirect";
 
 const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
-   const [meetingID, setMeetingID] = useState('');
+   const [meetingID, setMeetingID] = useState(null);
 
-   useEffect(
-      () => {
-         if (!meetingID) {
-            const id = customAlphabet('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ', 6)();
-            setMeetingID(id);
-         }
-      },
-      []
-   );
+   useEffect( ()=> {
+      if(meetingID)
+         redirect('/edit', [{key: 'edit', value: 1}, {key: 'meetingID', value: meetingID}]);
+   }, [meetingID])
 
    const onCreateMeeting = async (meetingDetails) => {
       await createGuestMeeting(meetingDetails).then(response => {
@@ -26,10 +17,11 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             id: response.data.userID,
             name: meetingDetails.name
          });
-         onUpdateMeetingID(meetingID);
-
-         redirect('/edit', [{key: 'edit', value: 1}, {key: 'meetingID', value: meetingID}]);
+         const id = response.data.meetingID;
+         setMeetingID(id)
+         onUpdateMeetingID(id)
       });
+
    };
 
    return (

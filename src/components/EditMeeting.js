@@ -49,8 +49,10 @@ const EditMeeting = (currentGuest) => {
    }
 
    const refresh = () => {
-     updateCandidateMeetings();
-     setTimeout(refresh, 5000);
+      if(meetingID !== '') {
+         updateCandidateMeetings();
+         setTimeout(refresh, 5000);
+      }
    };
 
    const processParams = async () => {
@@ -59,6 +61,8 @@ const EditMeeting = (currentGuest) => {
       const meetingIDFromParams = new URLSearchParams(window.location.search).get('meetingID');
 
       setEdit(editFromParams);
+
+      console.log('init', meetingIDFromParams);
 
       if (!meetingIDFromParams) {
          redirect('/');
