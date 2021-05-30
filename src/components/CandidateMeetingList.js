@@ -94,6 +94,9 @@ const CandidateMeetingList = ({
       const isEditPage = () => {
          return window.location.href.includes('edit?edit=1');
       };
+      const isMeetingPage = () => {
+         return window.location.href.includes('meeting?meetingID');
+      }
 
 //todo: render with nice date formats
       const renderedList = sortedList.map((candidateMeeting) => {
@@ -124,7 +127,7 @@ const CandidateMeetingList = ({
                  style={{margin: "0.5em 0 0 0",
                     padding: "0.5rem 1.313rem 0 1.313rem",
                     textAlign: "center"}}>
-               <span style={{display: "inline-block", width: "100%", padding: "0 0 0 8rem" }}> {title}
+               <span style={{display: "inline-block", width: "100%", padding: "0 0 0 0" }}> {title}
                   {votingPage
                      ?
                      <span style={{float: 'right', fontSize: ".8em"}}>
@@ -147,9 +150,13 @@ const CandidateMeetingList = ({
             {(!votingPage && candidateMeetings.length >= 2)
                ? <Button className={"custom-button dark thin span"}
                          form={'createCandidateMeetingsForm'}>
-                  {isEditPage()
+                  {isMeetingPage()
                      ? <span>Update Options</span>
-                     : <span>Create Meeting</span>
+                     : null
+                  }
+                  {isEditPage()
+                     ? <span>Create Meeting</span>
+                     :null
                   }
                </Button>
                : null

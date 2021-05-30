@@ -12,7 +12,7 @@ const Header = () => {
 
   // TODO: modify login functionality
   return(
-      <div className="ui borderless inverted menu" style={{position: "fixed", width: "100%", borderRadius: "0", margin: '0'}}>
+      <div className="ui borderless inverted menu" style={{width: "100%", borderRadius: "0", margin: '0'}}>
         <div className="ui container" style={{width: "100%", padding: "0"}}>
 
           <div className="header item">
