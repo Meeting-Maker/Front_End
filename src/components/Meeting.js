@@ -180,7 +180,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    };
 
    //if user does not have a guestID or name, todo: or if their guest id is not in the current meeting's userList
-   if (!currentGuest.id || !currentGuest.name) {
+   if (!currentGuest.id || !currentGuest.name || currentGuest.role === null) {
       return (
          <div>
             <UserList

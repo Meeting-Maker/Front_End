@@ -10,7 +10,7 @@ import Meeting from './Meeting';
 import EditMeeting from "./EditMeeting";
 
 const App = () => {
-   const [currentGuest, setCurrentGuest] = useState({id: null, name: ''});
+   const [currentGuest, setCurrentGuest] = useState({id: null, name: '', role: null});
 
    //fetch the meetingID and guest from localStorage on first app load
    useEffect(

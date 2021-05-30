@@ -116,12 +116,17 @@ const CandidateMeeting = ({
                         :
                         null
                   }{' '}
-                  <Icon
-                     className="float-hover"
-                     onClick={(e) => onDeleteClick(e)}
-                     path={mdiDelete}
-                     size={1}/>
-
+                  {
+                     currentGuest.role
+                     ?
+                        <Icon
+                           className="float-hover"
+                           onClick={(e) => onDeleteClick(e)}
+                           path={mdiDelete}
+                           size={1}/>
+                        :
+                        null
+                  }
                </div>
 
             </div>

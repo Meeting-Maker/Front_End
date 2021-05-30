@@ -64,8 +64,6 @@ const EditMeeting = (currentGuest) => {
 
       setEdit(editFromParams);
 
-      console.log('init', meetingIDFromParams);
-
       if (!meetingIDFromParams) {
          redirect('/');
 
