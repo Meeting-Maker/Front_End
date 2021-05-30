@@ -218,18 +218,19 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
 
    return (
       <div className="center aligned ui three column very relaxed stackable grid">
-         <div className="column">
+         <div className="column" style={{height: `${height - 125}px`}}>
             <MeetingDetails meetingDetails={meetingDetails}/>
             <UserList
                userList={userList}
                selectedUser={selectedUser}
                onSelectUser={onHighlightUser}
                selectedCandidate={selectedCandidate}
+               votingPage={true}
             />
             <InviteGuests/>
          </div>
 
-         <div className="column">
+         <div className="column" style={{height: `${height - 125}px`}}>
             <CandidateMeetingList
                currentGuest={currentGuest}
                selectedUser={selectedUser}
