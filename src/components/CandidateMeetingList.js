@@ -6,6 +6,29 @@ import {redirect} from "../services/Redirect";
 import Dropdown from './Dropdown';
 import {createComments} from "../services/Comment";
 
+const dropdownOptions = [
+   {
+      label: 'Date',
+      value: 'dateAscending',
+      order: 'ascending'
+   },
+   {
+      label: 'Date',
+      value: 'dateDescending',
+      order: 'descending'
+   },
+   {
+      label: 'Votes',
+      value: 'votesAscending',
+      order: 'ascending'
+   },
+   {
+      label: 'Votes',
+      value: 'votesDescending',
+      order: 'descending'
+   },
+];
+
 const CandidateMeetingList = ({
                                  currentGuest,
                                  selectedUser,
@@ -21,37 +44,28 @@ const CandidateMeetingList = ({
                                  setComments
                               }) => {
       //todo: convert to unique id from database
-
-      //dropdown variables
-      const dropdownOptions = [
-         {
-            label: 'Date',
-            value: 'dateAscending',
-            order: 'ascending'
-         },
-         {
-            label: 'Date',
-            value: 'dateDescending',
-            order: 'descending'
-         },
-         {
-            label: 'Votes',
-            value: 'votesAscending',
-            order: 'ascending'
-         },
-         {
-            label: 'Votes',
-            value: 'votesDescending',
-            order: 'descending'
-         },
-      ];
       const [dropdownSelection, setDropdownSelection] = useState(dropdownOptions[0]);
-
+      const [delayedCandidateMeetings, setDelayedCandidateMeetings] = useState([]);
+      const [sortedList, setSortedList] = useState([]);
 
       useEffect(
          () => {
+         }, [sortedList]
+      );
 
-         }, [candidateMeetings, dropdownSelection]
+      useEffect(
+         () => {
+            if(!equalCandidateMeetingLists(candidateMeetings, delayedCandidateMeetings)){
+               setSortedList([...sort(candidateMeetings, dropdownSelection)]);
+               setDelayedCandidateMeetings([...candidateMeetings]);
+            }
+         }, [candidateMeetings]
+      );
+
+      useEffect(
+         () => {
+            setSortedList([...sort(candidateMeetings, dropdownSelection)]);
+         }, [dropdownSelection]
       );
 
       const displayDeleteMessage = () => {
@@ -82,9 +96,7 @@ const CandidateMeetingList = ({
       };
 
 //todo: render with nice date formats
-      if (votingPage) sort(candidateMeetings, dropdownSelection.value);
-
-      const renderedList = candidateMeetings.map((candidateMeeting) => {
+      const renderedList = sortedList.map((candidateMeeting) => {
 
          return (
             //sets unique key by concatenating info from candidateMeeting
@@ -156,6 +168,7 @@ const CandidateMeetingList = ({
    };
 
 const sort = (candidateMeetings, option) => {
+   if(candidateMeetings.length < 2) return candidateMeetings;
    switch (option) {
       case "dateAscending":
          candidateMeetings.sort(function (a, b) {
@@ -178,6 +191,32 @@ const sort = (candidateMeetings, option) => {
          })
          break;
    }
+   return candidateMeetings;
 };
+
+function equalCandidateMeetingLists(a, b) {
+   return (
+      Array.isArray(a) &&
+      Array.isArray(b) &&
+      a.length === b.length &&
+      //return true if all candidateMeetings are equal based only on ID, start, and voters
+      a.every((candidate, index) => {
+         return (
+            candidate.candidateID === b[index].candidateID &&
+            candidate.start === b[index].start &&
+            equalVoterLists(candidate.voters, b[index].voters)
+         );
+      })
+   );
+}
+
+function equalVoterLists(a, b) {
+   return Array.isArray(a) &&
+      Array.isArray(b) &&
+      a.length === b.length &&
+      a.every((voter, index) => {
+         return voter.userID === b[index].userID
+      });
+}
 
 export default CandidateMeetingList;
