@@ -1,8 +1,17 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import '../css/UserList.css'
 
 
 const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, votingPage}) => {
+   const [delayedUserList, setDelayedUserList] = useState([]);
+   const [delayedAdminList, setDelayedAdminList] = useState([]);
+   const [delayedGuestList, setDelayedGuestList] = useState([]);
+
+   useEffect(
+      () => {
+
+      }, [delayedUserList]
+   );
 
    useEffect(
       () => {
@@ -18,7 +27,26 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, voti
       );
    }
 
-   const renderedList = userList.map((user) => {
+   if(delayedUserList !== userList){
+      updateDelayedLists();
+   }
+
+   function updateDelayedLists(){
+      let adminList = [];
+      let guestList = [];
+
+      //sorts users into admin and guestList
+      for(const i in userList){
+         if(userList[i].role === 0) guestList.push(userList[i]);
+         else if(userList[i].role === 1) adminList.push(userList[i]);
+      }
+
+      setDelayedAdminList(adminList);
+      setDelayedGuestList(guestList);
+      setDelayedUserList(userList);
+   }
+
+   function UserCard(user){
       let selectedStyle;
       if(selectedCandidate){
          selectedStyle = (selectedUser === user.id) || (selectedCandidate.voters.filter(voter => voter.userID === user.id).length > 0) ? "teal" : "";
@@ -27,9 +55,9 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, voti
       }
       return (
          <div
-              key={user.id}
-              onClick={() => onSelectUser({id: user.id, name: user.name})}
-              style={{padding: "0.5rem 0 0.5rem 0"}}>
+            key={user.id}
+            onClick={() => onSelectUser({id: user.id, name: user.name, role: user.role})}
+            style={{padding: "0.5rem 0 0.5rem 0"}}>
             <div
                className="ui container"
                style={{width: "32rem"}}
@@ -46,7 +74,10 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, voti
             </div>
          </div>
       );
-   });
+   }
+
+   const renderedAdminList = delayedAdminList.map(user => UserCard(user));
+   const renderedGuestList = delayedGuestList.map(user => UserCard(user));
 
    return (
       <div>
@@ -55,9 +86,13 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, voti
             style={{overflow: "hidden", width: "33rem", paddingBottom: "0.5rem", marginTop: "1rem", maxHeight: votingPage ? "60%" : "80%"}}
          >
             <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
-               Users
+               Owners
             </div>
-            {renderedList}
+            {renderedAdminList}
+            <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
+               Guests
+            </div>
+            {renderedGuestList}
          </div>
       </div>
    );
