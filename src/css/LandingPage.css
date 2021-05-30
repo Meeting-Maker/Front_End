@@ -1,6 +1,6 @@
 .greeting {
   /*padding: 15.625rem 0rem 18.75rem 6.25rem;*/
-  font-size: 6rem;
+  font-size: 5vw;
   text-align: center;
 }
 
@@ -9,7 +9,7 @@
 }
 
 .greeting h4{
-  font-size: .33em;
+  font-size: 2vw;
 }
 
 .button:hover{
@@ -19,4 +19,21 @@
 
 .descriptions h3, h4{
   font-weight: 500;
+}
+
+@media screen and (max-width: 1000px) {
+  .greeting {
+    /*padding: 15.625rem 0rem 18.75rem 6.25rem;*/
+    font-size: 11.5vw;
+    text-align: center;
+  }
+
+  .greeting h4{
+    font-size: 5vw;
+  }
+
+  .custom-button{
+    font-size: 4vw;
+    margin-top: 0.5rem
+  }
 }
