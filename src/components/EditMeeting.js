@@ -5,6 +5,7 @@ import CreateCandidateMeetings from "./CreateCandidateMeetings";
 import CandidateMeetingList from "./CandidateMeetingList";
 import {getCandidateMeetings} from "../services/CandidateMeeting";
 import {redirect} from "../services/Redirect";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 // edit types are:
 // 0 - details
@@ -14,6 +15,7 @@ const EditMeeting = (currentGuest) => {
    const [meetingID, setMeetingID] = useState();
    const [candidateMeetings, setCandidateMeetings] = useState([]);
    const [meetingDetails, setMeetingDetails] = useState(null);
+   const {height} = useWindowDimensions();
 
    useEffect(
       () => {
@@ -115,7 +117,7 @@ const EditMeeting = (currentGuest) => {
       );
    }else if(edit === 1 && meetingID) {
       return (
-         <div>
+         <div style={{height: `${height - 125}px`}}>
             <CreateCandidateMeetings
                meetingID={meetingID}
                candidateMeetings={candidateMeetings}

@@ -106,7 +106,7 @@ const CandidateMeetingList = ({
       return (
          <div
             className={"ui card centered"}
-            style={{overflow: "hidden", width: "30rem"}}
+            style={{overflow: "hidden", width: "30rem", maxHeight: votingPage ? "100%" : "60%"}}
          >
             <div className={"ui medium header"}
                  style={{margin: "0.5em 0 0 0",
@@ -125,10 +125,11 @@ const CandidateMeetingList = ({
                   </span>
                      : null}
                </span>
+               <hr/>
             </div>
 
             <div style={{textAlign: "center"}}>{formMessage}</div>
-            <div className={"ui list"} style={{overflow: "", marginBottom: '0'}}>
+            <div className={"ui list"} style={{overflowY: "auto", margin: '0 0 0 0'}}>
                {renderedList}
             </div>
             {(!votingPage && candidateMeetings.length >= 2)

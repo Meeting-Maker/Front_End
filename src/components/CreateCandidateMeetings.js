@@ -6,6 +6,7 @@ import {createCandidateMeeting} from "../services/CandidateMeeting";
 import {redirect} from "../services/Redirect";
 import {isFutureDate, isValidLength} from "../services/FormValidation";
 import ErrorList from "./ErrorList";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length

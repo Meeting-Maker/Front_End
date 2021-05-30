@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import '../css/UserList.css'
 
 
-const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser}) => {
+const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, votingPage}) => {
 
    useEffect(
       () => {
@@ -52,7 +52,7 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser}) => 
       <div>
          <div
             className={"ui card centered grey"}
-            style={{overflow: "hidden", width: "33rem", paddingBottom: "0.5rem", marginTop: "1rem"}}
+            style={{overflow: "hidden", width: "33rem", paddingBottom: "0.5rem", marginTop: "1rem", maxHeight: votingPage ? "60%" : "80%"}}
          >
             <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
                Users
