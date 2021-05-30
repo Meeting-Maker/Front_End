@@ -143,7 +143,7 @@ const CandidateMeetingList = ({
                : null
             }
             {
-               votingPage
+               votingPage && currentGuest.role === 1
                   ? <Button
                      className="custom-button dark"
                      onClick={onEditClick}>
