@@ -38,7 +38,7 @@ const App = () => {
    return (
       <div style={{paddingBottom: "4rem", height: "100%"}}>
          <Header/>
-         <div style={{paddingBottom: "1rem", paddingTop: "1rem"}}>
+         <div style={{paddingTop: "2rem"}}>
             <Route path='/'> <LandingPage currentGuest={currentGuest}/> </Route>
             <Route path='/create'>
                <CreateMeeting
