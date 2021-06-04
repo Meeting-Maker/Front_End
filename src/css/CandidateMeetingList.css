@@ -1,0 +1,23 @@
+.tooltiptext {
+    visibility: hidden;
+    width: 13rem;
+    background-color: #212529;
+    color: #fff;
+    border-radius: 4px;
+    padding: 1rem 1rem;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -0.25%;
+    right: 102%;
+    font-weight: normal;
+}
+
+.icontooltip:hover~.tooltiptext {
+    visibility: visible;
+}
+
+.icontooltip:hover{
+    cursor: pointer;
+}

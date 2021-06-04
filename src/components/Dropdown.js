@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import Icon from "@mdi/react";
 import {mdiChevronDown, mdiChevronUp} from "@mdi/js";
 
-const Dropdown = ({dropdownOptions, dropdownSelection, setDropdownSelection, width}) => {
+const Dropdown = ({dropdownOptions, dropdownSelection, setDropdownSelection}) => {
 
    const [dropdownOpen, setDropdownOpen] = useState(false);
    const ref = useRef();

@@ -25,7 +25,6 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    };
 
    return (
-      <div>
          <CreateMeetingDetails
             currentGuest={currentGuest}
             onUpdateGuest={onUpdateGuest}
@@ -33,7 +32,7 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             onCreateMeeting={onCreateMeeting}
             captureUserName={true}
          />
-      </div>
+
    );
 };
 
