@@ -3,7 +3,7 @@ import {mdiHelpCircleOutline} from "@mdi/js";
 import Icon from "@mdi/react";
 import "../css/Tooltip.css";
 
-const Tooltip = ({top, right, bottom, left, children}) => {
+const Tooltip = ({top, right, bottom, left, children, width}) => {
 
    return (
 
@@ -16,7 +16,8 @@ const Tooltip = ({top, right, bottom, left, children}) => {
             top: `${top ? top : null }`,
             right: `${right ? right : null }`,
             bottom: `${bottom ? bottom : null }`,
-            left: `${left ? left : null }`}}
+            left: `${left ? left : null }`,
+            width: `${width ? width : '13rem'}`}}
          >
             {children}
          </span>

@@ -127,7 +127,7 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
             <div className="header">
                Create Vote Options
                <span className={"right floated"}>
-                  <Tooltip top={"-0.25%"} left={"102%"}>
+                  <Tooltip top={"-0.25%"} left={"102%"} width={"18rem"}>
                      Enter multiple different options (at least 2) for when to hold your meeting.
                      People with the meeting link will be able to vote on which meeting time they prefer.
                   </Tooltip>

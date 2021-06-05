@@ -63,8 +63,8 @@ const MeetingDetails = ({meetingDetails}) => {
                </span>
                <span className={"right floated"}
                      style={{}}>
-                  <Tooltip top={"-0.25%"} left={"102%"}>
-                     This is your meeting.
+                  <Tooltip top={"-0.25%"} left={"102%"} width={"14rem"}>
+                     This is your meeting. Click on the meeting code to the left to copy the link to share with others.
                   </Tooltip>
                </span>
             </div>

@@ -114,7 +114,7 @@ const CreateMeetingDetails = ({
             <div className="header">
                Create Your Meeting
                <span className={"right floated"}>
-               <Tooltip top={"-0.25%"} left={"102%"}>
+               <Tooltip top={"-0.25%"} left={"102%"} width={"14rem"}>
                   Enter your meeting information and the date/time you need others' responses by.
                </Tooltip>
             </span>
