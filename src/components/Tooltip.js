@@ -13,8 +13,8 @@ const Tooltip = ({top, right, bottom, left, children}) => {
 
          <span className={"tooltiptext"}
          style={{
-            top: `${top ? top : 0 }`,
-            right: `${right ? right : 0 }`,
+            top: `${top ? top : null }`,
+            right: `${right ? right : null }`,
             bottom: `${bottom ? bottom : null }`,
             left: `${left ? left : null }`}}
          >

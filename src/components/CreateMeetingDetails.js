@@ -4,6 +4,7 @@ import Card from './Card';
 import {isFutureDate, isValidLength} from "../services/FormValidation";
 import ErrorList from "./ErrorList";
 import {redirect} from "../services/Redirect";
+import Tooltip from "./Tooltip";
 
 const CreateMeetingDetails = ({
                                  meetingDetails,
@@ -112,6 +113,11 @@ const CreateMeetingDetails = ({
          <div className="content">
             <div className="header">
                Create Your Meeting
+               <span className={"right floated"}>
+               <Tooltip top={"-0.25%"} left={"102%"}>
+                  Enter your meeting information and the date/time you need others' responses by.
+               </Tooltip>
+            </span>
             </div>
          </div>
 

@@ -5,9 +5,6 @@ import Button from "./Button";
 import {redirect} from "../services/Redirect";
 import Dropdown from './Dropdown';
 import {createComments} from "../services/Comment";
-import {mdiCalendarRange, mdiHelpCircleOutline} from '@mdi/js';
-import Icon from "@mdi/react";
-import '../css/CandidateMeetingList.css';
 import Tooltip from './Tooltip';
 
 const dropdownOptions = [
@@ -127,7 +124,7 @@ const CandidateMeetingList = ({
          style={{overflow: "visible", width: "30rem", maxHeight: votingPage ? "100%" : "60%"}}
       >
          <div className={"ui medium header"}
-              style={{margin: "0.5em 0 0 0", padding: "0.5rem 1.313rem 0 1.313rem", textAlign: "center"}}>
+              style={{margin: "0.5em 0 0 0", padding: "0.5rem 1.313rem 0.5rem 1.313rem", textAlign: "center"}}>
 
                <span style={{display: "inline-block", width: "100%", padding: "0 0 0 0"}}>
 
@@ -138,14 +135,12 @@ const CandidateMeetingList = ({
                            width: "8rem",
                            textAlign: "left",
                            margin: "auto",
-                           padding: "0.25em 0 0 0.5em",
+                           padding: "0.25em 0 0 0",
                            display: "inline"
                         }}>
-
                         <Tooltip top={"-0.25%"} right={"102%"}>
                            Click on a meeting to cast your vote. Click the stats icon to see who voted for that meeting.
                         </Tooltip>
-
                      </div>
                      : null}
 

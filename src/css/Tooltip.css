@@ -1,4 +1,7 @@
 .tooltiptext {
+    text-align: left;
+    font-size: 1.28571429rem;
+    line-height: 1.25;
     visibility: hidden;
     width: 13rem;
     background-color: #212529;
