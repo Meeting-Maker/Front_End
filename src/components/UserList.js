@@ -63,7 +63,7 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, voti
                style={{width: "32rem"}}
             >
                <div
-                  className={`ui ${selectedStyle} fluid card user-card`}
+                  className={`ui link ${selectedStyle} fluid card user-card`}
                >
                   <div className="content">
                      <div className={"ui header floated left"}>
