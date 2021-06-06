@@ -22,7 +22,3 @@
 .float-hover:hover{
     animation: up-bump 0.4s ease;
 }
-
-.candidate-meeting-card:hover {
-    top: -4px;
-}
