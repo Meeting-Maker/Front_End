@@ -5,6 +5,7 @@ import Button from "./Button";
 import {redirect} from "../services/Redirect";
 import Dropdown from './Dropdown';
 import {createComments} from "../services/Comment";
+import Tooltip from './Tooltip';
 
 const dropdownOptions = [
    {
@@ -43,91 +44,108 @@ const CandidateMeetingList = ({
                                  meetingID,
                                  setComments
                               }) => {
-      //todo: convert to unique id from database
-      const [dropdownSelection, setDropdownSelection] = useState(dropdownOptions[0]);
-      const [delayedCandidateMeetings, setDelayedCandidateMeetings] = useState([]);
-      const [sortedList, setSortedList] = useState([]);
+   //todo: convert to unique id from database
+   const [dropdownSelection, setDropdownSelection] = useState(dropdownOptions[0]);
+   const [delayedCandidateMeetings, setDelayedCandidateMeetings] = useState([]);
+   const [sortedList, setSortedList] = useState([]);
 
-      useEffect(
-         () => {
-         }, [sortedList]
-      );
+   useEffect(
+      () => {
+      }, [sortedList]
+   );
 
-      useEffect(
-         () => {
-            if(!equalCandidateMeetingLists(candidateMeetings, delayedCandidateMeetings)){
-               setSortedList([...sort(candidateMeetings, dropdownSelection)]);
-               setDelayedCandidateMeetings([...candidateMeetings]);
-            }
-         }, [candidateMeetings]
-      );
-
-      useEffect(
-         () => {
+   useEffect(
+      () => {
+         if (!equalCandidateMeetingLists(candidateMeetings, delayedCandidateMeetings)) {
             setSortedList([...sort(candidateMeetings, dropdownSelection)]);
-         }, [dropdownSelection]
-      );
+            setDelayedCandidateMeetings([...candidateMeetings]);
+         }
+      }, [candidateMeetings]
+   );
 
-      const displayDeleteMessage = () => {
-         createComments({
-            meetingID: meetingID,
-            name: 'System',
-            userID: 1,
-            content: `A candidateMeeting has been deleted by a user ${currentGuest.name}`
-         }).then(response => {
-            setComments(old => [...old, response.data]);
+   useEffect(
+      () => {
+         setSortedList([...sort(candidateMeetings, dropdownSelection)]);
+      }, [dropdownSelection]
+   );
+
+   const displayDeleteMessage = () => {
+      createComments({
+         meetingID: meetingID,
+         name: 'System',
+         userID: 1,
+         content: `A candidateMeeting has been deleted by a user ${currentGuest.name}`
+      }).then(response => {
+         setComments(old => [...old, response.data]);
+      });
+   }
+
+   const onDeleteCandidateMeeting = (candidateID) => {
+      deleteCandidateMeeting(candidateID)
+         .then((response) => {
+            updateCandidateMeetings();
+            displayDeleteMessage();
          });
-      }
+   };
 
-      const onDeleteCandidateMeeting = (candidateID) => {
-         deleteCandidateMeeting(candidateID)
-            .then((response) => {
-               updateCandidateMeetings();
-               displayDeleteMessage();
-            });
-      };
+   const onEditClick = () => {
+      redirect('/edit', [{key: 'edit', value: 1}, {key: 'meetingID', value: meetingID}]);
+   };
 
-      const onEditClick = () => {
-         redirect('/edit', [{key: 'edit', value: 1}, {key: 'meetingID', value: meetingID}]);
-      };
-
-      const isEditPage = () => {
-         return window.location.href.includes('edit?edit=1');
-      };
-      const isMeetingPage = () => {
-         return window.location.href.includes('meeting?meetingID');
-      }
+   const isEditPage = () => {
+      return window.location.href.includes('edit?edit=1');
+   };
+   const isMeetingPage = () => {
+      return window.location.href.includes('meeting?meetingID');
+   }
 
 //todo: render with nice date formats
-      const renderedList = sortedList.map((candidateMeeting) => {
-
-         return (
-            //sets unique key by concatenating info from candidateMeeting
-
-            <CandidateMeeting
-               currentGuest={currentGuest}
-               selectedUser={selectedUser}
-               candidateMeeting={candidateMeeting}
-               key={candidateMeeting.candidateID}
-               selectedCandidate={selectedCandidate}
-               onSelectCandidate={onSelectCandidate}
-               onDeleteCandidateMeeting={onDeleteCandidateMeeting}
-               onCandidateMeetingClick={onCandidateMeetingClick}
-               votingPage={votingPage}
-            />
-         );
-      });
+   const renderedList = sortedList.map((candidateMeeting) => {
 
       return (
-         <div
-            className={"ui card centered"}
-            style={{overflow: "hidden", width: "30rem", maxHeight: votingPage ? "100%" : "60%"}}
-         >
-            <div className={"ui medium header"}
-                 style={{margin: "0.5em 0 0 0",
-                    padding: "0.5rem 1.313rem 0 1.313rem",
-                    textAlign: "center"}}>
-               <span style={{display: "inline-block", width: "100%", padding: "0 0 0 0" }}> {title}
+         //sets unique key by concatenating info from candidateMeeting
+         <CandidateMeeting
+            currentGuest={currentGuest}
+            selectedUser={selectedUser}
+            candidateMeeting={candidateMeeting}
+            key={candidateMeeting.candidateID}
+            selectedCandidate={selectedCandidate}
+            onSelectCandidate={onSelectCandidate}
+            onDeleteCandidateMeeting={onDeleteCandidateMeeting}
+            onCandidateMeetingClick={onCandidateMeetingClick}
+            votingPage={votingPage}
+         />
+      );
+   });
+
+   return (
+      <div
+         className={"ui card centered"}
+         style={{overflow: "visible", width: "30rem", maxHeight: votingPage ? "100%" : "60%"}}
+      >
+         <div className={"ui medium header"}
+              style={{margin: "0.5em 0 0 0", padding: "0.5rem 1.313rem 0.5rem 1.313rem", textAlign: "center"}}>
+
+               <span style={{display: "inline-block", width: "100%", padding: "0 0 0 0"}}>
+
+                  {votingPage
+                     ? <div
+                        style={{
+                           float: 'left',
+                           width: "8rem",
+                           textAlign: "left",
+                           margin: "auto",
+                           padding: "0.25em 0 0 0",
+                           display: "inline"
+                        }}>
+                        <Tooltip top={"-0.25%"} right={"102%"}>
+                           Click on a meeting to cast your vote. Click the stats icon to see who voted for that meeting.
+                        </Tooltip>
+                     </div>
+                     : null}
+
+
+                  {title}
                   {votingPage
                      ?
                      <span style={{float: 'right', fontSize: ".8em"}}>
@@ -135,47 +153,48 @@ const CandidateMeetingList = ({
                         dropdownOptions={dropdownOptions}
                         dropdownSelection={dropdownSelection}
                         setDropdownSelection={setDropdownSelection}
-                        width={"10%"}
+
                      />
                   </span>
                      : null}
                </span>
-               <hr/>
-            </div>
+         </div>
 
-            <div style={{textAlign: "center"}}>{formMessage}</div>
-            <div className={"ui list"} style={{overflowY: "auto", margin: '0 0 0 0'}}>
-               {renderedList}
-            </div>
-            {(!votingPage && candidateMeetings.length >= 2)
-               ? <Button className={"custom-button dark thin span"}
-                         form={'createCandidateMeetingsForm'}>
-                  {isMeetingPage()
-                     ? <span>Update Options</span>
-                     : null
-                  }
-                  {isEditPage()
-                     ? <span>Create Meeting</span>
-                     :null
-                  }
+         {votingPage ? null : <div style={{textAlign: "center", padding: "0 0 0.5rem 0"}}>{formMessage}</div>}
+
+
+         <div className={"ui list"} style={{overflowY: "auto", margin: '0 0 0 0'}}>
+            {renderedList}
+         </div>
+         {(!votingPage && candidateMeetings.length >= 2)
+            ? <Button className={"custom-button dark thin span"}
+                      form={'createCandidateMeetingsForm'}>
+               {isMeetingPage()
+                  ? <span>Update Options</span>
+                  : null
+               }
+               {isEditPage()
+                  ? <span>Create Meeting</span>
+                  : null
+               }
+            </Button>
+            : null
+         }
+         {
+            votingPage //&& currentGuest.role === 1
+               ? <Button
+                  className="custom-button dark"
+                  onClick={onEditClick}>
+                  {candidateMeetings.length === 0 ? "Add Options" : "Edit Options"}
                </Button>
                : null
-            }
-            {
-               votingPage && currentGuest.role === 1
-                  ? <Button
-                     className="custom-button dark"
-                     onClick={onEditClick}>
-                     {candidateMeetings.length === 0 ? "Add Options" : "Edit Options"}
-                  </Button>
-                  : null
-            }
-         </div>
-      );
-   };
+         }
+      </div>
+   );
+};
 
 const sort = (candidateMeetings, option) => {
-   if(candidateMeetings.length < 2) return candidateMeetings;
+   if (candidateMeetings.length < 2) return candidateMeetings;
    switch (option) {
       case "dateAscending":
          candidateMeetings.sort(function (a, b) {

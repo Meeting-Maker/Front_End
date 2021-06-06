@@ -247,7 +247,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          </div>
 
          <div className="column">
-            <div className={"card"} style={{overflow: "hidden", height: `${height - 125}px`}}>
+            <div className={"ui card"} style={{width: "80%",margin: "auto", overflow: "hidden", height: `${height - 125}px`}}>
                <div className={"ui  header"} style={{marginBottom: "0", marginTop: "1em"}}>
                   Comments
                </div>

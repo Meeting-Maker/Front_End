@@ -7,6 +7,7 @@ const InviteGuests = () => {
    const onIconClick = () => {
       const joinURL = 'https://www.meetingmaker.ca/join?meetingID=' + fetchCurrentMeeting();
       navigator.clipboard.writeText(joinURL);
+      alert("Link copied to clipboard.");
    };
 
    return (

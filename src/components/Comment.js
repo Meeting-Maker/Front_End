@@ -3,6 +3,7 @@ import {mdiAccount, mdiDelete} from '@mdi/js';
 import React from "react";
 import {formatDate} from "../services/Comment";
 import {deleteComment} from "../services/Comment";
+import "../css/Comment.css";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({comment, updateComments, currentGuest}) => {
@@ -30,7 +31,7 @@ export default ({comment, updateComments, currentGuest}) => {
                            color={"black"}/>
                   </div>
                   <div className={"content"}>
-                     <a href={"/"} className={"author"} style={{float: "left"}}>
+                     <a href={"/"} className={"author"} style={{float: "left", color: "black"}}>
                         {comment.name}
                         <div className={"metadata"}>
                            <span className={"date"}> {formatDate(comment.createdAt)} </span>

@@ -64,10 +64,11 @@ const CandidateMeeting = ({
    return (
       <div
          className="candidate-meeting"
-         onClick={() => onCandidateMeetingClick(candidateMeeting)}>
+         onClick={() => onCandidateMeetingClick(candidateMeeting)}
+      style={{paddingTop: "0.5rem"}}>
          <div
-            className={`ui card ${selectedStyle}  centered card-hover candidate-meeting-card`}
-            style={{marginBottom: "1em", width: "90%"}}>
+            className={`ui link card ${selectedStyle} centered card-hover`}
+            style={{marginBottom: "0.5em", width: "90%"}}>
             <div className={"content"} style={{fontSize: "1.2em", padding: "0.5em 1em 0.5em 1em"}}>
 
                <div style={{float: "left"}}>

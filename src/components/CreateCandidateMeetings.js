@@ -7,6 +7,7 @@ import {redirect} from "../services/Redirect";
 import {isFutureDate, isValidLength} from "../services/FormValidation";
 import ErrorList from "./ErrorList";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import Tooltip from "./Tooltip";
 
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
@@ -123,8 +124,14 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
    return (
       <Card width="32rem" padding="2rem 0 0 0">
          <div className="content">
-            <div className="header" style={{textAlign: "center"}}>
+            <div className="header">
                Create Vote Options
+               <span className={"right floated"}>
+                  <Tooltip top={"-0.25%"} left={"102%"} width={"18rem"}>
+                     Enter multiple different options (at least 2) for when to hold your meeting.
+                     People with the meeting link will be able to vote on which meeting time they prefer.
+                  </Tooltip>
+               </span>
             </div>
          </div>
          <div className="content">
