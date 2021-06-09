@@ -83,7 +83,7 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, voti
       <div>
          <div
             className={"ui card centered grey"}
-            style={{overflow: "hidden", width: "33rem", paddingBottom: "0.5rem", marginTop: "1rem", maxHeight: votingPage ? "60%" : "80%"}}
+            style={{overflow: "hidden", width: "33rem", paddingBottom: "1rem", marginTop: "1rem", maxHeight: votingPage ? "60%" : "80%"}}
          >
             <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
                Owners

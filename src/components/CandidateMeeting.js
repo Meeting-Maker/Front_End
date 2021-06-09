@@ -84,7 +84,8 @@ const CandidateMeeting = ({
                               <Icon
                                  path={mdiCheckCircleOutline}
                                  size={1}
-                                 style={{marginBottom: "0.2em", marginRight: "0.3em"}}
+                                 //#45A29E...#17cf17
+                                 style={{marginBottom: "0.2em", marginRight: "0.3em", color: "#45A29E"}}
                               /> :
                               null
                         }
