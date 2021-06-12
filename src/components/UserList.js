@@ -49,9 +49,9 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, voti
    function UserCard(user){
       let selectedStyle;
       if(selectedCandidate){
-         selectedStyle = (selectedUser === user.id) || (selectedCandidate.voters.filter(voter => voter.userID === user.id).length > 0) ? "teal" : "";
+         selectedStyle = (selectedUser === user.id) || (selectedCandidate.voters.filter(voter => voter.userID === user.id).length > 0) ? "#45A29E" : "#d4d4d5";
       }else{
-         selectedStyle = (selectedUser === user.id) ? "teal" : "";
+         selectedStyle = (selectedUser === user.id) ? "#45A29E" : "#d4d4d5";
       }
       return (
          <div
@@ -64,6 +64,7 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, voti
             >
                <div
                   className={`ui link ${selectedStyle} fluid card user-card`}
+                  style={{boxShadow: `0 0 0 1px ${selectedStyle}`}}
                >
                   <div className="content">
                      <div className={"ui header floated left"}>
@@ -83,7 +84,7 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, voti
       <div>
          <div
             className={"ui card centered grey"}
-            style={{overflow: "hidden", width: "33rem", paddingBottom: "0.5rem", marginTop: "1rem", maxHeight: votingPage ? "60%" : "80%"}}
+            style={{overflow: "hidden", width: "33rem", paddingBottom: "1rem", marginTop: "1rem", maxHeight: votingPage ? "60%" : "80%"}}
          >
             <div className={"ui medium header"} style={{margin: "0.5em 0 0 0", textAlign: "center"}}>
                Owners

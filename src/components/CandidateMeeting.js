@@ -59,7 +59,7 @@ const CandidateMeeting = ({
    const hasVoters = 'voters' in candidateMeeting;
    const selectedUserVoted = (hasVoters && selectedUser && candidateMeeting.voters.filter(voter => voter.userID === selectedUser).length > 0);
    const currentGuestVoted = (hasVoters && candidateMeeting.voters.filter(voter => voter.userID === currentGuest.id).length > 0);
-   const selectedStyle = selectedUserVoted || (selectedCandidate && selectedCandidate.candidateID === candidateMeeting.candidateID) ? "teal" : "";
+   const selectedStyle = selectedUserVoted || (selectedCandidate && selectedCandidate.candidateID === candidateMeeting.candidateID) ? "#45A29E" : "#d4d4d5";
 
    return (
       <div
@@ -67,8 +67,8 @@ const CandidateMeeting = ({
          onClick={() => onCandidateMeetingClick(candidateMeeting)}
       style={{paddingTop: "0.5rem"}}>
          <div
-            className={`ui link card ${selectedStyle} centered card-hover`}
-            style={{marginBottom: "0.5em", width: "90%"}}>
+            className={`ui link card centered card-hover`}
+            style={{marginBottom: "0.5em", width: "90%", boxShadow: `0 0 0 1px ${selectedStyle}`}}>
             <div className={"content"} style={{fontSize: "1.2em", padding: "0.5em 1em 0.5em 1em"}}>
 
                <div style={{float: "left"}}>
@@ -84,7 +84,8 @@ const CandidateMeeting = ({
                               <Icon
                                  path={mdiCheckCircleOutline}
                                  size={1}
-                                 style={{marginBottom: "0.2em", marginRight: "0.3em"}}
+                                 //#45A29E...#17cf17
+                                 style={{marginBottom: "0.2em", marginRight: "0.3em", color: "#45A29E"}}
                               /> :
                               null
                         }
@@ -118,7 +119,8 @@ const CandidateMeeting = ({
                         null
                   }{' '}
                   {
-                     currentGuest.role
+                     //currentGuest.role
+                     true
                      ?
                         <Icon
                            className="float-hover"

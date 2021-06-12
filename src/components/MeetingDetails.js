@@ -51,7 +51,7 @@ const MeetingDetails = ({meetingDetails}) => {
             className={"ui card centered grey"}
             style={{overflow: "visible", width: "33rem", paddingBottom: "0.5rem"}}
          >
-            <div className="content" style={{fontSize: "2em", padding: "0.5rem 1.313rem 0.5rem"}}>
+            <div className="content" style={{fontSize: "2em", padding: "0.5rem 1.313rem 0.5rem", textAlign: "center"}}>
                <span style={{fontWeight: "500"}}>
                   {meetingDetails.title}
                </span>
@@ -64,7 +64,7 @@ const MeetingDetails = ({meetingDetails}) => {
                <span className={"right floated"}
                      style={{}}>
                   <Tooltip top={"-0.25%"} left={"102%"} width={"14rem"}>
-                     This is your meeting. Click on the meeting code to the left to copy the link to share with others.
+                     This is your meeting. Click on the meeting code to the left to copy the link and share with others.
                   </Tooltip>
                </span>
             </div>

@@ -32,13 +32,10 @@
     font-size: 5vw;
   }
 
-  .custom-button{
-    font-size: 4vw;
-    margin-top: 0.5rem
-  }
 
   .content-card{
     transform: scale(.9);
     font-size: 0.9em;
   }
+
 }

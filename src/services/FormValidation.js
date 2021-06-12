@@ -13,3 +13,7 @@ export const isFutureDate = ({dateTtime}) => {
 
    return new Date(dateTtime) >= now;
 }
+
+export const isValidSize = ({value, minSize}) => {
+   return value >= minSize;
+}

@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from './Button';
-import Card from './Card';
 import '../css/CreateCandidateMeetings.css';
 import {createCandidateMeeting} from "../services/CandidateMeeting";
 import {redirect} from "../services/Redirect";
-import {isFutureDate, isValidLength} from "../services/FormValidation";
+import {isFutureDate, isValidLength, isValidSize} from "../services/FormValidation";
 import ErrorList from "./ErrorList";
-import useWindowDimensions from "../hooks/useWindowDimensions";
 import Tooltip from "./Tooltip";
 
 //todo: create structure for candidateMeeting based on database schema
@@ -20,7 +18,6 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
    const [length, setLength] = useState(0);
 
    //states for form validation
-   const [submitFlag, setSubmitFlag] = useState(false);
    const [formErrors, setFormErrors] = useState([]);
 
    const validateCandidateMeeting = () => {
@@ -34,21 +31,36 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
          minLength: 5
       })
       ) {
-         tempErrors.push('Please enter a valid meeting date and time.');
+         tempErrors.push('Please enter a valid Response Date and Time.');
       } else if (!isFutureDate(
          {
             dateTtime: date + 'T' + time + ':00'
          }
-      )) tempErrors.push('Meeting date has already passed.');
+      )) tempErrors.push('Response date has already passed.');
 
-      console.log('returning: ', tempErrors);
+      if(!isValidSize({
+         value: length,
+         minSize: 5,
+      })){
+         tempErrors.push("Meeting Length must be at least 5 minutes.");
+      }
+
       return tempErrors;
-   };
+   }
 
    //called when the 'Add Option' button is clicked
-   const onAddOption = async () => {
-      setSubmitFlag(!submitFlag);
+   const onAddOption = (event) => {
+      event.preventDefault();
       const tempErrors = validateCandidateMeeting();
+
+      //check for duplicate meeting
+      const tempOption = {
+         start: date + 'T' + time + ':00',
+         length: length,
+      };
+      if(candidateListHasDuplicate(candidateMeetings, tempOption)){
+         tempErrors.push('That Meeting Option already exists.');
+      }
 
       if (tempErrors.length === 0) {
          const option = {
@@ -61,13 +73,15 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
          //reset length - intentionally leave same date and time
          setLength(0);
 
+         //createCandidateMeeting
+         onCreateCandidateMeeting(option);
+
          //if meeting with same details already exists
-         if (!candidateListHasDuplicate(candidateMeetings, option)) {
-            onCreateCandidateMeeting(option);
-         }
-      } else {
-         setFormErrors(tempErrors)
+
       }
+      //always set form errors to tempErrors.
+      // otherwise you get the previous errors still rendering
+      setFormErrors(tempErrors);
 
    };
 
@@ -122,48 +136,51 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
    }
 
    return (
-      <Card width="32rem" padding="2rem 0 0 0">
-         <div className="content">
-            <div className="header">
-               Create Vote Options
-               <span className={"right floated"}>
+
+      <div className="ui container" style={{ paddingBottom: "1em"}}>
+         <div className="ui grey centered card" style={{width: "30rem"}}>
+
+            <div className="content">
+               <div className="header">
+                  Create Vote Options
+                  <span className={"right floated"}>
                   <Tooltip top={"-0.25%"} left={"102%"} width={"18rem"}>
                      Enter multiple different options (at least 2) for when to hold your meeting.
                      People with the meeting link will be able to vote on which meeting time they prefer.
                   </Tooltip>
                </span>
+               </div>
             </div>
-         </div>
-         <div className="content">
-            <form id="createCandidateMeetingsForm"
-                  className="ui large form"
-                  onSubmit={(e) => onFormSubmit(e)}>
-               <div className="field">
-                  <label className="left aligned">Meeting Date & Time</label>
-                  <div className="two fields">
-                     <div className="field">
-                        <input
-                           type="date"
-                           placeholder="Meeting Date"
-                           value={date}
-                           onChange={(e) => setDate(e.target.value)}
-                        />
-                     </div>
-                     <div className="field">
-                        <input
-                           type="time"
-                           placeholder="Meeting Time"
-                           value={time}
-                           onChange={(e) => setTime(e.target.value)}
-                        />
+            <div className="content">
+               <form id="createCandidateMeetingsForm"
+                     className="ui large form"
+                     onSubmit={(e) => onFormSubmit(e)}>
+                  <div className="field">
+                     <label className="left aligned">Meeting Date & Time</label>
+                     <div className="two fields">
+                        <div className="field">
+                           <input
+                              type="date"
+                              placeholder="Meeting Date"
+                              value={date}
+                              onChange={(e) => setDate(e.target.value)}
+                           />
+                        </div>
+                        <div className="field">
+                           <input
+                              type="time"
+                              placeholder="Meeting Time"
+                              value={time}
+                              onChange={(e) => setTime(e.target.value)}
+                           />
+                        </div>
                      </div>
                   </div>
-               </div>
 
-               <div className="field ui container" style={{width: "100%", padding: "0"}}>
-                  <label className="left aligned">Length (Minutes)</label>
+                  <div className="field ui container" style={{width: "100%", padding: "0"}}>
+                     <label className="left aligned">Length (Minutes)</label>
 
-                  <span className={"ui icon input"}>
+                     <span className={"ui icon input"}>
                      <span className={"ui ignored icon font buttons"}>
                         <a id="minus" className={"decrease ui button"}
                            style={{
@@ -198,29 +215,34 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
                      </span>
                   </span>
 
-               </div>
+                  </div>
 
-               <div style={{textAlign: "center"}}>
-                  <Button
-                     className="custom-button dark thin"
-                     onClick={() => redirect('/')}
-                     type="button"
-                  >
-                     Cancel
-                  </Button>{' '}
-                  <Button
-                     className="custom-button dark thin"
-                     onClick={() => onAddOption()}
-                     type="button"
-                  >
-                     Add Option
-                  </Button>
-               </div>
-            </form>
-            <ErrorList
-               errors={formErrors}/>
+                  <div style={{textAlign: "center"}}>
+                     <Button
+                        className="custom-button dark thin"
+                        onClick={() => redirect('/')}
+                        type="button"
+                     >
+                        Cancel
+                     </Button>
+                     {' '}
+                     <Button
+                        className="custom-button dark thin"
+                        onClick={(e) => onAddOption(e)}
+                        type="button"
+                     >
+                        Add Option
+                     </Button>
+                  </div>
+               </form>
+
+               <ErrorList
+                  errors={formErrors}/>
+
+            </div>
          </div>
-      </Card>
+      </div>
+
    );
 };
 

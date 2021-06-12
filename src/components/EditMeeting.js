@@ -119,7 +119,7 @@ const EditMeeting = (currentGuest) => {
       );
    }else if(edit === 1 && meetingID) {
       return (
-         <div style={{height: `${height - 125}px`}}>
+         <div style={{marginBottom: "2rem"}}>
             <CreateCandidateMeetings
                meetingID={meetingID}
                candidateMeetings={candidateMeetings}

@@ -139,7 +139,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          }).then(() => {
             updateCandidateMeetings();
          });
-      }else{
+      } else {
          await createVote({
             userID: currentGuest.id,
             candidateID: candidateMeeting.candidateID
@@ -162,19 +162,19 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    };
 
    const onHighlightCandidateMeeting = (candidateMeeting) => {
-      if(!selectedCandidate){
+      if (!selectedCandidate) {
          setSelectedCandidate(candidateMeeting);
          setSelectedUser(null);
-      }else{
+      } else {
          setSelectedCandidate(null);
       }
    };
 
    const onHighlightUser = (user) => {
-      if(!selectedUser){
+      if (!selectedUser) {
          setSelectedUser(user.id);
          setSelectedCandidate(null);
-      }else{
+      } else {
          setSelectedUser(null);
       }
    };
@@ -217,20 +217,24 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    }
 
    return (
-      <div className="center aligned ui three column very relaxed stackable grid">
-         <div className="column" style={{height: `${height - 125}px`}}>
-            <MeetingDetails meetingDetails={meetingDetails}/>
-            <UserList
-               userList={userList}
-               selectedUser={selectedUser}
-               onSelectUser={onHighlightUser}
-               selectedCandidate={selectedCandidate}
-               votingPage={true}
-            />
-            <InviteGuests/>
+      <div className="center aligned ui three column very relaxed stackable grid"
+      style={{height: `${height - 125}px`}}>
+
+         <div className="column" style={{height: "100%"}}>
+            <div className={"ui card"} style={{margin: "auto", width: "80%", boxShadow: "none"}}>
+               <MeetingDetails meetingDetails={meetingDetails}/>
+               <UserList
+                  userList={userList}
+                  selectedUser={selectedUser}
+                  onSelectUser={onHighlightUser}
+                  selectedCandidate={selectedCandidate}
+                  votingPage={true}
+               />
+            </div>
          </div>
 
-         <div className="column" style={{height: `${height - 125}px`}}>
+
+         <div className="column" style={{height: "100%"}}>
             <CandidateMeetingList
                currentGuest={currentGuest}
                selectedUser={selectedUser}
@@ -246,9 +250,10 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             />
          </div>
 
-         <div className="column">
-            <div className={"ui card"} style={{width: "80%",margin: "auto", overflow: "hidden", height: `${height - 125}px`}}>
-               <div className={"ui  header"} style={{marginBottom: "0", marginTop: "1em"}}>
+         <div className="column" style={{height: "100%"}}>
+            <div className={"ui card"}
+                 style={{width: "80%", margin: "auto", overflow: "hidden", height: `${height - 125}px`}}>
+               <div className={"ui header"} style={{marginBottom: "0", marginTop: "1em"}}>
                   Comments
                </div>
                <CommentList
@@ -260,6 +265,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
                   createComment={createComment}/>
             </div>
          </div>
+
       </div>
    );
 }

@@ -18,7 +18,7 @@ const Header = () => {
           <div className="header item">
             <Link href='/' className="no-hover">
               <h1 className="ui huge header">
-                <div className="ui grid">
+                <div className="ui grid" style={{paddingLeft: "0.875rem"}}>
                   <div className="nine wide column" style={{padding: '0', color: "white"}}> meeting </div>
                   <div className="seven wide column" style={{padding: '0', color: "#45A29E"}}> maker </div>
                 </div>
