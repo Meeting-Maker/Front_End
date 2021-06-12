@@ -49,9 +49,9 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, voti
    function UserCard(user){
       let selectedStyle;
       if(selectedCandidate){
-         selectedStyle = (selectedUser === user.id) || (selectedCandidate.voters.filter(voter => voter.userID === user.id).length > 0) ? "teal" : "";
+         selectedStyle = (selectedUser === user.id) || (selectedCandidate.voters.filter(voter => voter.userID === user.id).length > 0) ? "#45A29E" : "#d4d4d5";
       }else{
-         selectedStyle = (selectedUser === user.id) ? "teal" : "";
+         selectedStyle = (selectedUser === user.id) ? "#45A29E" : "#d4d4d5";
       }
       return (
          <div
@@ -64,6 +64,7 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, voti
             >
                <div
                   className={`ui link ${selectedStyle} fluid card user-card`}
+                  style={{boxShadow: `0 0 0 1px ${selectedStyle}`}}
                >
                   <div className="content">
                      <div className={"ui header floated left"}>
