@@ -217,9 +217,10 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
    }
 
    return (
-      <div className="center aligned ui three column very relaxed stackable grid">
+      <div className="center aligned ui three column very relaxed stackable grid"
+      style={{height: `${height - 125}px`}}>
 
-         <div className="column">
+         <div className="column" style={{height: "100%"}}>
             <div className={"ui card"} style={{margin: "auto", width: "80%", boxShadow: "none"}}>
                <MeetingDetails meetingDetails={meetingDetails}/>
                <UserList
@@ -233,7 +234,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
          </div>
 
 
-         <div className="column">
+         <div className="column" style={{height: "100%"}}>
             <CandidateMeetingList
                currentGuest={currentGuest}
                selectedUser={selectedUser}
@@ -249,7 +250,7 @@ const Meeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             />
          </div>
 
-         <div className="column">
+         <div className="column" style={{height: "100%"}}>
             <div className={"ui card"}
                  style={{width: "80%", margin: "auto", overflow: "hidden", height: `${height - 125}px`}}>
                <div className={"ui header"} style={{marginBottom: "0", marginTop: "1em"}}>
