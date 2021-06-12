@@ -121,7 +121,7 @@ const CandidateMeetingList = ({
    return (
       <div
          className={"ui card centered"}
-         style={{overflow: "visible", width: "30rem", maxHeight: votingPage ? "100%" : "60%"}}
+         style={{overflow: "visible", width: "30rem", maxHeight: votingPage ? "75%" : "50vh"}}
       >
          <div className={"ui medium header"}
               style={{margin: "0.5em 0 0 0", padding: "0.5rem 1.313rem 0.5rem 1.313rem", textAlign: "center"}}>
@@ -153,7 +153,6 @@ const CandidateMeetingList = ({
                         dropdownOptions={dropdownOptions}
                         dropdownSelection={dropdownSelection}
                         setDropdownSelection={setDropdownSelection}
-
                      />
                   </span>
                      : null}
@@ -161,8 +160,6 @@ const CandidateMeetingList = ({
          </div>
 
          {votingPage ? null : <div style={{textAlign: "center", padding: "0 0 0.5rem 0"}}>{formMessage}</div>}
-
-
          <div className={"ui list"} style={{overflowY: "auto", margin: '0 0 0 0'}}>
             {renderedList}
          </div>
