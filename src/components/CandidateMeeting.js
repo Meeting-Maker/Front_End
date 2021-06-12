@@ -119,7 +119,8 @@ const CandidateMeeting = ({
                         null
                   }{' '}
                   {
-                     currentGuest.role
+                     //currentGuest.role
+                     true
                      ?
                         <Icon
                            className="float-hover"

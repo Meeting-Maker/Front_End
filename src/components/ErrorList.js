@@ -5,28 +5,31 @@ const ErrorList = ({errors}) => {
 
    useEffect(
       () => {
-         if(errors.length > 0) setRenderedErrors(errors.map(error => <p key={error}>{error}</p>));
+         if(errors.length > 0) setRenderedErrors(errors.map(error => <p key={error}>{error}</p>))
+         else{
+            setRenderedErrors('');
+         }
       }, [errors]
    );
 
    useEffect(
       () => {
-
       }, [renderedErrors]
    );
 
    return (
-      <div
+      errors.length > 0 ?
+         <div
          className="ui error message"
          style={{
             textAlign: "center",
             padding: "0.25rem 0.25rem",
             marginTop: "0.5rem",
-            display: errors.length > 0 ? "block" : "none"
          }}
       >
          {renderedErrors}
       </div>
+         : null
    );
 };
 

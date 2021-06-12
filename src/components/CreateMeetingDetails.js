@@ -19,9 +19,7 @@ const CreateMeetingDetails = ({
    const [meetingDescription, setMeetingDescription] = useState('');
    const [dueDate, setDueDate] = useState('');
    const [dueTime, setDueTime] = useState('');
-
    //states for form validation
-   const [submitFlag, setSubmitFlag] = useState(false);
    const [formErrors, setFormErrors] = useState([]);
 
    useEffect(
@@ -41,7 +39,6 @@ const CreateMeetingDetails = ({
                await setUserName(currentGuest.name);
             }
          }
-
          if (captureUserName) loadUserName();
       }, [currentGuest]
    );
@@ -70,22 +67,20 @@ const CreateMeetingDetails = ({
          minLength: 5
       })
       ) {
-         tempErrors.push('Please enter a valid response date and time.');
+         tempErrors.push('Please enter a valid Response Date and Time.');
       } else if (!isFutureDate(
          {
             dateTtime: dueDate + 'T' + dueTime + ':00'
          }
       )) tempErrors.push('Response date has already passed.');
 
-      console.log('returning: ', tempErrors);
       return tempErrors;
    };
 
    const onCreateMeetingDetails = async (event) => {
       event.preventDefault();
-      setSubmitFlag(!submitFlag);
-
       const tempErrors = validateMeetingDetails();
+
       if (tempErrors.length === 0) {
          onUpdateGuest({
             id: currentGuest.id,
@@ -102,17 +97,16 @@ const CreateMeetingDetails = ({
          };
 
          onCreateMeeting(meetingDetails);
-      } else {
-         setFormErrors(tempErrors);
       }
+      //always set form errors to tempErrors.
+      // otherwise you get the previous errors still rendering
+      setFormErrors(tempErrors);
+
    };
 
    return (
-
-
       <div className="ui container" style={{width: "50rem", paddingBottom: "1em"}}>
-         <div className="ui grey centered fluid card" style={{}}>
-            
+         <div className="ui centered fluid card" style={{}}>
             <div className="content">
                <div className="header">
                   Create Your Meeting
@@ -123,7 +117,6 @@ const CreateMeetingDetails = ({
             </span>
                </div>
             </div>
-
             <div className="content">
                <form className="ui large form">
                   {
@@ -187,29 +180,29 @@ const CreateMeetingDetails = ({
                   </div>
 
                   <hr/>
+
                   <div style={{textAlign: "center"}}>
-                     <span className={"left floated"}>
-                        <Button
-                           className="custom-button dark"
-                           type="button"
-                           onClick={() => redirect('/')}
-                        >Cancel
-                        </Button>
-                     </span>
-                     <span className={"right floated"}>
-                        <Button
-                           className="custom-button dark"
-                           onClick={(e) => onCreateMeetingDetails(e)}
-                        >
-                           Create Poll
-                        </Button>
-                     </span>
+
+                     <Button
+                        className="custom-button dark"
+                        type="button"
+                        onClick={() => redirect('/')}
+                     >Cancel
+                     </Button>
+                     {' '}
+                     <Button
+                        className="custom-button dark"
+                        onClick={(e) => onCreateMeetingDetails(e)}
+                     >
+                        Create Poll
+                     </Button>
                   </div>
                </form>
                <ErrorList
                   errors={formErrors}/>
             </div>
          </div>
+
       </div>
    );
 };
