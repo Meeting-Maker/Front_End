@@ -18,7 +18,7 @@ const CommentList = ({comments, updateComments, currentGuest}) => {
     });
 
     return (
-        <div className={"ui list"} style={{ overflowY: "scroll", marginBottom: "0"}}>
+        <div className={"ui list"} style={{ overflowY: "auto", marginBottom: "0"}}>
             {renderList}
         </div>
     );
