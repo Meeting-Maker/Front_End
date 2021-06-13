@@ -82,8 +82,6 @@ const UserList = ({
                </div>
             </div>
           </div>
-        </div>
-      </div>
     );
   }
 
@@ -106,7 +104,6 @@ const UserList = ({
             {renderedGuestList}
          </div>
       </div>
-    </div>
   );
 };
 
