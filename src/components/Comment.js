@@ -1,28 +1,22 @@
-import Icon from '@mdi/react';
-import {mdiAccount, mdiDelete} from '@mdi/js';
+import Icon from "@mdi/react";
+import { mdiAccount, mdiDelete } from "@mdi/js";
 import React from "react";
 import {formatDate} from "../services/Comment";
 import {deleteComment} from "../services/Comment";
 import "../css/Comment.css";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default ({comment, updateComments, currentGuest}) => {
+export default ({ comment, updateComments, currentGuest }) => {
+  const onDeleteComment = () => updateComments(comment.commentID);
 
-   const onDeleteComment = () => {
-      try {
-         deleteComment({
-            commentID: comment.commentID
-         }).then(() => {
-            updateComments();
-         });
-      } catch (error) {
-         // display the error to user
-      }
-   }
-
-   function renderComment() {
-      if (comment.userID !== 1)
-         return (
+  function renderComment() {
+    if (comment.userID !== 1)
+      return (
+        <div className={"content"}>
+          <div className={"comment"}>
+            <div className={"avatar"}>
+              <Icon path={mdiAccount} size={2} color={"black"} />
+            </div>
             <div className={"content"}>
                <div className={"comment"}>
                   <div className={"avatar"}>
@@ -50,25 +44,34 @@ export default ({comment, updateComments, currentGuest}) => {
                      : null
                }
             </div>
-         )
-      else
-         return (
-            <div className={"content"} style={{padding: '0.5em'}}>
-               <div className={"content"}>
-                  <div className={"text"}
-                       style={{float: "center"}}>
-                     {comment.content}
-                  </div>
-               </div>
+          </div>
+          {currentGuest.id === comment.userID ? (
+            <Icon
+              onClick={onDeleteComment}
+              className={"right floated"}
+              path={mdiDelete}
+              size={1}
+            />
+          ) : null}
+        </div>
+      );
+    else
+      return (
+        <div className={"content"} style={{ padding: "0.5em" }}>
+          <div className={"content"}>
+            <div className={"text"} style={{ float: "center" }}>
+              {comment.content}
             </div>
-         )
-   }
+          </div>
+        </div>
+      );
+  }
 
-   return (
-      <div className={"ui container comments"} style={{padding: "0"}}>
-         <div className={"ui card centered"} style={{width: "90%"}}>
-            {renderComment()}
-         </div>
+  return (
+    <div className={"ui container comments"} style={{ padding: "0" }}>
+      <div className={"ui card centered"} style={{ width: "90%" }}>
+        {renderComment()}
       </div>
-   )
-}
+    </div>
+  );
+};

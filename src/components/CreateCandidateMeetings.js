@@ -121,16 +121,52 @@ const CreateCandidateMeetings = ({meetingID, candidateMeetings, setCandidateMeet
       if (val % 5 !== 0) {
          val = (Math.floor(val / 5) + 1) * 5;
       }
-      setLength(val);
-   };
+    } else {
+      setFormErrors(tempErrors);
+    }
+  };
 
-   const candidateListHasDuplicate = (list, JSON) => {
-      for (let i = 0; i < list.length; i++) {
-         if (
-            list[i].start === JSON.start &&
-            list[i].length === JSON.length) {
-            return true;
-         }
+  const onCreateCandidateMeeting = (candidateMeeting) => {
+    createCandidateMeeting(candidateMeeting).then((response) => {
+      setCandidateMeetings((old) => [...old, response.data]);
+    });
+  };
+
+  //called when the 'Create Meeting' button is clicked
+  //verifies that at least 2 candidates exist
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+    if (candidateMeetings.length < 2) {
+      console.error("You need at least two candidates to create a meeting.");
+    } else {
+      redirect("/meeting", [{ key: "meetingID", value: meetingID }]);
+    }
+  };
+
+  const onChangeLength = (input) => {
+    let val;
+    switch (input) {
+      case "plus":
+        val = length + 5;
+        break;
+      case "minus":
+        val = length - 5;
+        break;
+      default:
+        val = input;
+        break;
+    }
+
+    if (val % 5 !== 0) {
+      val = (Math.floor(val / 5) + 1) * 5;
+    }
+    setLength(val);
+  };
+
+  const candidateListHasDuplicate = (list, JSON) => {
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].start === JSON.start && list[i].length === JSON.length) {
+        return true;
       }
       return false;
    }

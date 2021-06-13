@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import CandidateMeeting from "./CandidateMeeting";
-import {deleteCandidateMeeting} from "../services/CandidateMeeting";
+import { deleteCandidateMeeting } from "../services/CandidateMeeting";
 import Button from "./Button";
 import {redirect} from "../services/Redirect";
 import Dropdown from './Dropdown';
@@ -8,26 +8,26 @@ import {createComments} from "../services/Comment";
 import Tooltip from './Tooltip';
 
 const dropdownOptions = [
-   {
-      label: 'Date',
-      value: 'dateAscending',
-      order: 'ascending'
-   },
-   {
-      label: 'Date',
-      value: 'dateDescending',
-      order: 'descending'
-   },
-   {
-      label: 'Votes',
-      value: 'votesAscending',
-      order: 'ascending'
-   },
-   {
-      label: 'Votes',
-      value: 'votesDescending',
-      order: 'descending'
-   },
+  {
+    label: "Date",
+    value: "dateAscending",
+    order: "ascending",
+  },
+  {
+    label: "Date",
+    value: "dateDescending",
+    order: "descending",
+  },
+  {
+    label: "Votes",
+    value: "votesAscending",
+    order: "ascending",
+  },
+  {
+    label: "Votes",
+    value: "votesDescending",
+    order: "descending",
+  },
 ];
 
 const CandidateMeetingList = ({
@@ -218,28 +218,30 @@ const sort = (candidateMeetings, option) => {
 };
 
 function equalCandidateMeetingLists(a, b) {
-   return (
-      Array.isArray(a) &&
-      Array.isArray(b) &&
-      a.length === b.length &&
-      //return true if all candidateMeetings are equal based only on ID, start, and voters
-      a.every((candidate, index) => {
-         return (
-            candidate.candidateID === b[index].candidateID &&
-            candidate.start === b[index].start &&
-            equalVoterLists(candidate.voters, b[index].voters)
-         );
-      })
-   );
+  return (
+    Array.isArray(a) &&
+    Array.isArray(b) &&
+    a.length === b.length &&
+    //return true if all candidateMeetings are equal based only on ID, start, and voters
+    a.every((candidate, index) => {
+      return (
+        candidate.candidateID === b[index].candidateID &&
+        candidate.start === b[index].start &&
+        equalVoterLists(candidate.voters, b[index].voters)
+      );
+    })
+  );
 }
 
 function equalVoterLists(a, b) {
-   return Array.isArray(a) &&
-      Array.isArray(b) &&
-      a.length === b.length &&
-      a.every((voter, index) => {
-         return voter.userID === b[index].userID
-      });
+  return (
+    Array.isArray(a) &&
+    Array.isArray(b) &&
+    a.length === b.length &&
+    a.every((voter, index) => {
+      return voter.userID === b[index].userID;
+    })
+  );
 }
 
 export default CandidateMeetingList;

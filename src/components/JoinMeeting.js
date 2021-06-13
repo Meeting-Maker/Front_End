@@ -12,7 +12,6 @@ const JoinMeeting = ({onUpdateMeetingID}) => {
    useEffect(
       () => {
          validateMeetingIDFromParam();
-         console.log('date: ', new Date());
          // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []
    );

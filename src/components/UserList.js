@@ -1,31 +1,39 @@
-import React, {useEffect, useState} from "react";
-import '../css/UserList.css'
+import React, { useState } from "react";
+import "../css/UserList.css";
 
+const UserList = ({
+  userList,
+  selectedUser,
+  selectedCandidate,
+  onSelectUser,
+  votingPage,
+}) => {
+  const [delayedUserList, setDelayedUserList] = useState([]);
+  const [delayedAdminList, setDelayedAdminList] = useState([]);
+  const [delayedGuestList, setDelayedGuestList] = useState([]);
 
-const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, votingPage}) => {
-   const [delayedUserList, setDelayedUserList] = useState([]);
-   const [delayedAdminList, setDelayedAdminList] = useState([]);
-   const [delayedGuestList, setDelayedGuestList] = useState([]);
+  if (userList.length === 0) {
+    return <div className="ui container">There are no users</div>;
+  }
 
-   useEffect(
-      () => {
+  if (delayedUserList !== userList) {
+    updateDelayedLists();
+  }
 
-      }, [delayedUserList]
-   );
+  function updateDelayedLists() {
+    let adminList = [];
+    let guestList = [];
 
-   useEffect(
-      () => {
-         console.log('selected Candidate: ', selectedCandidate);
-      }, [userList, selectedUser, selectedCandidate]
-   );
+    //sorts users into admin and guestList
+    for (const i in userList) {
+      if (userList[i].role === 0) guestList.push(userList[i]);
+      else if (userList[i].role === 1) adminList.push(userList[i]);
+    }
 
-   if (userList.length === 0) {
-      return (
-         <div className="ui container">
-            There are no users
-         </div>
-      );
-   }
+    setDelayedAdminList(adminList);
+    setDelayedGuestList(guestList);
+    setDelayedUserList(userList);
+  }
 
    if(delayedUserList !== userList){
       updateDelayedLists();
@@ -73,12 +81,14 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, voti
                   </div>
                </div>
             </div>
-         </div>
-      );
-   }
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-   const renderedAdminList = delayedAdminList.map(user => UserCard(user));
-   const renderedGuestList = delayedGuestList.map(user => UserCard(user));
+  const renderedAdminList = delayedAdminList.map((user) => UserCard(user));
+  const renderedGuestList = delayedGuestList.map((user) => UserCard(user));
 
    return (
       <div>
@@ -96,7 +106,8 @@ const UserList = ({userList, selectedUser, selectedCandidate, onSelectUser, voti
             {renderedGuestList}
          </div>
       </div>
-   );
+    </div>
+  );
 };
 
 export default UserList;
