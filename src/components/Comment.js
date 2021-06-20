@@ -1,7 +1,7 @@
 import Icon from "@mdi/react";
 import { mdiAccount, mdiDelete } from "@mdi/js";
 import React from "react";
-import { formatDate } from "../services/Comment";
+import {format} from "date-fns";
 import "../css/Comment.css";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -26,7 +26,7 @@ export default ({ comment, updateComments, currentGuest }) => {
                 <div className={"metadata"}>
                   <span className={"date"}>
                     {" "}
-                    {formatDate(comment.createdAt)}{" "}
+                    {format(new Date(comment.createdAt), 'EEEE, MMMM do, p')}{" "}
                   </span>
                 </div>
               </a>
