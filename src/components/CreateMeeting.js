@@ -32,7 +32,6 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
             onCreateMeeting={onCreateMeeting}
             captureUserName={true}
          />
-
    );
 };
 

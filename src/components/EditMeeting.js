@@ -89,8 +89,6 @@ const EditMeeting = (currentGuest) => {
    //todo: convert CreateMeeting button in CreateCandidateMeetings component to Link,
    //remove window.history.pushState here
    const onSubmitEdit = async (change) => {
-      console.error('md: ', meetingID);
-      console.error('change: ', change);
       if(edit === 0){
          await editMeetingDetails({
             meetingID: meetingID,

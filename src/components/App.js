@@ -8,6 +8,8 @@ import CreateMeeting from './CreateMeeting';
 import JoinMeeting from './JoinMeeting';
 import Meeting from './Meeting';
 import EditMeeting from "./EditMeeting";
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
    const [currentGuest, setCurrentGuest] = useState({id: null, name: '', role: null});
@@ -66,6 +68,18 @@ const App = () => {
             </Route>
          </div>
          <Footer/>
+         <ToastContainer
+            position="bottom-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            style={{marginTop: "40px", marginBottom: "40px"}}
+         />
       </div>
    );
 };
