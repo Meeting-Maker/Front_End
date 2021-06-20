@@ -6,6 +6,7 @@ import {redirect} from "../services/Redirect";
 import Dropdown from "./Dropdown";
 import {createComments} from "../services/Comment";
 import Tooltip from "./Tooltip";
+import {Toast} from "../ultis/toast";
 
 const dropdownOptions = [
    {
@@ -82,6 +83,7 @@ const CandidateMeetingList = ({
       deleteCandidateMeeting(candidateID).then((response) => {
          updateCandidateMeetings();
          displayDeleteMessage();
+         Toast('Option Deleted', 'success');
       });
    };
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../css/UserList.css";
+import InviteGuests from "./InviteGuests";
 
 const UserList = ({
   userList,
@@ -102,6 +103,7 @@ const UserList = ({
                Guests
             </div>
             {renderedGuestList}
+            <InviteGuests/>
          </div>
       </div>
   );

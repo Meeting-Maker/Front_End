@@ -23,6 +23,7 @@ import CreateComment from "./CreateComment";
 import InviteGuests from "./InviteGuests";
 import { io } from "socket.io-client";
 import * as socketOperation from "../ultis";
+import {Toast} from "../ultis/toast";
 
 let socket = io("http://localhost:4000");
 
@@ -214,6 +215,7 @@ const Meeting = ({ currentGuest, onUpdateGuest, onUpdateMeetingID }) => {
             candidateID: candidateMeeting.candidateID,
           }
         );
+        Toast('Vote Deleted!', 'error');
       });
     } else {
       await createVote({
@@ -226,6 +228,7 @@ const Meeting = ({ currentGuest, onUpdateGuest, onUpdateMeetingID }) => {
           meetingID,
           { userID: currentGuest.id, candidateMeeting: candidateMeeting }
         );
+        Toast('Vote Cast!', 'success');
       });
     }
   };
@@ -305,7 +308,6 @@ const Meeting = ({ currentGuest, onUpdateGuest, onUpdateMeetingID }) => {
           selectedCandidate={selectedCandidate}
           votingPage={true}
         />
-        <InviteGuests />
       </div>
 
       <div className="column" style={{ height: `${height - 125}px` }}>

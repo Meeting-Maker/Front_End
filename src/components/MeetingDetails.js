@@ -5,6 +5,7 @@ import {redirect} from "../services/Redirect";
 import Tooltip from "./Tooltip";
 import '../css/MeetingDetails.css';
 import {fetchCurrentMeeting} from "../services/Storage";
+import {Toast} from "../ultis/toast";
 import {format} from "date-fns";
 
 const MeetingDetails = ({meetingDetails}) => {
@@ -18,7 +19,7 @@ const MeetingDetails = ({meetingDetails}) => {
    const onCodeClick = () => {
       const joinURL = 'https://www.meetingmaker.ca/join?meetingID=' + fetchCurrentMeeting();
       navigator.clipboard.writeText(joinURL);
-      alert("Link copied to clipboard.");
+      Toast('Meeting Code Copied!', 'success');
    };
 
    if (!meetingDetails || !meetingDetails.meetingID || !meetingDetails.title || !meetingDetails.dueDate) {
