@@ -9,6 +9,7 @@ import {
    mdiCheckCircleOutline,
 } from "@mdi/js";
 import "../css/CandidateMeeting.css";
+import {format} from "date-fns";
 
 const CandidateMeeting = ({
                              currentGuest,
@@ -73,6 +74,8 @@ const CandidateMeeting = ({
          ? "#45A29E"
          : "#d4d4d5";
 
+   const nDate = new Date(date + 'T' + time + ':00');
+
    return (
       <div
          className="candidate-meeting"
@@ -92,7 +95,7 @@ const CandidateMeeting = ({
                style={{fontSize: "1.2em", padding: "0.5em 1em 0.5em 1em"}}
             >
                <div style={{float: "left"}}>
-                  <Icon path={mdiCalendarRange} size={0.8}/> {date}
+                  <Icon path={mdiCalendarRange} size={0.8}/> {format(nDate, 'EEEE, MMMM do')}
                </div>
                {votingPage ? (
                   <div
@@ -120,12 +123,12 @@ const CandidateMeeting = ({
                ) : null}
                <br/>
                <div style={{float: "left"}}>
-                  <Icon path={mdiClockTimeFourOutline} size={0.8}/> {time}
+                  <Icon path={mdiClockTimeFourOutline} size={0.8}/> {format(nDate, 'p')}
                </div>
                <br/>
 
                <div style={{float: "left"}}>
-                  <Icon path={mdiTimerSand} size={0.8}/> Duration: {length + "m"}
+                  <Icon path={mdiTimerSand} size={0.8}/> {length + "m"}
                </div>
                <div className={"right floated icon-hover"}>
                   {votingPage ?
