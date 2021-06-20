@@ -15,13 +15,13 @@ const CreateMeeting = ({currentGuest, onUpdateGuest, onUpdateMeetingID}) => {
       await createGuestMeeting(meetingDetails).then(response => {
          onUpdateGuest({
             id: response.data.userID,
-            name: meetingDetails.name
+            name: meetingDetails.name,
+            role: 1,
          });
          const id = response.data.meetingID;
          setMeetingID(id)
          onUpdateMeetingID(id)
       });
-
    };
 
    return (
