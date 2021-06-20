@@ -17,3 +17,10 @@ export const isFutureDate = ({dateTtime}) => {
 export const isValidSize = ({value, minSize}) => {
    return value >= minSize;
 }
+
+export const isAfterDate = ({input, compareAgainst}) => {
+   let inputDate = new Date(input);
+   let compareDate = new Date(compareAgainst);
+
+   return inputDate > compareDate;
+}

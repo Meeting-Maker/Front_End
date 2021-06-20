@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 
 const ErrorList = ({errors}) => {
    const [renderedErrors, setRenderedErrors] = useState('');
-
    useEffect(
       () => {
          if(errors.length > 0) setRenderedErrors(errors.map(error => <p key={error}>{error}</p>))
