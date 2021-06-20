@@ -5,11 +5,13 @@ import {redirect} from "../services/Redirect";
 import Tooltip from "./Tooltip";
 import '../css/MeetingDetails.css';
 import {fetchCurrentMeeting} from "../services/Storage";
+import {format} from "date-fns";
 
 const MeetingDetails = ({meetingDetails}) => {
 
    useEffect(
       () => {
+
       }, [meetingDetails]
    );
 
@@ -78,7 +80,7 @@ const MeetingDetails = ({meetingDetails}) => {
                   null
             }
             <div className="extra content">
-               <span style={{color: "black"}}>Response Needed by: {date} at {time}</span>
+               <span style={{color: "black"}}>Response Needed by: {format(new Date(meetingDetails.dueDate), 'EEEE, MMMM do, @ p')}</span>
             </div>
          </div>
 
