@@ -35,6 +35,18 @@ export const deleteVote = (ops, ref, setCandidateMeetings) => {
   setCandidateMeetings(ref.current);
 };
 
+export const addCandidate = (ops, ref, setCandidateMeetings) => {
+  ref.current = [...ref.current, ops.candidateMeeting];
+  setCandidateMeetings([]);
+  setCandidateMeetings(ref.current);
+};
+
+export const deleteCandidate = (ops, ref, setCandidateMeetings) => {
+  const temp = ref.current.filter((candidate) => candidate.candidateID !== ops);
+  ref.current = temp;
+  setCandidateMeetings(temp)
+};
+
 export const addUser = (ops, ref, setUser) => {
   const temp = [...ref.current, { name: ops.name, id: ops.userID, role: 0 }];
   setUser(temp);

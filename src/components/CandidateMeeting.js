@@ -133,7 +133,7 @@ const CandidateMeeting = ({
                 size={1}
               />
             ) : null}{" "}
-            {currentGuest.role ? (
+            {currentGuest.role === 1? (
               <Icon
                 className="float-hover"
                 onClick={(e) => onDeleteClick(e)}

@@ -21,12 +21,15 @@ import { createVote, deleteVote } from "../services/Vote";
 import { redirect } from "../services/Redirect";
 import CreateComment from "./CreateComment";
 import InviteGuests from "./InviteGuests";
-import { io } from "socket.io-client";
+
 import * as socketOperation from "../ultis";
 
-let socket = io("http://localhost:4000");
-
-const Meeting = ({ currentGuest, onUpdateGuest, onUpdateMeetingID }) => {
+const Meeting = ({
+  currentGuest,
+  onUpdateGuest,
+  onUpdateMeetingID,
+  socket,
+}) => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [meetingID, setMeetingID] = useState("");
@@ -76,6 +79,16 @@ const Meeting = ({ currentGuest, onUpdateGuest, onUpdateMeetingID }) => {
         break;
       case socketOperation.ADD_USER:
         socketOperation.addUser(ops, userRef, setUserList);
+        break;
+      case socketOperation.ADD_CANDIDATE:
+        socketOperation.addCandidate(ops, candidateRef, setCandidateMeetings);
+        break;
+      case socketOperation.DELETE_CANDIDATE:
+        socketOperation.deleteCandidate(
+          ops,
+          candidateRef,
+          setCandidateMeetings
+        );
         break;
       default:
         console.log("You passed the wrong type");
@@ -321,6 +334,7 @@ const Meeting = ({ currentGuest, onUpdateGuest, onUpdateMeetingID }) => {
           votingPage={true}
           meetingID={meetingDetails.meetingID}
           setComments={setComments}
+          socket={socket}
         />
       </div>
 

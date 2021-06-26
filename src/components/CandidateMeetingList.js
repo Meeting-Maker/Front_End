@@ -6,6 +6,7 @@ import { redirect } from "../services/Redirect";
 import Dropdown from "./Dropdown";
 import { createComments } from "../services/Comment";
 import Tooltip from "./Tooltip";
+import * as socketOperation from "../ultis";
 
 const dropdownOptions = [
   {
@@ -34,7 +35,6 @@ const CandidateMeetingList = ({
   currentGuest,
   selectedUser,
   candidateMeetings,
-  updateCandidateMeetings,
   selectedCandidate,
   onSelectCandidate,
   onCandidateMeetingClick,
@@ -42,6 +42,7 @@ const CandidateMeetingList = ({
   formMessage,
   votingPage,
   meetingID,
+  socket,
   setComments,
 }) => {
   //todo: convert to unique id from database
@@ -51,7 +52,7 @@ const CandidateMeetingList = ({
   const [delayedCandidateMeetings, setDelayedCandidateMeetings] = useState([]);
   const [sortedList, setSortedList] = useState([]);
 
-  useEffect(() => {}, [sortedList]);
+
 
   useEffect(() => {
     if (
@@ -73,13 +74,18 @@ const CandidateMeetingList = ({
       userID: 1,
       content: `A candidateMeeting has been deleted by a user ${currentGuest.name}`,
     }).then((response) => {
-      setComments((old) => [...old, response.data]);
+      // setComments((old) => [...old, response.data]); // emit socket event instead
     });
   };
 
   const onDeleteCandidateMeeting = (candidateID) => {
-    deleteCandidateMeeting(candidateID).then((response) => {
-      updateCandidateMeetings();
+    deleteCandidateMeeting(candidateID).then(() => {
+      socketOperation.emitEvent(
+        socket,
+        socketOperation.DELETE_CANDIDATE,
+        meetingID,
+        candidateID
+      );
       displayDeleteMessage();
     });
   };
@@ -166,7 +172,6 @@ const CandidateMeetingList = ({
           ) : null}
         </span>
       </div>
-
       {votingPage ? null : (
         <div style={{ textAlign: "center", padding: "0 0 0.5rem 0" }}>
           {formMessage}
@@ -187,6 +192,7 @@ const CandidateMeetingList = ({
           {isEditPage() ? <span>Create Meeting</span> : null}
         </Button>
       ) : null}
+
       {votingPage && currentGuest.role === 1 ? (
         <Button className="custom-button dark" onClick={onEditClick}>
           {candidateMeetings.length === 0 ? "Add Options" : "Edit Options"}

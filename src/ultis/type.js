@@ -3,3 +3,5 @@ export const DELETE_COMMENT = "DELETE_COMMENT";
 export const CAST_VOTE = "CAST_VOTE";
 export const DELETE_VOTE = "DELETE_VOTE";
 export const ADD_USER = "ADD_USER";
+export const ADD_CANDIDATE = "ADD_CANDIDATE";
+export const DELETE_CANDIDATE = "DELETE_CANDIDATE";

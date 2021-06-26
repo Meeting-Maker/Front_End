@@ -10,6 +10,7 @@ import {
 } from "../services/FormValidation";
 import ErrorList from "./ErrorList";
 import Tooltip from "./Tooltip";
+import * as socketOperation from "../ultis";
 
 //todo: create structure for candidateMeeting based on database schema
 //todo: rename minutes variable to ~length
@@ -20,6 +21,7 @@ const CreateCandidateMeetings = ({
   meetingID,
   candidateMeetings,
   setCandidateMeetings,
+  socket,
 }) => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -98,7 +100,23 @@ const CreateCandidateMeetings = ({
 
   const onCreateCandidateMeeting = (candidateMeeting) => {
     createCandidateMeeting(candidateMeeting).then((response) => {
-      setCandidateMeetings((old) => [...old, response.data]);
+      console.log(response);
+      const newCandidate = {
+        candidateID: response.data.candidateID,
+        end: response.data.end,
+        start: response.data.start,
+        meetingID: response.data.meetingID,
+        length: response.data.length,
+        voters: [],
+      };
+      socketOperation.emitEvent(
+        socket,
+        socketOperation.ADD_CANDIDATE,
+        meetingID,
+        {
+          candidateMeeting: newCandidate,
+        }
+      );
     });
   };
 
