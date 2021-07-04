@@ -17,8 +17,7 @@ export default ({ comment, updateComments, currentGuest }) => {
               <Icon path={mdiAccount} size={2} color={"black"} />
             </div>
             <div className={"content"}>
-              <a
-                href={"/"}
+              <span
                 className={"author"}
                 style={{ float: "left", color: "black" }}
               >
@@ -29,7 +28,7 @@ export default ({ comment, updateComments, currentGuest }) => {
                     {format(new Date(comment.createdAt), 'EEEE, MMMM do, p')}{" "}
                   </span>
                 </div>
-              </a>
+              </span>
               <br />
               <div className={"text"} style={{ float: "left" }}>
                 {comment.content}
@@ -42,6 +41,7 @@ export default ({ comment, updateComments, currentGuest }) => {
               className={"right floated"}
               path={mdiDelete}
               size={1}
+              style={{cursor: "pointer"}}
             />
           ) : null}
         </div>

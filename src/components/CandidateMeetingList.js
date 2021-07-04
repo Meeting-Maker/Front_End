@@ -59,13 +59,13 @@ const CandidateMeetingList = ({
       if (
          !equalCandidateMeetingLists(candidateMeetings, delayedCandidateMeetings)
       ) {
-         setSortedList([...sort(candidateMeetings, dropdownSelection)]);
+         setSortedList([...sort(candidateMeetings, dropdownSelection.value)]);
          setDelayedCandidateMeetings([...candidateMeetings]);
       }
    }, [candidateMeetings]);
 
    useEffect(() => {
-      setSortedList([...sort(candidateMeetings, dropdownSelection)]);
+      setSortedList([...sort(candidateMeetings, dropdownSelection.value)]);
    }, [dropdownSelection]);
 
    const displayDeleteMessage = () => {
@@ -201,6 +201,7 @@ const CandidateMeetingList = ({
 };
 
 const sort = (candidateMeetings, option) => {
+   console.log(option);
    if (candidateMeetings.length < 2) return candidateMeetings;
    switch (option) {
       case "dateAscending":
