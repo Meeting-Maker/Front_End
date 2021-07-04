@@ -191,6 +191,7 @@ const CandidateMeetingList = ({
                {isEditPage() ? <span>Create Meeting</span> : null}
             </Button>
          ) : null}
+
          {votingPage && currentGuest.role === 1 ? (
             <Button className="custom-button dark" onClick={onEditClick}>
                {candidateMeetings.length === 0 ? "Add Options" : "Edit Options"}
@@ -201,7 +202,6 @@ const CandidateMeetingList = ({
 };
 
 const sort = (candidateMeetings, option) => {
-   console.log(option);
    if (candidateMeetings.length < 2) return candidateMeetings;
    switch (option) {
       case "dateAscending":
